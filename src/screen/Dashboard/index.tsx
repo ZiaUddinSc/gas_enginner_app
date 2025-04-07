@@ -31,7 +31,7 @@ const MenuList = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const onPressListItem = item => {
     if (item.title === 'Gas Rate Calculator') {
-      navigation.navigate('GasRateCalculator');
+      navigation.navigate('Calculator');
     }
   };
   const renderItem = ({item}: any) => (

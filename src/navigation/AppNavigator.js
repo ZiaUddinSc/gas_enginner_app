@@ -5,17 +5,24 @@ import Login from '../screen/Login/Login';
 import SignUp from '../screen/SignUp/SignUp'; 
 import Dashboard from '../screen/Dashboard'; 
 import GasRateCalculator from '../screen/GasRateCalculator';
-GasRateCalculator
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Splash" component={SplashScreen} />
-      <Stack.Screen name="Login" component={Login} />
+    <Stack.Navigator screenOptions={{ headerShown: true }}>
+      <Stack.Screen name="Splash" component={SplashScreen} 
+       options={{
+        headerShown: false}} 
+      />
+      <Stack.Screen name="Login" component={Login} 
+         options={{
+          headerShown: false,}} 
+      />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="Dashboard" component={Dashboard} />
-      <Stack.Screen name="GasRateCalculator" component={GasRateCalculator} />
+      <Stack.Screen name="Dashboard" component={Dashboard}/>
+      <Stack.Screen name="Calculator" component={GasRateCalculator} /> 
+      
+      
     </Stack.Navigator>
   );
 }

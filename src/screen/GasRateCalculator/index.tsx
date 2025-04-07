@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
 import {
   FileText,
   Layers,
@@ -14,6 +21,7 @@ import {
 import {styles} from './styles';
 import {Dropdown} from 'react-native-element-dropdown';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
+import CustomInput from '../../components/CustomInput/CustomInput';
 
 const GAS_LIST = [
   {label: 'Natural Gas', value: '1'},
@@ -31,6 +39,16 @@ const GasRateCalculator = () => {
   const [gasName, setGasName] = useState<any>({label: 'Item 1', value: '1'});
   const [gasType, setGasType] = useState<any>({label: 'Metric', value: '1'});
   const [calculatTimer, setCalculatTimer] = useState<any>(CALCULATOR_TIMER[0]);
+  const [initialReading, setInitialReading] = useState<any>(null);
+  const [FinalReading, setFinalReading] = useState<any>(null);
+
+  const onChangeInitialReading = value => {
+    setInitialReading(value);
+  };
+
+  const onChangeFinalReading = value => {
+    setFinalReading(value);
+  };
 
   return (
     <View style={styles.container}>
@@ -87,19 +105,16 @@ const GasRateCalculator = () => {
             }}
           />
         </View>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{margin: 10, justifyContent: 'center', alignItems: 'center'}}>
           <CountdownCircleTimer
-            isPlaying={true}
+            isPlaying={false}
             duration={120}
-            colors="#164E63"
-            onComplete={() => {
-              // do your stuff here
-              return {shouldRepeat: true, delay: 1.5}; // repeat animation in 1.5 seconds
-            }}>
+            colors="#164E63">
             {({remainingTime}) => (
               <View>
                 <Dropdown
-                  style={styles.dropdown}
+                  style={styles.Circledropdown}
                   data={CALCULATOR_TIMER}
                   maxHeight={300}
                   labelField="label"
@@ -117,6 +132,28 @@ const GasRateCalculator = () => {
               </View>
             )}
           </CountdownCircleTimer>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.inputText}
+              placeholder={'Initial Reading'}
+              placeholderTextColor={'gray'}
+              onChangeText={value => onChangeInitialReading(value)}
+              value={initialReading}
+              keyboardType={'numeric'}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.inputText}
+              placeholder={'Final Reading'}
+              placeholderTextColor={'gray'}
+              onChangeText={value => onChangeFinalReading(value)}
+              value={initialReading}
+              keyboardType={'numeric'}
+            />
+          </View>
         </View>
       </View>
     </View>
