@@ -8,20 +8,12 @@ import {
   TextInput,
 } from 'react-native';
 import {
-  FileText,
-  Layers,
-  Users,
-  Briefcase,
-  Calendar,
-  Calculator,
-  BookOpen,
-  Settings,
-  ChevronRight,
+  FlameIcon,
 } from 'lucide-react-native';
 import {styles} from './styles';
 import {Dropdown} from 'react-native-element-dropdown';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
-import CustomInput from '../../components/CustomInput/CustomInput';
+import CustomButton from '../../components/CustomButton';
 
 const GAS_LIST = [
   {label: 'Natural Gas', value: '1'},
@@ -73,35 +65,25 @@ const GasRateCalculator = () => {
           <Dropdown
             style={styles.dropdown}
             data={GAS_LIST}
-            search
             maxHeight={300}
             labelField="label"
             valueField="value"
             placeholder={'Select item'}
             searchPlaceholder="Please Search..."
             value={gasName}
-            // onFocus={() => setIsFocus(true)}
-            // onBlur={() => setIsFocus(false)}
             onChange={item => {
-              // setValue(item.value);
-              // setIsFocus(false);
             }}
           />
           <Dropdown
             style={styles.dropdown}
             data={GAS_TYPE_LIST}
-            search
             maxHeight={300}
             labelField="label"
             valueField="value"
             placeholder={'Select item'}
             searchPlaceholder="Please Search..."
             value={gasType}
-            // onFocus={() => setIsFocus(true)}
-            // onBlur={() => setIsFocus(false)}
             onChange={item => {
-              // setValue(item.value);
-              // setIsFocus(false);
             }}
           />
         </View>
@@ -122,11 +104,7 @@ const GasRateCalculator = () => {
                   placeholder={'Select item'}
                   searchPlaceholder="Please Search..."
                   value={calculatTimer}
-                  // onFocus={() => setIsFocus(true)}
-                  // onBlur={() => setIsFocus(false)}
                   onChange={item => {
-                    // setValue(item.value);
-                    // setIsFocus(false);
                   }}
                 />
               </View>
@@ -155,6 +133,40 @@ const GasRateCalculator = () => {
             />
           </View>
         </View>
+        <View style={{flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
+            <CustomButton
+              style={[styles.btnStyle,{backgroundColor:'#F59E0B'}]}
+              textName={'Reset'}
+              handleSubmit={()=>{}}
+              buttonTextStyle={styles.btnTextStyle}
+            />
+           <CustomButton
+              style={[styles.btnStyle,{backgroundColor:'#0C9488'}]}
+              textName={'Start'}
+              handleSubmit={()=>{}}
+              buttonTextStyle={styles.btnTextStyle}
+            />
+        </View>
+        <View style={{flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
+          <View style={styles.card}>
+            <FlameIcon style={{alignSelf:'center',marginTop:20}} color='gray' size={30}/>
+             <Text style={{textAlign:'center',fontWeight:'500',color:'gray'}}>Gas Rate</Text>   
+             <Text style={{textAlign:'center',fontWeight:'400',color:'gray'}}>M3/HR</Text>    
+             <Text style={{textAlign:'center',fontWeight:'700'}}>0.00</Text>   
+          </View>
+          <View style={styles.card}>
+            <FlameIcon style={{alignSelf:'center',marginTop:20}} color='gray' size={30}/>
+             <Text style={{textAlign:'center',fontWeight:'500',color:'gray'}}>Gas Rate</Text>   
+             <Text style={{textAlign:'center',fontWeight:'400',color:'gray'}}>M3/HR</Text>    
+             <Text style={{textAlign:'center',fontWeight:'700'}}>0.00</Text>   
+          </View>
+          <View style={styles.card}>
+            <FlameIcon style={{alignSelf:'center',marginTop:20}} color='gray' size={30}/>
+             <Text style={{textAlign:'center',fontWeight:'500',color:'gray'}}>Gas Rate</Text>   
+             <Text style={{textAlign:'center',fontWeight:'400',color:'gray'}}>M3/HR</Text>    
+             <Text style={{textAlign:'center',fontWeight:'700'}}>12345678</Text>   
+          </View>
+        </View>          
       </View>
     </View>
   );

@@ -6,15 +6,13 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Color.primaryBGColor,
-        padding: wp('4%'),
+        // padding: wp('4%'),
       },
       sub_container:{
-        height:hp('75%'),
+        height:hp('100%'),
         backgroundColor:'white',
         paddingVertical: hp('2%'),
         paddingHorizontal: wp('4%'),
-        borderRadius: wp('3%'),
-        justifyContent:'center',
       },
       dropdown: {
         margin:hp('1%'),
@@ -50,5 +48,35 @@ export const styles = StyleSheet.create({
         color: '#777777',
         fontWeight: '800',
       },
+      btnStyle: {
+        marginLeft: wp('2%'),
+        marginBottom: wp('2%'),
+        borderRadius: wp('1%'),
+        width: wp('36%'),
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+      },
+      btnTextStyle: {
+       color:Color.white,
+       fontWeight:'700',
+       fontSize:20
+      },
+      card:{
+        height:hp('15%'),
+        width:wp('30%'),
+        borderColor: 'gray',
+        borderRadius:2,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        
+        elevation: 3
+      }
   });
   
