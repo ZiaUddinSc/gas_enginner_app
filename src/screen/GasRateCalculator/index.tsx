@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -46,6 +46,36 @@ const GasRateCalculator = () => {
   const [initialReading, setInitialReading] = useState<any>(null);
   const [FinalReading, setFinalReading] = useState<any>(null);
   const [isFinalReading, setIsFinalReading] = useState<boolean>(false);
+  const [isStart, setIsStart] = useState<boolean>(false);
+  const [timerCount, setTimer] = useState<number>(0);
+  const [intervalValue, setIntervalValue] = useState<any>(null);
+  const secondsToTime = e => {
+    const m = Math.floor((e % 3600) / 60)
+        .toString()
+        .padStart(2, '0'),
+      s = Math.floor(e % 60)
+        .toString()
+        .padStart(2, '0');
+
+    return +m + ':' + s;
+    //return `${h}:${m}:${s}`;
+  };
+  const ImperialStartCount = () => {
+    setIsStart(true);
+    let interval = setInterval(() => {
+      setTimer(lastTimerCount => {
+        return lastTimerCount + 1;
+      });
+    }, 1000); //each count lasts for a second
+    setIntervalValue(interval);
+    //cleanup the interval on complete
+    return () => clearInterval(interval);
+  };
+  const stopStartCount = () => {
+    clearInterval(intervalValue);
+    setIsStart(false);
+  };
+
   const onChangeGasValue = value => {
     setGasName(value);
   };
@@ -63,6 +93,17 @@ const GasRateCalculator = () => {
   const onChangeFinalReading = value => {
     setFinalReading(value);
   };
+
+  const resetCalculator = () =>{
+    setTimer(0)
+    setGasType({label: 'Metric', value: '1'})
+    setGasName(GAS_LIST[0])
+    setCalculatTimer(CALCULATOR_TIMER[1])
+    setIsStart(false)
+    setInitialReading(null)
+    setFinalReading(null)
+
+  }
 
   return (
     <>
@@ -131,7 +172,7 @@ const GasRateCalculator = () => {
                         fontSize: 30,
                         color: Color.primaryBGColor,
                       }}>
-                      0:00
+                     {timerCount ? secondsToTime(timerCount) : "0:00" }
                     </Text>
                   ) : null}
                 </View>
@@ -139,7 +180,12 @@ const GasRateCalculator = () => {
             </CountdownCircleTimer>
           </View>
           {gasType?.value === '1' ? (
-            <View style={{flexDirection: 'row',justifyContent:'center', alignItems: 'center'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
               <View style={styles.inputView}>
                 <TextInput
                   style={styles.inputText}
@@ -150,33 +196,40 @@ const GasRateCalculator = () => {
                   keyboardType={'numeric'}
                 />
               </View>
-              {isFinalReading ?
-              <View style={styles.inputView}>
-                <TextInput
-                  style={styles.inputText}
-                  placeholder={'Final Reading'}
-                  placeholderTextColor={'#A2AFC2'}
-                  onChangeText={value => onChangeFinalReading(value)}
-                  value={FinalReading}
-                  keyboardType={'numeric'}
-                />
-              </View>
-              :null
-              }
+              {isFinalReading ? (
+                <View style={styles.inputView}>
+                  <TextInput
+                    style={styles.inputText}
+                    placeholder={'Final Reading'}
+                    placeholderTextColor={'#A2AFC2'}
+                    onChangeText={value => onChangeFinalReading(value)}
+                    value={FinalReading}
+                    keyboardType={'numeric'}
+                  />
+                </View>
+              ) : null}
             </View>
           ) : null}
           <View style={styles.row_center}>
             <CustomButton
               style={[styles.btnStyle, {backgroundColor: '#F59E0B'}]}
               textName={'Reset'}
-              handleSubmit={() => {}}
+              handleSubmit={() => resetCalculator()}
               buttonTextStyle={styles.btnTextStyle}
             />
-            {gasType?.value === '2' || initialReading !=='' ? (
+            {gasType?.value === '2' || initialReading !== '' ||   initialReading !== null ? (
               <CustomButton
                 style={[styles.btnStyle, {backgroundColor: '#0C9488'}]}
                 textName={'Start'}
-                handleSubmit={() => {}}
+                handleSubmit={() => ImperialStartCount()}
+                buttonTextStyle={styles.btnTextStyle}
+              />
+            ) : null}
+            {isStart ? (
+              <CustomButton
+                style={[styles.btnStyle, {backgroundColor: 'red'}]}
+                textName={'Stop'}
+                handleSubmit={() => stopStartCount()}
                 buttonTextStyle={styles.btnTextStyle}
               />
             ) : null}
