@@ -15,7 +15,12 @@ import * as Yup from 'yup';
 import LogoSvg from '../../components/LogoSvg';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {EyeIcon, EyeClosed, EyeOff} from 'lucide-react-native';
+import {EyeIcon, EyeClosed, EyeOff,ArrowLeft} from 'lucide-react-native';
+
+import CustomHeader from '../../components/CustomHeader/CustomHeader';
+import IconButton from '../../components/IconButton';
+
+import Icons from '../../theme/Icon';
 
 export default function Index() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -52,12 +57,16 @@ export default function Index() {
   };
 
   return (
+    <>
+    <CustomHeader
+      title=""
+      leftIcon={<ArrowLeft size={24} color="black" />}
+      onLeftPress={() => navigation.navigate("WelcomeScreen")}
+    />
     <View style={styles.container}>
       <View style={styles.loginBody}>
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <View style={styles.logoView}>
-            <LogoSvg height={70} width={70} />
-          </View>
+       
+         
           <View>
             <Text style={styles.textHeader}>Sign Up</Text>
           </View>
@@ -174,7 +183,7 @@ export default function Index() {
                         disabled={true}
                         value={agree}
                         onValueChange={() => checkBoxChanged()}
-                        tintColors={{true: 'rgb(22 78 99)', false: 'fff'}}
+                        tintColors={{true: 'rgb(255 255 255)', false: 'fff'}}
                       />
                       <Text style={styles.forgot}>I agree to the </Text>
                     </TouchableOpacity>
@@ -185,6 +194,7 @@ export default function Index() {
                     </TouchableOpacity>
                   </View>
                 </View>
+                
                 <TouchableOpacity
                   style={styles.loginBtn}
                   onPress={() => handleSubmit()}>
@@ -193,8 +203,19 @@ export default function Index() {
               </>
             )}
           </Formik>
-        </ScrollView>
+          <View style={styles.row}>
+                                  <View style={styles.line} />
+                                  <Text style={styles.or}>Or Login with</Text>
+                                  <View style={styles.line} />
+                                </View>
+          <IconButton
+            title="Continue with Google"
+            onPress={() => {}}
+            icon={Icons.icGoogle}
+          />
+        
       </View>
     </View>
+    </>
   );
 }

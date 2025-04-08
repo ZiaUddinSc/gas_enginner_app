@@ -5,17 +5,10 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Color.primaryBGColor,
+        backgroundColor: Color.white,
         padding: wp('4%'),
       },
-      sub_container:{
-        height:hp('75%'),
-        backgroundColor:'rgb(241 245 249)',
-        paddingVertical: hp('2%'),
-        paddingHorizontal: wp('4%'),
-        borderRadius: wp('3%'),
-        justifyContent:'center',
-      },
+    
       item: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -25,10 +18,12 @@ export const styles = StyleSheet.create({
         marginBottom: hp('1.5%'),
         borderRadius: wp('3%'),
         shadowColor: Color.black,
-        shadowOffset: { width: 0, height: 2 },
+        // shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
+        // shadowRadius: 4,
+        elevation: 1,
+        borderColor:Color.textPrimaryColor,
+        borderWidth:.5,
         justifyContent:'space-between'
       },
       row:{flexDirection:'row',alignItems:'center'},

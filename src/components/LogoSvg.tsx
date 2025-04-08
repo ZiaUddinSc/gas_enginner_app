@@ -8,8 +8,8 @@ import Svg, {
 } from 'react-native-svg';
 const LogoSvg = (props: SvgProps) => (
   <Svg
-    width="60"
-    height="60"
+    width={props.width}
+    height={props.width}
     viewBox="0 0 1358 1753"
     fill="none"
     xmlns="http://www.w3.org/2000/svg">

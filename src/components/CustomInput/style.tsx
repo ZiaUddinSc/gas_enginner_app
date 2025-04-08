@@ -11,7 +11,7 @@ import {
 export const styles = StyleSheet.create({
     inputLabel: {
         marginLeft: wp('4%'),
-        color: Color.black,
+        color: Color.white,
         fontSize: wp('4%'),
         marginBottom: 5,
       },

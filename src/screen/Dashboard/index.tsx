@@ -10,11 +10,15 @@ import {
   BookOpen,
   Settings,
   ChevronRight,
+  ArrowLeft,
+  LogOut
 } from 'lucide-react-native';
+import Color from '../../theme/Colors';
 import {styles} from './styles';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import GasRateCalculator from '../GasRateCalculator';
+import CustomHeader from '../../components/CustomHeader/CustomHeader';
 
 const menuItems = [
   {title: 'New Certificate / Invoice', icon: <FileText size={20} />},
@@ -45,15 +49,27 @@ const MenuList = () => {
   );
 
   return (
+    <>
+         <CustomHeader
+  title="Dashboard"
+  bg_color={Color.primaryBGColor}
+  // leftIcon={<ArrowLeft size={24} color="white" />}
+  onLeftPress={() => navigation.goBack()}
+  rightIcon1={<LogOut size={24} color="white" />}
+  onRightPress1={() => alert('Notification')}
+  
+/>
     <View style={styles.container}>
-      <View style={styles.sub_container}>
+ 
+
         <FlatList
           data={menuItems}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-    </View>
+
+    </>
   );
 };
 

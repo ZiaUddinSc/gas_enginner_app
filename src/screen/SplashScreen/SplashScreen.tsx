@@ -14,7 +14,7 @@ const SplashScreen = () => {
       duration: 2000,
       useNativeDriver: true,
     }).start(() => {
-      navigation.replace('Login');
+      navigation.replace('WelcomeScreen');
     });
   }, []);
 

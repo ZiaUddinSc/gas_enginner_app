@@ -15,16 +15,16 @@ export const styles = StyleSheet.create({
     backgroundColor: Color.primaryBGColor,
   },
   loginBody: {
-    width: wp('90%'),
+    // width: wp('90%'),
     justifyContent: 'center',
-    height: hp('80%'),
+    // height: hp('80%'),
     borderRadius: hp('2%'),
-    backgroundColor: Color.white,
+    // backgroundColor: Color.white,
   },
   textHeader: {
     margin: wp('4%'),
     textAlign: 'left',
-    color: Color.textColor,
+    color: Color.white,
     fontSize: hp('3%'),
     fontWeight: '700',
   },
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   },
   inputLabel: {
     marginLeft: wp('4%'),
-    color: Color.black,
+    color: Color.white,
     fontSize: wp('4%'),
     marginBottom: 5,
   },
@@ -66,17 +66,18 @@ export const styles = StyleSheet.create({
   },
   dontAcountText: {
     fontSize: hp('2%'),
+    color:Color.white
   },
   singUp: {
     marginLeft: 5,
-    color: Color.primaryBGColor,
+    color: Color.white,
     fontWeight: '500',
     fontSize: hp('2%'),
   },
   loginBtn: {
     marginLeft: wp('2%'),
     marginBottom: wp('2%'),
-    backgroundColor: Color.primaryBGColor,
+    backgroundColor: Color.black,
     borderRadius: wp('10%'),
     width: wp('84%'),
     height: 50,
@@ -106,7 +107,7 @@ export const styles = StyleSheet.create({
     marginTop: 0,
   },
   forgot: {
-    color: 'rgb(100 116 139)',
+    color: 'rgb(255 255 254)',
     fontWeight: 'normal',
     marginTop: hp('.8%'),
     marginRight: 5,
@@ -116,4 +117,10 @@ export const styles = StyleSheet.create({
     color: 'rgb(185 28 28)',
     marginLeft: wp('4%'),
   },
+  or:{textAlign:'center',
+    color:Color.white,
+    paddingHorizontal:4
+  },
+  row:{flexDirection:'row',alignItems:'center',justifyContent:'center'},
+  line:{height:2,width:wp('10%'),backgroundColor:'#FFF'}
 });
