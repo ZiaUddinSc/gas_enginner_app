@@ -37,11 +37,24 @@ const CALCULATOR_TIMER = [
 ];
 const GasRateCalculator = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const [gasName, setGasName] = useState<any>({label: 'Item 1', value: '1'});
+  const [gasName, setGasName] = useState<any>({
+    label: 'Natural Gas',
+    value: '1',
+  });
   const [gasType, setGasType] = useState<any>({label: 'Metric', value: '1'});
-  const [calculatTimer, setCalculatTimer] = useState<any>(CALCULATOR_TIMER[0]);
+  const [calculatTimer, setCalculatTimer] = useState<any>(CALCULATOR_TIMER[1]);
   const [initialReading, setInitialReading] = useState<any>(null);
   const [FinalReading, setFinalReading] = useState<any>(null);
+  const [isFinalReading, setIsFinalReading] = useState<boolean>(false);
+  const onChangeGasValue = value => {
+    setGasName(value);
+  };
+  const onChangeGasType = value => {
+    setGasType(value);
+  };
+  const onChangeTimer = value => {
+    setCalculatTimer(value);
+  };
 
   const onChangeInitialReading = value => {
     setInitialReading(value);
@@ -75,7 +88,7 @@ const GasRateCalculator = () => {
               placeholder={'Select item'}
               searchPlaceholder="Please Search..."
               value={gasName}
-              onChange={item => {}}
+              onChange={item => onChangeGasValue(item)}
             />
             <Dropdown
               style={styles.dropdown}
@@ -86,53 +99,72 @@ const GasRateCalculator = () => {
               placeholder={'Select item'}
               searchPlaceholder="Please Search..."
               value={gasType}
-              onChange={item => {}}
+              onChange={item => {
+                onChangeGasType(item);
+              }}
             />
           </View>
           <View style={styles.circleView}>
             <CountdownCircleTimer
               isPlaying={false}
               duration={120}
-              colors="#164E63">
+              colors={gasType?.value === '2' ? '#D1D5DA' : '#164E63'}>
               {({remainingTime}) => (
                 <View>
-                  <Dropdown
-                    style={styles.Circledropdown}
-                    data={CALCULATOR_TIMER}
-                    maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    placeholder={'Select item'}
-                    searchPlaceholder="Please Search..."
-                    value={calculatTimer}
-                    onChange={item => {}}
-                  />
+                  {gasType?.value === '1' ? (
+                    <Dropdown
+                      style={styles.Circledropdown}
+                      data={CALCULATOR_TIMER}
+                      maxHeight={300}
+                      labelField="label"
+                      valueField="value"
+                      placeholder={'Select item'}
+                      searchPlaceholder="Please Search..."
+                      value={calculatTimer}
+                      onChange={item => onChangeTimer(item)}
+                    />
+                  ) : null}
+                  {gasType?.value === '2' ? (
+                    <Text
+                      style={{
+                        fontWeight: '700',
+                        fontSize: 30,
+                        color: Color.primaryBGColor,
+                      }}>
+                      0:00
+                    </Text>
+                  ) : null}
                 </View>
               )}
             </CountdownCircleTimer>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <View style={styles.inputView}>
-              <TextInput
-                style={styles.inputText}
-                placeholder={'Initial Reading'}
-                placeholderTextColor={'gray'}
-                onChangeText={value => onChangeInitialReading(value)}
-                value={initialReading}
-                keyboardType={'numeric'}
-              />
+          {gasType?.value === '1' ? (
+            <View style={{flexDirection: 'row',justifyContent:'center', alignItems: 'center'}}>
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.inputText}
+                  placeholder={'Initial Reading'}
+                  placeholderTextColor={'#A2AFC2'}
+                  onChangeText={value => onChangeInitialReading(value)}
+                  value={initialReading}
+                  keyboardType={'numeric'}
+                />
+              </View>
+              {isFinalReading ?
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.inputText}
+                  placeholder={'Final Reading'}
+                  placeholderTextColor={'#A2AFC2'}
+                  onChangeText={value => onChangeFinalReading(value)}
+                  value={FinalReading}
+                  keyboardType={'numeric'}
+                />
+              </View>
+              :null
+              }
             </View>
-            <View style={styles.inputView}>
-              <TextInput
-                style={styles.inputText}
-                placeholder={'Final Reading'}
-                placeholderTextColor={'gray'}
-                onChangeText={value => onChangeFinalReading(value)}
-                value={initialReading}
-                keyboardType={'numeric'}
-              />
-            </View>
-          </View>
+          ) : null}
           <View style={styles.row_center}>
             <CustomButton
               style={[styles.btnStyle, {backgroundColor: '#F59E0B'}]}
@@ -140,12 +172,14 @@ const GasRateCalculator = () => {
               handleSubmit={() => {}}
               buttonTextStyle={styles.btnTextStyle}
             />
-            <CustomButton
-              style={[styles.btnStyle, {backgroundColor: '#0C9488'}]}
-              textName={'Start'}
-              handleSubmit={() => {}}
-              buttonTextStyle={styles.btnTextStyle}
-            />
+            {gasType?.value === '2' || initialReading !=='' ? (
+              <CustomButton
+                style={[styles.btnStyle, {backgroundColor: '#0C9488'}]}
+                textName={'Start'}
+                handleSubmit={() => {}}
+                buttonTextStyle={styles.btnTextStyle}
+              />
+            ) : null}
           </View>
           <View
             style={[
@@ -155,8 +189,7 @@ const GasRateCalculator = () => {
             <Card
               style={styles.card}
               childrenIcon={
-                <View
-                  style={styles.iconView}>
+                <View style={styles.iconView}>
                   <FlameIcon
                     style={{alignSelf: 'center'}}
                     color="black"
@@ -171,13 +204,12 @@ const GasRateCalculator = () => {
             <Card
               style={styles.card}
               childrenIcon={
-                <View
-                  style={styles.iconView}>
-                <CirclePlusIcon
-                  style={{alignSelf: 'center'}}
-                  color="black"
-                  size={30}
-                />
+                <View style={styles.iconView}>
+                  <CirclePlusIcon
+                    style={{alignSelf: 'center'}}
+                    color="black"
+                    size={30}
+                  />
                 </View>
               }
               cardHeader="GROSS"
@@ -187,13 +219,12 @@ const GasRateCalculator = () => {
             <Card
               style={styles.card}
               childrenIcon={
-                <View
-                  style={styles.iconView}>
-                <CircleMinusIcon
-                  style={{alignSelf: 'center'}}
-                  color="black"
-                  size={30}
-                />
+                <View style={styles.iconView}>
+                  <CircleMinusIcon
+                    style={{alignSelf: 'center'}}
+                    color="black"
+                    size={30}
+                  />
                 </View>
               }
               cardHeader="NET"

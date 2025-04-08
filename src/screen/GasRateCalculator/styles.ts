@@ -36,6 +36,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   inputView: {
+    margin:5,
     borderWidth: 0.5,
     borderColor: 'black',
     marginBottom: wp('2%'),
