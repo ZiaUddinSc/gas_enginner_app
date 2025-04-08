@@ -6,6 +6,7 @@ import SignUp from '../screen/SignUp/SignUp';
 import Dashboard from '../screen/Dashboard';
 import WelcomeScreen from '../screen/WelcomeScreen';
 import GasRateCalculator from '../screen/GasRateCalculator';
+import BoilerManuals from '../screen/BoilerManuals/BoilerManuals';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
@@ -29,6 +30,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="Calculator" component={GasRateCalculator} />
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+      <Stack.Screen name="BoilerManuals" component={BoilerManuals} />
     </Stack.Navigator>
   );
 }

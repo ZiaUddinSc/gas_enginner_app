@@ -38,6 +38,8 @@ const MenuList = () => {
   const onPressListItem = item => {
     if (item.title === 'Gas Rate Calculator') {
       navigation.navigate('Calculator');
+    }else if(item.title === 'Boiler Manual'){
+      navigation.navigate('BoilerManuals');
     }
   };
 
