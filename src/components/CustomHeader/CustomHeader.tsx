@@ -5,7 +5,6 @@ import Color from '../../theme/Colors';
 
 interface Props {
   title?: string;
-  bg_color:string;
   leftIcon?: React.ReactNode;
   onLeftPress?: () => void;
   rightIcon1?: React.ReactNode;
@@ -17,7 +16,6 @@ interface Props {
 const CustomHeader = ({
   title,
   leftIcon,
-  bg_color,
   onLeftPress,
   rightIcon1,
   onRightPress1,
@@ -25,7 +23,7 @@ const CustomHeader = ({
   onRightPress2,
 }: Props) => {
   return (
-    <View style={[styles.headerContainer,{backgroundColor:bg_color?bg_color:'#FFF'}]}>
+    <View style={[styles.headerContainer]}>
       <View style={styles.side}>
         {leftIcon && (
           <TouchableOpacity onPress={onLeftPress}>
@@ -35,7 +33,7 @@ const CustomHeader = ({
       </View>
 
       <View style={styles.titleContainer}>
-        {title && <Text style={[styles.title,{color:bg_color?Color.white: Color.black}]}>{title}</Text>}
+        {title && <Text style={[styles.title]}>{title}</Text>}
       </View>
 
       <View style={[styles.side, { flexDirection: 'row', justifyContent: 'flex-end' }]}>

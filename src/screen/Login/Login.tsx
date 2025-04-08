@@ -54,8 +54,8 @@ export default function Index() {
     <>
       <CustomHeader
         title=""
-        leftIcon={<ArrowLeft size={24} color="black" />}
-        onLeftPress={() => navigation.navigate("WelcomeScreen")} bg_color={''}      />
+        leftIcon={<ArrowLeft size={24} color="white" />}
+        onLeftPress={() => navigation.navigate("WelcomeScreen")}     />
       <View style={styles.container}>
         <View style={styles.loginBody}>
           {/* <View style={styles.logoView}>

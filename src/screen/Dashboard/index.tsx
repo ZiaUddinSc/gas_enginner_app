@@ -52,7 +52,6 @@ const MenuList = () => {
     <>
          <CustomHeader
   title="Dashboard"
-  bg_color={Color.primaryBGColor}
   // leftIcon={<ArrowLeft size={24} color="white" />}
   onLeftPress={() => navigation.goBack()}
   rightIcon1={<LogOut size={24} color="white" />}
