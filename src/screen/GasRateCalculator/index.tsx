@@ -9,12 +9,18 @@ import {
 } from 'react-native';
 import {
   FlameIcon,
+  ArrowLeft,
+  CirclePlusIcon,
+  CircleMinusIcon,
 } from 'lucide-react-native';
 import {styles} from './styles';
 import {Dropdown} from 'react-native-element-dropdown';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 import CustomButton from '../../components/CustomButton';
-
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+import CustomHeader from '../../components/CustomHeader/CustomHeader';
+import Card from '../../components/Card';
 const GAS_LIST = [
   {label: 'Natural Gas', value: '1'},
   {label: 'LPG', value: '2'},
@@ -28,6 +34,7 @@ const CALCULATOR_TIMER = [
   {label: '2.00', value: 120},
 ];
 const GasRateCalculator = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [gasName, setGasName] = useState<any>({label: 'Item 1', value: '1'});
   const [gasType, setGasType] = useState<any>({label: 'Metric', value: '1'});
   const [calculatTimer, setCalculatTimer] = useState<any>(CALCULATOR_TIMER[0]);
@@ -43,132 +50,172 @@ const GasRateCalculator = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.sub_container}>
-        <View>
-          <Text
+    <>
+      <CustomHeader
+        title="Calculator"
+        leftIcon={<ArrowLeft size={24} color="white" />}
+        onLeftPress={() => navigation.goBack()}
+      />
+
+      <View style={styles.container}>
+        <View style={styles.sub_container}>
+          <View>
+            <Text
+              style={{
+                textAlign: 'center',
+                color: '#475569',
+                fontWeight: '700',
+                fontSize: 30,
+              }}>
+              Gas Rate Calculator
+            </Text>
+          </View>
+          <View
             style={{
-              textAlign: 'center',
-              color: '#475569',
-              fontWeight: '700',
-              fontSize: 30,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '100%',
             }}>
-            Gas Rate Calculator
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}>
-          <Dropdown
-            style={styles.dropdown}
-            data={GAS_LIST}
-            maxHeight={300}
-            labelField="label"
-            valueField="value"
-            placeholder={'Select item'}
-            searchPlaceholder="Please Search..."
-            value={gasName}
-            onChange={item => {
-            }}
-          />
-          <Dropdown
-            style={styles.dropdown}
-            data={GAS_TYPE_LIST}
-            maxHeight={300}
-            labelField="label"
-            valueField="value"
-            placeholder={'Select item'}
-            searchPlaceholder="Please Search..."
-            value={gasType}
-            onChange={item => {
-            }}
-          />
-        </View>
-        <View
-          style={{margin: 10, justifyContent: 'center', alignItems: 'center'}}>
-          <CountdownCircleTimer
-            isPlaying={false}
-            duration={120}
-            colors="#164E63">
-            {({remainingTime}) => (
-              <View>
-                <Dropdown
-                  style={styles.Circledropdown}
-                  data={CALCULATOR_TIMER}
-                  maxHeight={300}
-                  labelField="label"
-                  valueField="value"
-                  placeholder={'Select item'}
-                  searchPlaceholder="Please Search..."
-                  value={calculatTimer}
-                  onChange={item => {
-                  }}
-                />
-              </View>
-            )}
-          </CountdownCircleTimer>
-        </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.inputText}
-              placeholder={'Initial Reading'}
-              placeholderTextColor={'gray'}
-              onChangeText={value => onChangeInitialReading(value)}
-              value={initialReading}
-              keyboardType={'numeric'}
+            <Dropdown
+              style={styles.dropdown}
+              data={GAS_LIST}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={'Select item'}
+              searchPlaceholder="Please Search..."
+              value={gasName}
+              onChange={item => {}}
+            />
+            <Dropdown
+              style={styles.dropdown}
+              data={GAS_TYPE_LIST}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={'Select item'}
+              searchPlaceholder="Please Search..."
+              value={gasType}
+              onChange={item => {}}
             />
           </View>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.inputText}
-              placeholder={'Final Reading'}
-              placeholderTextColor={'gray'}
-              onChangeText={value => onChangeFinalReading(value)}
-              value={initialReading}
-              keyboardType={'numeric'}
-            />
+          <View
+            style={{
+              margin: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <CountdownCircleTimer
+              isPlaying={false}
+              duration={120}
+              colors="#164E63">
+              {({remainingTime}) => (
+                <View>
+                  <Dropdown
+                    style={styles.Circledropdown}
+                    data={CALCULATOR_TIMER}
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    placeholder={'Select item'}
+                    searchPlaceholder="Please Search..."
+                    value={calculatTimer}
+                    onChange={item => {}}
+                  />
+                </View>
+              )}
+            </CountdownCircleTimer>
           </View>
-        </View>
-        <View style={{flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.inputText}
+                placeholder={'Initial Reading'}
+                placeholderTextColor={'gray'}
+                onChangeText={value => onChangeInitialReading(value)}
+                value={initialReading}
+                keyboardType={'numeric'}
+              />
+            </View>
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.inputText}
+                placeholder={'Final Reading'}
+                placeholderTextColor={'gray'}
+                onChangeText={value => onChangeFinalReading(value)}
+                value={initialReading}
+                keyboardType={'numeric'}
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
             <CustomButton
-              style={[styles.btnStyle,{backgroundColor:'#F59E0B'}]}
+              style={[styles.btnStyle, {backgroundColor: '#F59E0B'}]}
               textName={'Reset'}
-              handleSubmit={()=>{}}
+              handleSubmit={() => {}}
               buttonTextStyle={styles.btnTextStyle}
             />
-           <CustomButton
-              style={[styles.btnStyle,{backgroundColor:'#0C9488'}]}
+            <CustomButton
+              style={[styles.btnStyle, {backgroundColor: '#0C9488'}]}
               textName={'Start'}
-              handleSubmit={()=>{}}
+              handleSubmit={() => {}}
               buttonTextStyle={styles.btnTextStyle}
             />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Card
+              style={styles.card}
+              childrenIcon={
+                <FlameIcon
+                  style={{alignSelf: 'center', marginTop: 20}}
+                  color="gray"
+                  size={30}
+                />
+              }
+              cardHeader="GAS RATE"
+              cardTextString={'M3/HR'}
+              calculatorValue="0.00"
+            />
+            <Card
+              style={styles.card}
+              childrenIcon={
+                <CirclePlusIcon
+                  style={{alignSelf: 'center', marginTop: 20}}
+                  color="gray"
+                  size={30}
+                />
+              }
+              cardHeader="GROSS"
+              cardTextString={'KW'}
+              calculatorValue="0.00"
+            />
+            <Card
+              style={styles.card}
+              childrenIcon={
+                <CircleMinusIcon
+                  style={{alignSelf: 'center', marginTop: 20}}
+                  color="gray"
+                  size={30}
+                />
+              }
+              cardHeader="NET"
+              cardTextString={'KW'}
+              calculatorValue="0.00"
+            />
+          </View>
         </View>
-        <View style={{flexDirection: 'row', alignItems:'center', justifyContent: 'center'}}>
-          <View style={styles.card}>
-            <FlameIcon style={{alignSelf:'center',marginTop:20}} color='gray' size={30}/>
-             <Text style={{textAlign:'center',fontWeight:'500',color:'gray'}}>Gas Rate</Text>   
-             <Text style={{textAlign:'center',fontWeight:'400',color:'gray'}}>M3/HR</Text>    
-             <Text style={{textAlign:'center',fontWeight:'700'}}>0.00</Text>   
-          </View>
-          <View style={styles.card}>
-            <FlameIcon style={{alignSelf:'center',marginTop:20}} color='gray' size={30}/>
-             <Text style={{textAlign:'center',fontWeight:'500',color:'gray'}}>Gas Rate</Text>   
-             <Text style={{textAlign:'center',fontWeight:'400',color:'gray'}}>M3/HR</Text>    
-             <Text style={{textAlign:'center',fontWeight:'700'}}>0.00</Text>   
-          </View>
-          <View style={styles.card}>
-            <FlameIcon style={{alignSelf:'center',marginTop:20}} color='gray' size={30}/>
-             <Text style={{textAlign:'center',fontWeight:'500',color:'gray'}}>Gas Rate</Text>   
-             <Text style={{textAlign:'center',fontWeight:'400',color:'gray'}}>M3/HR</Text>    
-             <Text style={{textAlign:'center',fontWeight:'700'}}>12345678</Text>   
-          </View>
-        </View>          
       </View>
-    </View>
+    </>
   );
 };
 
