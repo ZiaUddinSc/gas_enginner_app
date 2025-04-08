@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
+import React,{useRef} from 'react';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet,Animated} from 'react-native';
 import {
   FileText,
   Layers,
@@ -21,32 +21,56 @@ import GasRateCalculator from '../GasRateCalculator';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 
 const menuItems = [
-  {title: 'New Certificate / Invoice', icon: <FileText size={20} />},
-  {title: 'Existing Records & Drafts', icon: <Layers size={20} />},
-  {title: 'Customers (0)', icon: <Users size={20} />},
-  {title: 'Jobs (0)', icon: <Briefcase size={20} />},
-  {title: 'Calendar', icon: <Calendar size={20} />},
-  {title: 'Gas Rate Calculator', icon: <Calculator size={20} />},
-  {title: 'Boiler Manual', icon: <BookOpen size={20} />},
-  {title: 'Settings', icon: <Settings size={20} />},
+  {title: 'New Certificate / Invoice', icon: <FileText color={Color.fontColor} size={20} />},
+  {title: 'Existing Records & Drafts', icon: <Layers color={Color.fontColor} size={20} />},
+  {title: 'Customers (0)', icon: <Users color={Color.fontColor} size={20} />},
+  {title: 'Jobs (0)', icon: <Briefcase color={Color.fontColor} size={20} />},
+  {title: 'Calendar', icon: <Calendar color={Color.fontColor} size={20} />},
+  {title: 'Gas Rate Calculator', icon: <Calculator color={Color.fontColor} size={20} />},
+  {title: 'Boiler Manual', icon: <BookOpen color={Color.fontColor} size={20} />},
+  {title: 'Settings', icon: <Settings color={Color.fontColor} size={20} />},
 ];
 
 const MenuList = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const animatedValues = useRef(menuItems.map(() => new Animated.Value(0))).current;
+
   const onPressListItem = item => {
     if (item.title === 'Gas Rate Calculator') {
       navigation.navigate('Calculator');
     }
   };
-  const renderItem = ({item}: any) => (
+
+  const animateItem = (index: number) => {
+    Animated.timing(animatedValues[index], {
+      toValue: 1,
+      duration: 800, // animation time
+      delay: index * 200, // ⏳ staggered effect 
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const renderItem = ({ item, index }: any) => {
+    animateItem(index);
+  const translateY = animatedValues[index].interpolate({
+    inputRange: [0, 1],
+    outputRange: [20, 0],
+  });
+
+  const opacity = animatedValues[index];
+  return (
+
+    <Animated.View style={{ opacity, transform: [{ translateY }] }}>
     <TouchableOpacity style={styles.item} onPress={() => onPressListItem(item)}>
       <View style={styles.row}>
         <View style={styles.icon}>{item.icon}</View>
         <Text style={styles.title}>{item.title}</Text>
       </View>
-      <ChevronRight size={20} />
+      <ChevronRight color={Color.fontColor} size={20} />
     </TouchableOpacity>
+    </Animated.View>
   );
+}
 
   return (
     <>

@@ -6,27 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Animated, { FadeInLeft } from 'react-native-reanimated';
 import LogoSvg from '../../components/LogoSvg';
+import AnimatedText from '../../components/AnimatedText/AnimatedText';
 
-const AnimatedText = ({ text, interval = 150 }) => {
-    const [displayedText, setDisplayedText] = useState('');
-  
-    useEffect(() => {
-      let currentIndex = 0;
-  
-      const intervalId = setInterval(() => {
-        if (currentIndex < (text?.length || 0)) {
-            setDisplayedText((prevText) => prevText + (text[currentIndex] || ''));
-          currentIndex++;
-        } else {
-          clearInterval(intervalId);
-        }
-      }, interval);
-  
-      return () => clearInterval(intervalId);
-    }, [text, interval]);
-  
-    return <Text style={styles.title}>{displayedText}</Text>;
-  };
 
 const WelcomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();

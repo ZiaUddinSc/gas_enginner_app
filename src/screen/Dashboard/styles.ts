@@ -17,11 +17,7 @@ export const styles = StyleSheet.create({
         backgroundColor: Color.white,
         marginBottom: hp('1.5%'),
         borderRadius: wp('3%'),
-        shadowColor: Color.black,
-        // shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.1,
-        // shadowRadius: 4,
-        elevation: 1,
+      
         borderColor:Color.textPrimaryColor,
         borderWidth:.5,
         justifyContent:'space-between'
@@ -32,7 +28,7 @@ export const styles = StyleSheet.create({
       },
       title: {
         fontSize: wp('4.5%'),
-        color: Color.textPrimaryColor,
+        color: Color.fontColor,
       },
   });
   
