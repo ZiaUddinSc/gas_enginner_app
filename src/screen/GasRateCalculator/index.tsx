@@ -12,7 +12,9 @@ import {
   ArrowLeft,
   CirclePlusIcon,
   CircleMinusIcon,
+  Flashlight,
 } from 'lucide-react-native';
+import Color from '../../theme/Colors';
 import {styles} from './styles';
 import {Dropdown} from 'react-native-element-dropdown';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
@@ -55,27 +57,15 @@ const GasRateCalculator = () => {
         title="Calculator"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
+        rightIcon1={<Flashlight size={24} color="white" />}
       />
 
       <View style={styles.container}>
         <View style={styles.sub_container}>
           <View>
-            <Text
-              style={{
-                textAlign: 'center',
-                color: '#475569',
-                fontWeight: '700',
-                fontSize: 30,
-              }}>
-              Gas Rate Calculator
-            </Text>
+            <Text style={styles.title}>Gas Rate Calculator</Text>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-            }}>
+          <View style={styles.row}>
             <Dropdown
               style={styles.dropdown}
               data={GAS_LIST}
@@ -99,12 +89,7 @@ const GasRateCalculator = () => {
               onChange={item => {}}
             />
           </View>
-          <View
-            style={{
-              margin: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          <View style={styles.circleView}>
             <CountdownCircleTimer
               isPlaying={false}
               duration={120}
@@ -148,12 +133,7 @@ const GasRateCalculator = () => {
               />
             </View>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+          <View style={styles.row_center}>
             <CustomButton
               style={[styles.btnStyle, {backgroundColor: '#F59E0B'}]}
               textName={'Reset'}
@@ -168,19 +148,21 @@ const GasRateCalculator = () => {
             />
           </View>
           <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+            style={[
+              styles.row_center,
+              {justifyContent: 'space-between', marginTop: 10},
+            ]}>
             <Card
               style={styles.card}
               childrenIcon={
-                <FlameIcon
-                  style={{alignSelf: 'center', marginTop: 20}}
-                  color="gray"
-                  size={30}
-                />
+                <View
+                  style={styles.iconView}>
+                  <FlameIcon
+                    style={{alignSelf: 'center'}}
+                    color="black"
+                    size={30}
+                  />
+                </View>
               }
               cardHeader="GAS RATE"
               cardTextString={'M3/HR'}
@@ -189,11 +171,14 @@ const GasRateCalculator = () => {
             <Card
               style={styles.card}
               childrenIcon={
+                <View
+                  style={styles.iconView}>
                 <CirclePlusIcon
-                  style={{alignSelf: 'center', marginTop: 20}}
-                  color="gray"
+                  style={{alignSelf: 'center'}}
+                  color="black"
                   size={30}
                 />
+                </View>
               }
               cardHeader="GROSS"
               cardTextString={'KW'}
@@ -202,11 +187,14 @@ const GasRateCalculator = () => {
             <Card
               style={styles.card}
               childrenIcon={
+                <View
+                  style={styles.iconView}>
                 <CircleMinusIcon
-                  style={{alignSelf: 'center', marginTop: 20}}
-                  color="gray"
+                  style={{alignSelf: 'center'}}
+                  color="black"
                   size={30}
                 />
+                </View>
               }
               cardHeader="NET"
               cardTextString={'KW'}
