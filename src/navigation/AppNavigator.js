@@ -8,6 +8,9 @@ import WelcomeScreen from '../screen/WelcomeScreen';
 import GasRateCalculator from '../screen/GasRateCalculator';
 import BoilerManuals from '../screen/BoilerManuals/BoilerManuals';
 import SettingsScreen from '../screen/SettingsScreen/SettingsScreen';
+import JobsScreen from '../screen/JobsScreen/JobsScreen';
+import CreateJobs from '../screen/CreateJobs/CreateJobs';
+import Customers from '../screen/Customers/Customers';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
@@ -33,6 +36,9 @@ export default function AppNavigator() {
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
       <Stack.Screen name="BoilerManuals" component={BoilerManuals} />
       <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <Stack.Screen name="JobsScreen" component={JobsScreen} />
+      <Stack.Screen name="CreateJobs" component={CreateJobs} />
+      <Stack.Screen name="Customers" component={Customers} />
     </Stack.Navigator>
   );
 }

@@ -36,12 +36,23 @@ const MenuList = () => {
   const animatedValues = useRef(menuItems.map(() => new Animated.Value(0))).current;
 
   const onPressListItem = item => {
+    var str = item.title;
+   
+    var jobs = str.substring(0,4);
+    var customers = str.substring(0,9);
+    console.log(jobs)
     if (item.title === 'Gas Rate Calculator') {
       navigation.navigate('Calculator');
     }else if(item.title === 'Boiler Manual'){
       navigation.navigate('BoilerManuals');
     }else if(item.title === 'Settings'){
       navigation.navigate('SettingsScreen');
+    }
+    else if(jobs === 'Jobs'){
+      navigation.navigate('JobsScreen');
+    }
+    else if(customers === 'Customers'){
+      navigation.navigate('Customers');
     }
   };
 
