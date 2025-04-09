@@ -40,6 +40,8 @@ const MenuList = () => {
       navigation.navigate('Calculator');
     }else if(item.title === 'Boiler Manual'){
       navigation.navigate('BoilerManuals');
+    }else if(item.title === 'Settings'){
+      navigation.navigate('SettingsScreen');
     }
   };
 
