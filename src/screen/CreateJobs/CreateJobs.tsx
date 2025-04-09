@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,34 +7,40 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import { Formik } from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
-import { Dropdown } from 'react-native-element-dropdown';
-import { Home, Save, X, ArrowLeft,
-    LogOut,PlusCircle } from 'lucide-react-native';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen';
+import {Dropdown} from 'react-native-element-dropdown';
+import {
+  Home,
+  Save,
+  X,
+  ArrowLeft,
+  LogOut,
+  PlusCircle,
+} from 'lucide-react-native';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import styles from './styles'; // Assuming you have a styles.ts file
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 
-
-
-
 const priorityData = [
-  { label: 'Please Select', value: '' },
-  { label: 'High', value: 'high' },
-  { label: 'Medium', value: 'medium' },
-  { label: 'Low', value: 'low' },
+  {label: 'Please Select', value: ''},
+  {label: 'High', value: 'high'},
+  {label: 'Medium', value: 'medium'},
+  {label: 'Low', value: 'low'},
 ];
 
 const statusData = [
-  { label: 'Please Select', value: '' },
-  { label: 'Open', value: 'open' },
-  { label: 'In Progress', value: 'in_progress' },
-  { label: 'On Hold', value: 'on_hold' },
-  { label: 'Closed', value: 'closed' },
+  {label: 'Please Select', value: ''},
+  {label: 'Open', value: 'open'},
+  {label: 'In Progress', value: 'in_progress'},
+  {label: 'On Hold', value: 'on_hold'},
+  {label: 'Closed', value: 'closed'},
 ];
 
 const validationSchema = Yup.object().shape({
@@ -49,13 +55,11 @@ const validationSchema = Yup.object().shape({
   appointmentDate: Yup.string().notRequired(),
 });
 
-const CreateJobs = ({ handleFormSubmit }) => {
-    const navigation = useNavigation<NativeStackNavigationProp<any>>();
-const [noResults, setNoResults] = useState<any>(false);
+const CreateJobs = ({handleFormSubmit}) => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const [noResults, setNoResults] = useState<any>(false);
   return (
-
     <SafeAreaView style={styles.safeArea}>
-  
       <CustomHeader
         title="New Job"
         leftIcon={<ArrowLeft size={24} color="white" />}
@@ -63,8 +67,6 @@ const [noResults, setNoResults] = useState<any>(false);
         rightIcon1={<LogOut size={24} color="white" />}
       />
       <ScrollView style={styles.container}>
-        
-
         <View style={styles.formContainer}>
           <Text style={styles.sectionTitle}>Job Details</Text>
           <Formik
@@ -80,42 +82,56 @@ const [noResults, setNoResults] = useState<any>(false);
               appointmentDate: '',
             }}
             onSubmit={handleFormSubmit}
-            validationSchema={validationSchema}
-          >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }) => (
+            validationSchema={validationSchema}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              setFieldValue,
+            }) => (
               <>
-              
-              <View style={styles.inputGroup}>
-  <Text style={styles.label}>Customer <Text style={styles.required}>*</Text></Text>
-  <TextInput
-    style={styles.input}
-    placeholder="Search Customer..."
-    value={values.customer}
-    onChangeText={handleChange('customer')}
-    onBlur={handleBlur('customer')}
-    onFocus={() => {
-        setNoResults(true)
-      // need customer search logic
-      // Show "No Result" and "Add Customer" based on search results
-    }}
-  />
-  {/* Conditionally render this section based on customer search results. */}
-  {noResults && (
-    <View style={styles.noResultContainer}>
-      <Text style={styles.noResultText}>No Result</Text>
-      <TouchableOpacity style={styles.addCustomerButton} onPress={()=>{}}>
-        <PlusCircle size={wp(5)} color="#fff" />
-        <Text style={styles.addCustomerButtonText}>Add Customer</Text>
-      </TouchableOpacity>
-    </View>
-  )}
-  {errors.customer && touched.customer && (
-    <Text style={styles.errorText}>{errors.customer}</Text>
-  )}
-</View>
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>
+                    Customer <Text style={styles.required}>*</Text>
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Search Customer..."
+                    value={values.customer}
+                    onChangeText={handleChange('customer')}
+                    onBlur={handleBlur('customer')}
+                    onFocus={() => {
+                      setNoResults(true);
+                      // need customer search logic
+                      // Show "No Result" and "Add Customer" based on search results
+                    }}
+                  />
+                  {/* Conditionally render this section based on customer search results. */}
+                  {noResults && (
+                    <View style={styles.noResultContainer}>
+                      <Text style={styles.noResultText}>No Result</Text>
+                      <TouchableOpacity
+                        style={styles.addCustomerButton}
+                        onPress={() => {}}>
+                        <PlusCircle size={wp(5)} color="#fff" />
+                        <Text style={styles.addCustomerButtonText}>
+                          Add Customer
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                  {errors.customer && touched.customer && (
+                    <Text style={styles.errorText}>{errors.customer}</Text>
+                  )}
+                </View>
 
                 <View style={styles.inputGroup}>
-                  <Text style={styles.label}>Job Address <Text style={styles.required}>*</Text></Text>
+                  <Text style={styles.label}>
+                    Job Address <Text style={styles.required}>*</Text>
+                  </Text>
                   <TextInput
                     style={styles.input}
                     placeholder="Search Address..."
@@ -152,8 +168,10 @@ const [noResults, setNoResults] = useState<any>(false);
                   />
                 </View>
 
-                <View style={[styles.inputGroup,{marginTop:hp(4)}]}>
-                  <Text style={styles.label}>Estimated Job Value (Excluding VAT)</Text>
+                <View style={[styles.inputGroup, {marginTop: hp(4)}]}>
+                  <Text style={styles.label}>
+                    Estimated Job Value (Excluding VAT)
+                  </Text>
                   <TextInput
                     style={styles.input}
                     placeholder="Please Enter Value"
@@ -214,12 +232,16 @@ const [noResults, setNoResults] = useState<any>(false);
                 </View>
 
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.saveButton} onPress={()=>handleSubmit()}>
-                    <Save size={wp(5)} color="#fff" />
+                  <TouchableOpacity
+                    style={styles.saveButton}
+                    onPress={() => handleSubmit()}>
                     <Text style={styles.saveButtonText}>Save Job</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.cancelButton} onPress={() => { /* Implement cancel logic */ }}>
-                    <X size={wp(5)} color="#fff" />
+                  <TouchableOpacity
+                    style={styles.cancelButton}
+                    onPress={() => {
+                      /* Implement cancel logic */
+                    }}>
                     <Text style={styles.cancelButtonText}>Cancel</Text>
                   </TouchableOpacity>
                 </View>

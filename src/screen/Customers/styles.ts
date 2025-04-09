@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: wp('4%'),
-        backgroundColor: '#F1F5F9',
+        backgroundColor: Color.white,
       },
 
       filterRow: {
@@ -115,6 +115,30 @@ const styles = StyleSheet.create({
         fontSize: wp('4%'),
         fontWeight:'700'
       },
+      card_content:{
+        justifyContent:'space-between',
+        alignItems:'center',
+        flexDirection:'row'
+    },
+      card_text:{ 
+        color:'black',
+        fontSize: hp(2)
+       },
+       scrollContent: {
+        padding: wp('1%'),
+        paddingBottom: hp('10%'),
+      },
+      card:{
+        backgroundColor: '#FFF',
+        borderRadius: wp('3%'),
+        padding: wp('2%'),
+        marginBottom: hp('3%'),
+        // alignItems: 'center',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 4,
+      }
 });
 
 export default styles;

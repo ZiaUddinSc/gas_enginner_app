@@ -16,8 +16,38 @@ import styles from './styles';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 
-const jobsData = []; 
+const jobsData = [
+    {
+      id: 1,
+      company: 'Test',
+      name: 'Mr. Tom',
+      email: 'test123@gmail.com',
+      address: 'Uttara Model Town or simply Uttara',
+    },
+    {
+      id: 2,
+      company: 'Test',
+      name: 'Mr. Tom',
+      email: 'test123@gmail.com',
+      address: 'Uttara Model Town or simply Uttara',
+    },
+    {
+      id: 3,
+      company: 'Test',
+      name: 'Mr. Tom',
+      email: 'test123@gmail.com',
+      address: 'Uttara Model Town or simply Uttara',
+    },
+    {
+      id: 4,
+      company: 'Test',
+      name: 'Mr. Tom',
+      email: 'test123@gmail.com',
+      address: 'Uttara Model Town or simply Uttara',
+    },
+  ];
 
 const statusOptions = [
   { label: 'Active', value: 'active' },
@@ -90,7 +120,7 @@ const Customers = () => {
       </View>
 
       {/* Table Header */}
-      <ScrollView horizontal>
+      {/* <ScrollView horizontal>
         <View style={styles.tableHeader}>
           <Text style={[styles.headerText, { width: wp(20) }]}>#ID</Text>
           <Text style={[styles.headerText, { width: wp(30) }]}>Company</Text>
@@ -98,10 +128,10 @@ const Customers = () => {
           <Text style={[styles.headerText, { width: wp(35) }]}>Address</Text>
           <Text style={[styles.headerText, { width: wp(20) }]}>Email</Text>
         </View>
-      </ScrollView>
+      </ScrollView> */}
 
       {/* Table Data */}
-      <ScrollView horizontal>
+      {/* <ScrollView horizontal>
         <FlatList
           data={jobsData}
           renderItem={renderJob}
@@ -110,18 +140,35 @@ const Customers = () => {
             <Text style={styles.emptyText}>No matching records found</Text>
           }
         />
-      </ScrollView>
+      </ScrollView> */}
 
-      {/* Pagination */}
-      <View style={styles.pagination}>
-        <TouchableOpacity onPress={() => setPage(1)}>
-          <ChevronLeft size={20} />
-        </TouchableOpacity>
-        <Text style={styles.pageText}>{page}</Text>
-        <TouchableOpacity onPress={() => setPage(page + 1)}>
-          <ChevronRight size={20} />
-        </TouchableOpacity>
-      </View>
+<ScrollView contentContainerStyle={styles.scrollContent}>
+          {jobsData.map((item, index) => (
+            <Animatable.View
+              key={index}
+              animation="zoomIn"
+              delay={index * 300}
+              duration={600}
+              useNativeDriver>
+              <TouchableOpacity style={styles.card}>
+                <View style={styles.card_content}>
+                  <Text style={[styles.card_text]}>ID: {item.id}</Text>
+                  <Text style={[styles.card_text]}>Company: {item.company}</Text>
+                </View>
+                <Text style={[styles.card_text]}>
+                Name: {item.name}
+                </Text>
+                <Text style={styles.card_text}>
+                Email: {item.email}
+                </Text>
+                
+                <Text style={styles.card_text}>Address: {item.address}</Text>
+               
+              </TouchableOpacity>
+            </Animatable.View>
+          ))}
+        </ScrollView>
+   
 
       {/* Add Job Button */}
       <TouchableOpacity onPress={()=>{navigation.navigate("CreateJobs")}} style={styles.addJobBtn}>

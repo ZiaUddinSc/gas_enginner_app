@@ -64,21 +64,25 @@ const SettingsScreen = () => {
         {/* Cards */}
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {settingsItems.map((item, index) => (
+              
             <Animatable.View
               key={index}
               animation="zoomIn"
               delay={index * 300}
               duration={600}
               useNativeDriver
-              style={styles.card}
+             
             >
+              <TouchableOpacity  style={styles.card}>
               <View style={styles.iconWrapper}>{item.icon}</View>
               <Text style={styles.cardTitle}>{item.title}</Text>
               <Text style={styles.cardDescription}>{item.description}</Text>
               <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>Manage</Text>
               </TouchableOpacity>
+              </TouchableOpacity>
             </Animatable.View>
+            
           ))}
         </ScrollView>
       </View>
