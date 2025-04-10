@@ -77,9 +77,7 @@ const SettingsScreen = () => {
               <View style={styles.iconWrapper}>{item.icon}</View>
               <Text style={styles.cardTitle}>{item.title}</Text>
               <Text style={styles.cardDescription}>{item.description}</Text>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Manage</Text>
-              </TouchableOpacity>
+              
               </TouchableOpacity>
             </Animatable.View>
             

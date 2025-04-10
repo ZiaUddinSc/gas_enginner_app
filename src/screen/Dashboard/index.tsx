@@ -54,6 +54,9 @@ const MenuList = () => {
     else if(customers === 'Customers'){
       navigation.navigate('Customers');
     }
+    else if(item.title === 'Calendar'){
+      navigation.navigate('CalendarScreen');
+    }
   };
 
   const animateItem = (index: number) => {

@@ -11,6 +11,8 @@ import SettingsScreen from '../screen/SettingsScreen/SettingsScreen';
 import JobsScreen from '../screen/JobsScreen/JobsScreen';
 import CreateJobs from '../screen/CreateJobs/CreateJobs';
 import Customers from '../screen/Customers/Customers';
+import CustomersCreate from '../screen/CustomersCreate/CustomersCreate';
+import CalendarScreen from '../screen/CalendarScreen/CalendarScreen';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
@@ -39,6 +41,8 @@ export default function AppNavigator() {
       <Stack.Screen name="JobsScreen" component={JobsScreen} />
       <Stack.Screen name="CreateJobs" component={CreateJobs} />
       <Stack.Screen name="Customers" component={Customers} />
+      <Stack.Screen name="CustomersCreate" component={CustomersCreate} />
+      <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
     </Stack.Navigator>
   );
 }

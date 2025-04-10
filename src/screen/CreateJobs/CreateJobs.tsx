@@ -114,8 +114,9 @@ const CreateJobs = ({handleFormSubmit}) => {
                     <View style={styles.noResultContainer}>
                       <Text style={styles.noResultText}>No Result</Text>
                       <TouchableOpacity
+                      onPress={()=>{navigation.navigate("CustomersCreate")}}
                         style={styles.addCustomerButton}
-                        onPress={() => {}}>
+                        >
                         <PlusCircle size={wp(5)} color="#fff" />
                         <Text style={styles.addCustomerButtonText}>
                           Add Customer

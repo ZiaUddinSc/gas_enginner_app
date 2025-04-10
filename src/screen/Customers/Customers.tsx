@@ -171,7 +171,7 @@ const Customers = () => {
    
 
       {/* Add Job Button */}
-      <TouchableOpacity onPress={()=>{navigation.navigate("CreateJobs")}} style={styles.addJobBtn}>
+      <TouchableOpacity onPress={()=>{navigation.navigate("CustomersCreate")}} style={styles.addJobBtn}>
         <PlusCircle size={18} color="white" />
         <Text style={styles.addJobText}>Add Customer</Text>
       </TouchableOpacity>
