@@ -6,7 +6,7 @@ interface CardProps {
   childrenIcon?: any;
   cardHeader?: string;
   cardTextString?: any;
-  calculatorValue?: string;
+  calculatorValue?: any;
 }
 const Index = (props: CardProps) => {
   const {style, childrenIcon, cardTextString, cardHeader, calculatorValue} =
@@ -14,13 +14,10 @@ const Index = (props: CardProps) => {
   return (
     <View style={style}>
       {childrenIcon}
-      <Text style={{textAlign: 'center', fontWeight: '500', color: 'gray',fontSize:hp('2%')}}>
-        {cardHeader}
+      <Text style={{textAlign: 'center', fontWeight: '500', color: 'gray',fontSize:hp('1.5%')}}>
+        {cardHeader} ({cardTextString})
       </Text>
-      <Text style={{textAlign: 'center', fontWeight: '400', color: 'gray',fontSize:hp('1.5%')}}>
-        {cardTextString}
-      </Text>
-      <Text style={{textAlign: 'center', fontWeight: '700',fontSize:hp('3%')}}>
+      <Text style={{textAlign: 'center', fontWeight: '600',fontSize:hp('2%')}}>
         {calculatorValue}
       </Text>
     </View>

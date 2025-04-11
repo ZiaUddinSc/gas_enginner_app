@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   dropdown: {
     // margin: hp('1%'),
     height: hp('5%'),
-    width: wp('38%'),
+    width: wp('45%'),
     borderColor: 'black',
     borderWidth: 0.5,
     borderRadius: wp('1%'),
@@ -66,8 +66,8 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
   card: {
-    height: hp('19%'),
-    width: wp('27%'),
+    height: hp('15%'),
+    width: wp('30%'),
     borderColor: Color.black,
     backgroundColor:Color.white,
     justifyContent:'space-evenly',
@@ -81,7 +81,6 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    
     elevation: 5,
   },
   title: {
