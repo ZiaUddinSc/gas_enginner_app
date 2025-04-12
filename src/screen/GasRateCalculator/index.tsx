@@ -132,6 +132,7 @@ const GasRateCalculator = () => {
     if (gasType?.value === '1') {
       stopStartCount(gasType?.value);
       setTimer(0);
+      setIsMatricPlaying(false)
     } else {
       setSpendTime(0);
     }
