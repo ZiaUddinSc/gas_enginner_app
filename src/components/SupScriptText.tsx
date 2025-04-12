@@ -18,13 +18,12 @@ const SuperscriptText = (props: Props) => {
         flexDirection: 'row',
         alignItems: 'flex-start',
       }}>
-      {/*View to wrap multiple text*/}
       <Text
         style={{
           fontSize: hp('1.4%'),
           fontWeight: '500',
           color: 'gray',
-          lineHeight: 30,
+          lineHeight: 28,
         }}>
         {base}
       </Text>

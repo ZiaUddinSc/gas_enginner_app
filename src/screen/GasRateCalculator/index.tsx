@@ -157,7 +157,7 @@ const GasRateCalculator = () => {
     }
   };
   const calculateMetricValue = useCallback(() => {
-    if (initialReading > finalReading) {
+    if (parseFloat(initialReading) > parseFloat(finalReading)) {
       alert(
         'Invalid readings. Final reading must be greater than or equal to initial reading.',
       );
