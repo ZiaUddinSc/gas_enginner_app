@@ -15,7 +15,7 @@ const Index = (props: CardProps) => {
     <View style={style}>
       {childrenIcon}
       <Text style={{textAlign: 'center', fontWeight: '500', color: 'gray',fontSize:hp('1.5%')}}>
-        {cardHeader} ({cardTextString})
+        {cardHeader}{cardTextString}
       </Text>
       <Text style={{textAlign: 'center', fontWeight: '600',fontSize:hp('2%')}}>
         {calculatorValue}

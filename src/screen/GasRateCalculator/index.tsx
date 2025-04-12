@@ -24,6 +24,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import Card from '../../components/Card';
+import SupscriptText from '../../components/SupScriptText';
 import {
   calculateGrossRate,
   calculateGrossKW,
@@ -163,6 +164,9 @@ const GasRateCalculator = () => {
       return;
     }
     let spendTime = calculatTimer?.value - remainingTime;
+    if(calculatTimer?.value===remainingTime){
+      spendTime= calculatTimer?.value 
+    }
     setIsDisplayCalculate(true);
     setSpendTime(spendTime);
     let value = finalReading - initialReading;
@@ -241,6 +245,7 @@ const GasRateCalculator = () => {
                 setKey(prev => prev + 1);
                 setIsStart(false);
                 setIsplaying(false);
+                setIsFinalReading(true);
               }}
               colors={gasType?.value === '2' ? '#D1D5DA' : '#164E63'}>
               {({remainingTime}) => (
@@ -370,8 +375,11 @@ const GasRateCalculator = () => {
                   />
                 </View>
               }
-              cardHeader="GAS RATE"
-              cardTextString={'M3/HR'}
+              cardTextString={<SupscriptText 
+                base=' GAS RATE (M' 
+                exponent='3'
+                eloseBracket={"/HR)"}
+              />}
               calculatorValue={calculateGrossRate(
                 gasName?.value,
                 gasType?.value,

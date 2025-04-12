@@ -26,7 +26,7 @@ export const calculateGrossRate = (
   //Imperial=2, Natural Gas = 1,
   if (time > 0) {
     if (gasType === '1' && gasName === '1') {
-      value = (HOUR * MATRIC_NATURAL_GAS_RATE) / time;
+      value = (HOUR * readingDiff) / time;
     } else {
       value = (HOUR * GROSS_NET_VALUE) / time;
     }
@@ -45,16 +45,14 @@ export const calculateGrossKW = (
   let value = 0.0;
   if (time > 0) {
     if (gasType === '1' && gasName === '1') {
-      value = (HOUR * MATRIC_NATURAL_GAS_RATE * 10.76) / time;
+      value = (HOUR * readingDiff * 10.76) / time;
     } else if (gasType === '2' && gasName === '1') {
       value = (HOUR * IMPERIAL_GAS_RATE) / (time * GROSS_NET_TIME_VALUE);
     } else {
       value = (HOUR * LPG_GROSS_NET_VALUE) / (time * GROSS_NET_TIME_VALUE);
     }
   }
-  if (gasType === '1') {
-    value = value * readingDiff;
-  }
+  
   return value.toFixed(2);
 };
 export const calculateGrossNet = (
@@ -66,7 +64,7 @@ export const calculateGrossNet = (
   let value = 0.0;
   if (time > 0) {
     if (gasType === '1' && gasName === '1') {
-      value = (HOUR * MATRIC_NATURAL_GAS_RATE * 10.76) / time / NET_TIME_VALUE;
+      value = (HOUR * readingDiff * 10.76) / time / NET_TIME_VALUE;
     } else if (gasType === '2' && gasName === '1') {
       value =
         (HOUR * IMPERIAL_GAS_RATE) /
@@ -79,8 +77,6 @@ export const calculateGrossNet = (
         NET_TIME_VALUE;
     }
   }
-  if (gasType === '1') {
-    value = value * readingDiff;
-  }
+  
   return value.toFixed(2);
 };
