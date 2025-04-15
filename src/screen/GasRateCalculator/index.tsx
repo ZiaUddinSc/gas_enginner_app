@@ -114,7 +114,7 @@ const GasRateCalculator = () => {
   const onChangeDropdownReset = value => {
     setInitialReading(null);
     setIsEnableCalculate(false);
-    setIsDisplayCalculate(false)
+    setIsDisplayCalculate(false);
     setIsFinalReading(false);
     setFinalReading(null);
     clearInterval(intervalValue);
@@ -132,7 +132,7 @@ const GasRateCalculator = () => {
     if (gasType?.value === '1') {
       stopStartCount(gasType?.value);
       setTimer(0);
-      setIsMatricPlaying(false)
+      setIsMatricPlaying(false);
     } else {
       setSpendTime(0);
     }
@@ -165,8 +165,8 @@ const GasRateCalculator = () => {
       return;
     }
     let spendTime = calculatTimer?.value - remainingTime;
-    if(calculatTimer?.value===remainingTime){
-      spendTime= calculatTimer?.value 
+    if (calculatTimer?.value === remainingTime) {
+      spendTime = calculatTimer?.value;
     }
     setIsDisplayCalculate(true);
     setSpendTime(spendTime);
@@ -376,11 +376,13 @@ const GasRateCalculator = () => {
                   />
                 </View>
               }
-              cardTextString={<SupscriptText 
-                base=' GAS RATE (M' 
-                exponent='3'
-                eloseBracket={"/HR)"}
-              />}
+              cardTextString={
+                <SupscriptText
+                  base=" GAS RATE (M"
+                  exponent="3"
+                  eloseBracket={'/HR)'}
+                />
+              }
               calculatorValue={calculateGrossRate(
                 gasName?.value,
                 gasType?.value,

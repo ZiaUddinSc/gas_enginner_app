@@ -6,10 +6,11 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {styles} from './styles';
-import {Formik} from 'formik';
+import {Formik,Form} from 'formik';
 import * as Yup from 'yup';
 import LogoSvg from '../../components/LogoSvg';
 import CustomInput from '../../components/CustomInput/CustomInput';
@@ -26,7 +27,6 @@ export default function Index() {
 
   //Form Validation Using Formik nad Yum
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required').label('Name'),
     email: Yup.string()
       .email('Please enter valid email')
       .required('The email field is required.')
@@ -42,13 +42,10 @@ export default function Index() {
   };
   const handleFormSubmit = (values: any) => {
     // Handle form submission logic here
-    console.log('✅ Submitted values:', values);
+    console.log('Submitted values:', values);
+    navigation.navigate('Dashboard');
+  };
 
-    navigation.navigate('Dashboard');
-  };
-  const testSubmit = () => {
-    navigation.navigate('Dashboard');
-  };
 
   return (
     <>
@@ -58,9 +55,6 @@ export default function Index() {
         onLeftPress={() => navigation.navigate("WelcomeScreen")}     />
       <View style={styles.container}>
         <View style={styles.loginBody}>
-          {/* <View style={styles.logoView}>
-          <LogoSvg height={70} width={70} />
-        </View> */}
           <View>
             <Text style={styles.textHeader}>Sign In</Text>
           </View>
@@ -72,7 +66,7 @@ export default function Index() {
           </View>
           <Formik
             initialValues={{email: '', password: ''}}
-            onSubmit={values => handleFormSubmit(values)}
+            onSubmit={(values) =>handleFormSubmit(values)}
             validationSchema={validationSchema}>
             {({
               handleChange,
@@ -81,6 +75,7 @@ export default function Index() {
               values,
               errors,
               touched,
+              isValid
             }) => (
               <>
                 <CustomInput
@@ -128,11 +123,11 @@ export default function Index() {
                     </TouchableOpacity>
                   </View>
                 </View>
-              
+                
                 <TouchableOpacity
-                  style={styles.loginBtn}
+                  style={[styles.loginBtn,{opacity: isValid ? 1 : 0.5}]}
+                  disabled={!isValid}
                   onPress={() => {
-                    testSubmit();
                     handleSubmit(); // This should call your form submit
                   }}>
                   <Text style={styles.loginText}>LOGIN</Text>
