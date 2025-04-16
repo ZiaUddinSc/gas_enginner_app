@@ -129,6 +129,7 @@ export default function Index() {
                   disabled={!isValid}
                   onPress={() => {
                     handleSubmit(); // This should call your form submit
+                    handleFormSubmit(values);
                   }}>
                   <Text style={styles.loginText}>LOGIN</Text>
                 </TouchableOpacity>
