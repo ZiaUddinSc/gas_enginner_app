@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TextInput,
   Alert,
+  Platform,
 } from 'react-native';
 import {
   FlameIcon,
@@ -14,6 +15,8 @@ import {
   CirclePlusIcon,
   CircleMinusIcon,
   Flashlight,
+  FlashlightOff,
+  FlashlightIcon,
 } from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import {styles} from './styles';
@@ -25,6 +28,7 @@ import {useNavigation} from '@react-navigation/native';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import Card from '../../components/Card';
 import SupscriptText from '../../components/SupScriptText';
+import Torch from 'react-native-torch';
 import {
   calculateGrossRate,
   calculateGrossKW,
@@ -65,6 +69,8 @@ const GasRateCalculator = () => {
   const [isDisplayCalculate, setIsDisplayCalculate] = useState<boolean>(false);
   const [spendTime, setSpendTime] = useState<number>(0);
   const [readingDiff, setReadingDiff] = useState<number>(0);
+  const [isTorchOn, setIsTorchOn] = useState(false);
+
   const secondsToTime = e => {
     const m = Math.floor((e % 3600) / 60)
         .toString()
@@ -95,6 +101,34 @@ const GasRateCalculator = () => {
       return () => clearInterval(interval);
     }
   };
+  //Switch on and Off for Torch Light
+
+  const handleTorchPress = async () => {
+    
+    if (Platform.OS === 'ios') {
+      Torch.switchState(!isTorchOn);
+    } else {
+      const cameraAllowed = await Torch.requestCameraPermission(
+        'Camera Permissions', // dialog title
+        'We require camera permissions to use the torch on the back of your phone.', // dialog body
+      );
+
+      if (cameraAllowed) {
+        try {
+          await Torch.switchState(true);
+          setIsTorchOn(!isTorchOn);
+        } catch (e) {
+          alert('We seem to have an issue accessing your torch');
+        }
+      }
+    }
+    setTimeout(() => {
+      Torch.switchState(true);
+    },1000);
+    
+    setIsTorchOn(!isTorchOn);
+  };
+
   const stopStartCount = value => {
     clearInterval(intervalValue);
     setisTimerPlaying(true);
@@ -204,7 +238,21 @@ const GasRateCalculator = () => {
         title="Gas Rate Calculator"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<Flashlight size={24} color="white" />}
+        rightIcon1={
+          isTorchOn ? (
+            <FlashlightIcon
+              size={24}
+              color="white"
+              onPress={() => handleTorchPress()}
+            />
+          ) : (
+            <FlashlightOff
+              size={24}
+              color="white"
+              onPress={() => handleTorchPress()}
+            />
+          )
+        }
       />
 
       <View style={styles.container}>
@@ -402,7 +450,7 @@ const GasRateCalculator = () => {
                 </View>
               }
               cardHeader="GROSS"
-              cardTextString={'KW'}
+              cardTextString={' (KW)'}
               calculatorValue={calculateGrossKW(
                 gasName?.value,
                 gasType?.value,
@@ -422,7 +470,7 @@ const GasRateCalculator = () => {
                 </View>
               }
               cardHeader="NET"
-              cardTextString={'KW'}
+              cardTextString={' (KW)'}
               calculatorValue={calculateGrossNet(
                 gasName?.value,
                 gasType?.value,
