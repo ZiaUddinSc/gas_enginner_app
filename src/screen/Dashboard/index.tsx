@@ -18,6 +18,7 @@ import {styles} from './styles';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import GasRateCalculator from '../GasRateCalculator';
+import {AnimateItem} from '../../helper/customMethods'; 
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 
 const menuItems = [
@@ -59,17 +60,8 @@ const MenuList = () => {
     }
   };
 
-  const animateItem = (index: number) => {
-    Animated.timing(animatedValues[index], {
-      toValue: 1,
-      duration: 800, // animation time
-      delay: index * 200, // ⏳ staggered effect 
-      useNativeDriver: true,
-    }).start();
-  };
-
   const renderItem = ({ item, index }: any) => {
-    animateItem(index);
+    AnimateItem(animatedValues,index);
   const translateY = animatedValues[index].interpolate({
     inputRange: [0, 1],
     outputRange: [20, 0],

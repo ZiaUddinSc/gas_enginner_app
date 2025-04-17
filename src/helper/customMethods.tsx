@@ -7,6 +7,9 @@ import {
   GROSS_NET_TIME_VALUE,
   NET_TIME_VALUE,
 } from './constant';
+import {
+  Animated,
+} from 'react-native';
 const secondsToTime = e => {
   const m = Math.floor((e % 3600) / 60)
       .toString()
@@ -88,3 +91,13 @@ export const calculateGrossNet = (
 
   return value.toFixed(2);
 };
+
+export const AnimateItem = (animatedValues=[],index: number) => {
+  Animated.timing(animatedValues[index], {
+    toValue: 1,
+    duration: 900, // animation time
+    delay: index * 300, // ⏳ staggered effect
+    useNativeDriver: true,
+  }).start();
+};
+
