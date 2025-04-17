@@ -10,6 +10,7 @@ import JobsScreen from '../screen/JobsScreen/JobsScreen';
 import CreateJobs from '../screen/CreateJobs/CreateJobs';
 import Customers from '../screen/Customers/Customers';
 import CustomersCreate from '../screen/CustomersCreate/CustomersCreate';
+import Certificate from '../screen/Certificate/Certificate';
 
 import BottomTabs from './BottomTabs'; // 👈 BottomTab imported
 
@@ -27,6 +28,7 @@ export default function AppNavigator() {
       <Stack.Screen name="CreateJobs" component={CreateJobs} />
       <Stack.Screen name="Customers" component={Customers} />
       <Stack.Screen name="CustomersCreate" component={CustomersCreate} />
+      <Stack.Screen name="Certificate" component={Certificate} />
 
       {/* Dashboard shows BottomTabs */}
       <Stack.Screen name="Dashboard" component={BottomTabs} />

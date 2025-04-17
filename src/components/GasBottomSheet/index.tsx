@@ -1,57 +1,55 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import {
-  Wrench,
-  User,
-  Calendar,
-  Award,
-  FileText,
-  X,
-  ChevronDown,
-} from 'lucide-react-native';
+import React, {useCallback, useMemo} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import BottomSheet, {
+  BottomSheetScrollView,
+  useBottomSheetTimingConfigs,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {
+  Wrench,
+  Calendar,
+  Award,
+  FileText,
+  ChevronDown,
+} from 'lucide-react-native';
 import Color from '../../theme/Colors'; // Assuming you have a Colors file
-import BottomSheet, {
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
 
-const items = [
-  { label: 'Job', icon: <Wrench size={wp(8)} />, iconColor: '#FFFF00' },
-  { label: 'Quote', icon: <Calendar size={wp(8)} />, iconColor: '#FFFF00' },
+const data = [
   {
-    label: 'Domistic Gas Certificate',
-    icon: <Award size={wp(8)} />,
-    iconColor: '#FFFF00',
+    id: '1',
+    label: 'Landlord Gas Safety',
+    icon: <Wrench size={24} color="#333" />,
   },
-  { label: 'Invoice', icon: <FileText size={wp(8)} />, iconColor: '#FFFF00' },
+  {
+    id: '2',
+    label: 'Homeowner Gas Safety',
+    icon: <Calendar size={24} color="#333" />,
+  },
+  {id: '3', label: 'Service', icon: <Award size={24} color="#333" />},
+  {
+    id: '4',
+    label: 'Gas Warning Notice',
+    icon: <FileText size={24} color="#333" />,
+  },
 ];
 
-const HomeBottomSheetContent = ({ onClose }) => {
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
-
-  const onNext = (action) => {
-    if (action.label === 'Domistic Gas Certificate') {
-      navigation.navigate('Certificate');
-    }
-  };
-
+const GasBottomSheet = ({onClose}) => {
   return (
-    <BottomSheetScrollView contentContainerStyle={{ elevation: 5 }}>
+    <BottomSheetScrollView contentContainerStyle={{elevation: 5}}>
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity style={styles.arrowDown} onPress={() => onClose()}>
             <ChevronDown size={wp(8)} color="#6B7280" />
           </TouchableOpacity>
-          <Text style={styles.title}>New Add</Text>
+          <Text style={styles.title}>Certificate Types</Text>
         </View>
 
         <View style={styles.actionsContainer}>
-          {items.map((action, index) => (
+          {data.map((action, index) => (
             <TouchableOpacity
               key={index}
               style={[
@@ -62,7 +60,7 @@ const HomeBottomSheetContent = ({ onClose }) => {
               ]}
               onPress={() => {
                 // Handle action based on label
-                onNext(action);
+
                 onClose(); // Close the bottom sheet after action (optional)
               }}>
               <View style={[styles.iconContainer]}>
@@ -74,7 +72,7 @@ const HomeBottomSheetContent = ({ onClose }) => {
               <Text
                 style={[
                   styles.actionText,
-                  { color: index % 2 === 0 ? '#3aad99' : Color.primaryBGColor },
+                  {color: index % 2 === 0 ? '#3aad99' : Color.primaryBGColor},
                 ]}>
                 {action.label}
               </Text>
@@ -160,4 +158,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeBottomSheetContent;
+export default GasBottomSheet;
