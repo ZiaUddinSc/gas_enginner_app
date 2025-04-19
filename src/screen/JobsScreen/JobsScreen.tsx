@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
-  ScrollView, // Added ScrollView
+  ScrollView,
+  SafeAreaView, // Added ScrollView
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {
@@ -104,7 +105,7 @@ const JobsScreen = () => {
   );
 
   return (
-    <>
+    <SafeAreaView style={styles.safeArea}>
       {/* Header */}
       <CustomHeader
         title="Jobs"
@@ -203,7 +204,7 @@ const JobsScreen = () => {
           <Text style={styles.addJobText}>Add Job</Text>
         </TouchableOpacity>
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 

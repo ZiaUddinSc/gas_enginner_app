@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Platform,StatusBar} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -8,6 +8,11 @@ import {
 
 import Color from '../../theme/Colors';
 export const styles = StyleSheet.create({
+    content:{
+  flex:1,
+  paddingTop:Platform.OS=="ios"?hp(4):null,
+  backgroundColor: Color.primaryBGColor
+    },
   container: {
     flex: 1,
     justifyContent: 'center',

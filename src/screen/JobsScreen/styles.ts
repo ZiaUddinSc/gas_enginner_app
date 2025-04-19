@@ -8,6 +8,10 @@ import {
   import Color from '../../theme/Colors';
 
 const styles = StyleSheet.create({
+   safeArea: {
+            flex: 1,
+            backgroundColor: Color.primaryBGColor,
+          },
     container: {
         flex: 1,
         padding: wp('2%'),

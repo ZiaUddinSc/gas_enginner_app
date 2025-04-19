@@ -121,9 +121,17 @@ const styles = StyleSheet.create({
     paddingVertical: hp(1.5),
     paddingHorizontal: wp(3),
     borderRadius: wp(1),
-    elevation: 2,
     marginBottom: hp(2),
     width: wp(94),
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 1,
   },
   iconContainer: {
     marginRight: wp(3),

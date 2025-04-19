@@ -8,10 +8,14 @@ const borderColor = '#ced4da';
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: Color.white,
+        backgroundColor: Color.primaryBGColor,
       },
   
-
+   content:{
+    flex:1,
+    // paddingTop:Platform.OS=="ios"?hp(4):null,
+    backgroundColor: Color.white
+      },
       tabBar: {
         flexDirection: 'row',
         backgroundColor: Color.white,
@@ -45,9 +49,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
       },
-      content: {
-        flex: 1,
-      },
+  
       // Month View Styles
       monthHeader: {
         flexDirection: 'row',

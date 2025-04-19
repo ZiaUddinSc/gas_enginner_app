@@ -8,6 +8,7 @@ import {
   TextInput,
   Alert,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import {
   FlameIcon,
@@ -233,7 +234,7 @@ const GasRateCalculator = () => {
   };
 
   return (
-    <>
+    <SafeAreaView style={styles.content}>
       <CustomHeader
         title="Gas Rate Calculator"
         leftIcon={<ArrowLeft size={24} color="white" />}
@@ -481,7 +482,7 @@ const GasRateCalculator = () => {
           </View>
         </View>
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 

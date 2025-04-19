@@ -57,7 +57,7 @@ export default function Index() {
   };
 
   return (
-    <>
+    <View style={styles.content}>
     <CustomHeader
         title=""
         leftIcon={<ArrowLeft size={24} color="white" />}
@@ -215,6 +215,6 @@ export default function Index() {
         
       </View>
     </View>
-    </>
+    </View>
   );
 }

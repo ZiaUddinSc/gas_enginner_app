@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
+  SafeAreaView,
 } from 'react-native';
 import {
   FileText,
@@ -96,7 +97,7 @@ const Home = () => {
     );
   };
   return (
-    <>
+    <SafeAreaView style={styles.content}>
       <CustomHeader
         title="Home"
         // leftIcon={<ArrowLeft size={24} color="white" />}
@@ -114,7 +115,7 @@ const Home = () => {
           columnWrapperStyle={{justifyContent: 'space-evenly'}}
         />
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 

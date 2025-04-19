@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Home } from 'lucide-react-native'; // optional, change as needed
 import { TouchableOpacity } from 'react-native';
@@ -28,7 +28,7 @@ const BoilerManuals = () => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   return (
-    <>
+    <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title="Boiler Manuals"
         leftIcon={<ArrowLeft size={24} color="white" />}
@@ -63,7 +63,7 @@ const BoilerManuals = () => {
         </View>
       </View>
     </View>
-    </>
+    </SafeAreaView>
   );
 };
 

@@ -1,8 +1,18 @@
-import {StyleSheet} from 'react-native';
-import Color from '../../theme/Colors';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {StyleSheet,Platform,StatusBar} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+  listenOrientationChange as lor,
+  removeOrientationListener as rol,
+} from 'react-native-responsive-screen';
 
+import Color from '../../theme/Colors';
 export const styles = StyleSheet.create({
+    content:{
+  flex:1,
+  // paddingTop:Platform.OS=="ios"?hp(4):null,
+  backgroundColor: Color.primaryBGColor
+    },
     container: {
         flex: 1,
         backgroundColor: Color.white,
@@ -20,7 +30,15 @@ export const styles = StyleSheet.create({
         borderColor:Color.textPrimaryColor,
         // borderWidth:.5,
         justifyContent:'center',
-        elevation:5,
+        shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 5,
       },
       row:{flexDirection:'row',alignItems:'center'},
       icon: {

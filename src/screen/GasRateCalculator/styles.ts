@@ -6,6 +6,11 @@ import {
 } from 'react-native-responsive-screen';
 
 export const styles = StyleSheet.create({
+      content:{
+    flex:1,
+    // paddingTop:Platform.OS=="ios"?hp(4):null,
+    backgroundColor: Color.primaryBGColor
+      },
   container: {
     flex: 1,
     backgroundColor: Color.primaryBGColor,

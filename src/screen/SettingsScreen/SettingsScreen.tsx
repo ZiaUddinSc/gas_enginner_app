@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import {
   Building,
@@ -51,7 +52,7 @@ const SettingsScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   return (
-    <>
+    <SafeAreaView style={styles.safeArea}>
       {/* Header */}
       <CustomHeader
         title="Setting"
@@ -79,7 +80,7 @@ const SettingsScreen = () => {
           ))}
         </ScrollView>
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 

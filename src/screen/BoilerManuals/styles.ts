@@ -3,6 +3,10 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 const { width } = Dimensions.get('window');
 import Color from '../../theme/Colors';
 export const styles = StyleSheet.create({
+   safeArea: {
+            flex: 1,
+            backgroundColor: Color.primaryBGColor,
+          },
     container: {
       flex: 1,
       backgroundColor: Color.white, // Background color as seen in the screenshot

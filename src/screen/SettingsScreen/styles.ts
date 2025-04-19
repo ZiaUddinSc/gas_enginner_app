@@ -8,9 +8,13 @@ import {
 
 import Color from '../../theme/Colors';
 export const styles = StyleSheet.create({
+   safeArea: {
+          flex: 1,
+          backgroundColor: Color.primaryBGColor,
+        },
   container: {
     flex: 1,
-    backgroundColor: Color.primaryBGColor,
+    backgroundColor: Color.white,
   },
   header: {
     flexDirection: 'row',
@@ -46,10 +50,15 @@ export const styles = StyleSheet.create({
     padding: wp('5%'),
     marginBottom: hp('3%'),
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
+   
+shadowOffset: {
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 5,
   },
   iconWrapper: {
     backgroundColor: '#1D4D5D',

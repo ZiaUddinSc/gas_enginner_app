@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
-  ScrollView, // Added ScrollView
+  ScrollView,
+  SafeAreaView, // Added ScrollView
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { PlusCircle, ChevronLeft, ChevronRight,  ArrowLeft,
@@ -84,7 +85,7 @@ const Customers = () => {
   );
 
   return (
-    <>
+    <SafeAreaView style={styles.safeArea}>
      {/* Header */}
      <CustomHeader
         title="Customers"
@@ -176,7 +177,7 @@ const Customers = () => {
         <Text style={styles.addJobText}>Add Customer</Text>
       </TouchableOpacity>
     </View>
-    </>
+    </SafeAreaView>
   );
 };
 

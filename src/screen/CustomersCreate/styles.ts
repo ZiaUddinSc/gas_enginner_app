@@ -11,15 +11,16 @@ const buttonTextColor = '#fff';
 const errorTextColor = 'red';
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: Color.white,
-  },
+ safeArea: {
+          // flex: 1,
+          backgroundColor: Color.primaryBGColor,
+        },
   container: {
     flexGrow: 1,
     paddingHorizontal: wp(4),
     paddingTop: hp(2),
     paddingBottom: hp(3),
+    backgroundColor:Color.white
   },
   
   formContainer: {

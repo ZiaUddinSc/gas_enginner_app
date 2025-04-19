@@ -8,7 +8,7 @@ const borderColor = '#ced4da';
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.primaryBGColor,
   },
   container: {
     flexGrow: 1,
