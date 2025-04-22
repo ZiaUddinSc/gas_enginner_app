@@ -12,20 +12,21 @@ const errorTextColor = 'red';
 
 const styles = StyleSheet.create({
  safeArea: {
-          // flex: 1,
+          flex: 1,
           backgroundColor: Color.primaryBGColor,
         },
   container: {
     flexGrow: 1,
-    paddingHorizontal: wp(4),
-    paddingTop: hp(2),
-    paddingBottom: hp(3),
-    backgroundColor:Color.white
+    // paddingHorizontal: wp(4),
+    // paddingTop: hp(2),
+    // paddingBottom: hp(3),
+    // backgroundColor:Color.white,
+    // marginBottom:hp(6)
   },
   
   formContainer: {
     backgroundColor: Color.white,
-    padding: wp(2),
+    padding: wp(4),
     borderRadius: wp(1),
     marginBottom: hp(2),
     // borderWidth: 1,
@@ -100,7 +101,8 @@ height:hp(6),
     borderWidth:1,
     borderColor:Color.primaryBGColor,
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    marginBottom:hp(2)
   },
   cancelButtonText: {
     color: Color.textPrimaryColor,
