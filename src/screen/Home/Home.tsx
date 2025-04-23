@@ -35,16 +35,12 @@ import {AnimateItem} from '../../helper/customMethods';
 import * as Animatable from 'react-native-animatable';
 
 const menuItems = [
-  {
-    title: 'New Certificate / Invoice',
-    icon: <FileText color={Color.fontColor} size={35} />,
-  },
+  {title: 'Customers (0)', icon: <Users color={Color.fontColor} size={35} />},
+  {title: 'Jobs (0)', icon: <Briefcase color={Color.fontColor} size={35} />},
   {
     title: 'Existing Records & Drafts',
     icon: <Layers color={Color.fontColor} size={35} />,
   },
-  {title: 'Customers (0)', icon: <Users color={Color.fontColor} size={35} />},
-  {title: 'Jobs (0)', icon: <Briefcase color={Color.fontColor} size={35} />},
   {
     title: 'Boiler Manual',
     icon: <BookOpen color={Color.fontColor} size={35} />,
