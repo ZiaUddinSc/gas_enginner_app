@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef,useState} from 'react';
 import {
   View,
   Text,
@@ -20,6 +20,7 @@ import {
   ChevronRight,
   ArrowLeft,
   LogOut,
+  UserPlus
 } from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import {styles} from './styles';
@@ -33,6 +34,7 @@ import {
 } from 'react-native-responsive-screen';
 import {AnimateItem} from '../../helper/customMethods';
 import * as Animatable from 'react-native-animatable';
+import InviteEngineersModal from '../../components/InviteEngineersModal/InviteEngineersModal';
 
 const menuItems = [
   {title: 'Customers (0)', icon: <Users color={Color.fontColor} size={35} />},
@@ -52,6 +54,16 @@ const Home = () => {
   const animatedValues = useRef(
     menuItems.map(() => new Animated.Value(0)),
   ).current;
+
+  const [isInviteModalVisible, setIsInviteModalVisible] = useState(false);
+
+  const handleInviteClick = () => {
+    setIsInviteModalVisible(true);
+  };
+
+  const handleCloseInviteModal = () => {
+    setIsInviteModalVisible(false);
+  };
 
   const onPressListItem = item => {
     var str = item.title;
@@ -111,8 +123,57 @@ const Home = () => {
           columnWrapperStyle={{justifyContent: 'space-evenly'}}
         />
       </View>
+
+      {/* Floating Invite Button */}
+      <Animatable.View
+  animation="pulse"
+  iterationCount="infinite"
+  direction="alternate"
+  duration={1000}>
+  <TouchableOpacity
+    style={inviteButtonStyle.button}
+    onPress={handleInviteClick}>
+    <UserPlus color="white" size={30} />
+    <Text style={inviteButtonStyle.text}>Invite{'\n'}Engineers</Text>
+  </TouchableOpacity>
+</Animatable.View>
+
+<InviteEngineersModal
+isVisible={isInviteModalVisible}
+onClose={handleCloseInviteModal}
+/>
     </SafeAreaView>
   );
+
+  
 };
+
+const inviteButtonStyle = StyleSheet.create({
+  button: {
+    position: 'absolute',
+    bottom: hp(3),
+    right:wp(5),
+    alignSelf: 'center',
+    backgroundColor: Color.primaryBGColor,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: wp(5),
+    paddingVertical: hp(1),
+    borderRadius: 50,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: {width: 0, height: 2},
+  },
+  text: {
+    color: 'white',
+    marginLeft: 6,
+    fontWeight: 'bold',
+    fontSize: 18,
+    // textAlign:'center'
+    // padding:12
+  },
+});
 
 export default Home;

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StatusBar, StyleSheet } from 'react-native';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
    safeArea: {
             flex: 1,
             backgroundColor: Color.primaryBGColor,
+            paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
           },
     container: {
         flex: 1,
@@ -23,6 +24,11 @@ const styles = StyleSheet.create({
         marginBottom: hp('1.5%'),
         gap: wp('2%'),
         flexWrap: 'wrap',
+        alignItems:'center',
+        paddingHorizontal:wp(1),
+        
+      },
+      searchIcon:{position:'absolute',marginLeft:wp(3)
       },
       input: {
         flex: 1,
@@ -31,6 +37,7 @@ const styles = StyleSheet.create({
         borderRadius: wp('2%'),
         padding: wp('2.5%'),
         backgroundColor: '#fff',
+        paddingLeft:wp(8)
       },
       dropdown: {
         width: wp('25%'),
@@ -120,13 +127,20 @@ const styles = StyleSheet.create({
         fontWeight:'700'
       },
       card_content:{
-        justifyContent:'space-between',
         alignItems:'center',
         flexDirection:'row'
     },
       card_text:{ 
         color:'black',
-        fontSize: hp(2)
+        fontSize: hp(2),
+        paddingLeft:wp(3),
+        fontWeight:'400',
+       },
+       card_name_text:{ 
+        color:'black',
+        fontSize: hp(2),
+        fontWeight:'bold',
+        paddingLeft:wp(3)
        },
        scrollContent: {
         padding: wp('1%'),

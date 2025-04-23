@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,103 +7,89 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
-  ScrollView,
-  SafeAreaView, // Added ScrollView
+  SafeAreaView,
 } from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
 import {
   PlusCircle,
-  ChevronLeft,
-  ChevronRight,
   ArrowLeft,
   LogOut,
+  Search,
+  User,
+  MapPin,
 } from 'lucide-react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
 import styles from './styles';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import DateIcon from '../../components/DateIcon/DateIcon';
 
-const jobsData = [
-  {
-    id: 1,
-    status: 'Active',
-    customer: 'Mr. Tom',
-    priority: 'High',
-    description:
-      'Manage your registration numbers, business address, and company logo.',
-    address: 'Uttara Model Town or simply Uttara',
-    estimatrd: '',
-  },
-  {
-    id: 2,
-    status: 'Active',
-    customer: 'Mr. Tom',
-    priority: 'High',
-    description:
-      'Manage your registration numbers, business address, and company logo.',
-    address: 'Uttara Model Town or simply Uttara',
-    estimatrd: '',
-  },
-  {
-    id: 3,
-    status: 'Active',
-    customer: 'Mr. Tom',
-    priority: 'High',
-    description:
-      'Manage your registration numbers, business address, and company logo.',
-    address: 'Uttara Model Town or simply Uttara',
-    estimatrd: '',
-  },
-  {
-    id: 4,
-    status: 'Active',
-    customer: 'Mr. Tom',
-    priority: 'High',
-    description:
-      'Manage your registration numbers, business address, and company logo.',
-    address: 'Uttara Model Town or simply Uttara',
-    estimatrd: '',
-  },
-];
+const allJobs = Array.from({length: 100}).map((_, index) => ({
+  title: `Test ${index}`,
+  customer: `Mr. Tom ${index + 1}`,
+  address: `Uttara ${index + 1}`,
+}));
 
-const statusOptions = [
-  {label: 'Active', value: 'active'},
-  {label: 'Pending', value: 'pending'},
-  {label: 'Completed', value: 'completed'},
-];
+const PAGE_SIZE = 20;
 
 const JobsScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [search, setSearch] = useState('');
-  const [status, setStatus] = useState(null);
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
 
-  const handleReset = () => {
-    setSearch('');
-    setStatus(null);
-  };
+   const [visibleJobs, setVisibleJobs] = useState<any[]>([]);
+    const [page, setPage] = useState(1);
+  
+    useEffect(() => {
+      loadJobs();
+    }, [page]);
 
-  const handleGo = () => {
-    // search logic
-  };
+    const loadJobs = () => {
+      const start = (page - 1) * PAGE_SIZE;
+      const end = start + PAGE_SIZE;
+ 
+      const newItems = allJobs.slice(start, end);
+      setVisibleJobs(prev => [...prev, ...newItems]);
+    
+    };
+  
+    const handleLoadMore = () => {
+      if (visibleJobs.length < allJobs.length) {
+        setPage(prev => prev + 1);
+      }
+    };
 
-  const renderJob = ({item}: any) => (
-    <View style={styles.jobCard}>
-      <Text style={[styles.jobTitle, {width: wp(20)}]}>{item.id}</Text>
-      <Text style={[styles.jobText, {width: wp(30)}]}>{item.description}</Text>
-      <Text style={[styles.jobText, {width: wp(25)}]}>{item.customer}</Text>
-      <Text style={[styles.jobText, {width: wp(35)}]}>{item.address}</Text>
-      <Text style={[styles.jobText, {width: wp(20)}]}>{item.priority}</Text>
-      <Text style={[styles.jobText, {width: wp(20)}]}>{item.status}</Text>
-      <Text style={[styles.jobText, {width: wp(25)}]}>{item.estimated}</Text>
-    </View>
+  const renderItem = ({item, index}: any) => (
+    <Animatable.View
+      key={index}
+      animation="zoomIn"
+      delay={index % 5 * 100} // Adjust delay as needed
+      duration={600}
+      useNativeDriver>
+      <TouchableOpacity style={styles.card}>
+        <Text style={[styles.card_title]}>{item.title}</Text>
+        <View style={styles.line} />
+        <View style={styles.card_row}>
+          <View>
+            <View style={styles.card_content}>
+              <User size={24} />
+              <Text style={[styles.card_name]}>{item.customer}</Text>
+            </View>
+            <View style={styles.card_content}>
+              <MapPin size={24} />
+              <Text style={styles.card_text}>{item.address}</Text>
+            </View>
+          </View>
+          <TouchableOpacity>
+            <DateIcon
+              topColor={index % 2 === 0 ? '#ffec9c' : '#8A98C7'}
+              textColor={index % 2 === 0 ? '#ffec9c' : '#8A98C7'}
+            />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    </Animatable.View>
   );
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -122,77 +109,19 @@ const JobsScreen = () => {
             value={search}
             onChangeText={setSearch}
           />
-          <Dropdown
-            style={styles.dropdown}
-            data={statusOptions}
-            labelField="label"
-            valueField="value"
-            placeholder="Status"
-            value={status}
-            onChange={item => setStatus(item.value)}
-          />
-          <TouchableOpacity style={styles.goButton} onPress={handleGo}>
-            <Text style={styles.goText}>Go</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
-            <Text style={styles.resetText}>Reset</Text>
+          <TouchableOpacity style={styles.searchIcon}>
+            <Search size={20} />
           </TouchableOpacity>
         </View>
 
-        {/* Table Header */}
-        {/* <ScrollView horizontal>
-        <View style={styles.tableHeader}>
-          <Text style={[styles.headerText, { width: wp(20) }]}>#ID</Text>
-          <Text style={[styles.headerText, { width: wp(30) }]}>Description</Text>
-          <Text style={[styles.headerText, { width: wp(25) }]}>Customer</Text>
-          <Text style={[styles.headerText, { width: wp(35) }]}>Address</Text>
-          <Text style={[styles.headerText, { width: wp(20) }]}>Priority</Text>
-          <Text style={[styles.headerText, { width: wp(20) }]}>Status</Text>
-          <Text style={[styles.headerText, { width: wp(25) }]}>Estimatrd</Text>
-        </View>
-      </ScrollView> */}
-
-        {/* Table Data */}
-        {/* <ScrollView horizontal>
-        <FlatList
-          data={jobsData}
-          renderItem={renderJob}
-          keyExtractor={(item, index) => index.toString()}
-          ListEmptyComponent={
-            <Text style={styles.emptyText}>No matching records found</Text>
-          }
-        />
-      </ScrollView> */}
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          {jobsData.map((item, index) => (
-            <Animatable.View
-              key={index}
-              animation="zoomIn"
-              delay={index * 300}
-              duration={600}
-              useNativeDriver>
-              <TouchableOpacity style={styles.card}>
-                <View style={styles.card_content}>
-                  <Text style={[styles.card_text]}>ID: {item.id}</Text>
-                  <Text style={[styles.card_text]}>Status: {item.status}</Text>
-                </View>
-                <Text style={[styles.card_text]}>
-                  Customer: {item.customer}
-                </Text>
-                <Text style={styles.card_text}>
-                  Description: {item.description}
-                </Text>
-                <Text style={[styles.card_text]}>
-                  Priority: {item.priority}
-                </Text>
-                <Text style={styles.card_text}>Address: {item.address}</Text>
-                <Text style={styles.card_text}>
-                  Estimatrd: {item.estimatrd}
-                </Text>
-              </TouchableOpacity>
-            </Animatable.View>
-          ))}
-        </ScrollView>
+        {/* Table Data using FlatList */}
+       <FlatList
+                 data={visibleJobs}
+                 keyExtractor={(item, index) => index.toString()}
+                 renderItem={renderItem}
+                 onEndReached={handleLoadMore}
+                 onEndReachedThreshold={0.5} // Load when 50% from bottom
+               />
 
         {/* Add Job Button */}
         <TouchableOpacity

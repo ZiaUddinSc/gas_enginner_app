@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Platform,StatusBar } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Color from '../../theme/Colors';
 
@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: Color.primaryBGColor,
+        paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
       },
   
    content:{

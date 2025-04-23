@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {styles} from './styles';
@@ -57,7 +58,7 @@ export default function Index() {
   };
 
   return (
-    <View style={styles.content}>
+    <SafeAreaView style={styles.content}>
     <CustomHeader
         title=""
         leftIcon={<ArrowLeft size={24} color="white" />}
@@ -215,6 +216,6 @@ export default function Index() {
         
       </View>
     </View>
-    </View>
+    </SafeAreaView>
   );
 }

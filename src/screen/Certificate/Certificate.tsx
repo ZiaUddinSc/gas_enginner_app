@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ScrollView, // Added ScrollView
   Button,
+  SafeAreaView,
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {
@@ -60,7 +61,7 @@ const Certificate = () => {
   });
 
   return (
-    <>
+    <SafeAreaView style={styles.safeArea}>
       {/* Header */}
       <CustomHeader
         title="Certificate"
@@ -83,7 +84,7 @@ const Certificate = () => {
           <GasBottomSheet onClose={handleCloseBottomSheet} />
         </BottomSheet>
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 

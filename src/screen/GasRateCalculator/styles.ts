@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Platform,StatusBar} from 'react-native';
 import Color from '../../theme/Colors';
 import {
   widthPercentageToDP as wp,
@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
       content:{
     flex:1,
     // paddingTop:Platform.OS=="ios"?hp(4):null,
-    backgroundColor: Color.primaryBGColor
+    backgroundColor: Color.primaryBGColor,
+    paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
       },
   container: {
     flex: 1,

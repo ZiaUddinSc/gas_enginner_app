@@ -10,7 +10,7 @@ import Color from '../../theme/Colors';
 export const styles = StyleSheet.create({
   content:{
 flex:1,
-paddingTop:Platform.OS=="ios"?hp(4):null,
+paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null,
 backgroundColor: Color.primaryBGColor
   },
   container: {

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions,Platform,StatusBar } from 'react-native';
 
 const { width } = Dimensions.get('window');
 import Color from '../../theme/Colors';
@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
    safeArea: {
             flex: 1,
             backgroundColor: Color.primaryBGColor,
+            paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
           },
     container: {
       flex: 1,
