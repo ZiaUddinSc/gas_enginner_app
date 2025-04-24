@@ -58,7 +58,7 @@ const Home = () => {
   const [isInviteModalVisible, setIsInviteModalVisible] = useState(false);
 
   const handleInviteClick = () => {
-    setIsInviteModalVisible(true);
+    navigation.navigate('InviteFriendScreen');
   };
 
   const handleCloseInviteModal = () => {
@@ -138,10 +138,7 @@ const Home = () => {
   </TouchableOpacity>
 </Animatable.View>
 
-<InviteEngineersModal
-isVisible={isInviteModalVisible}
-onClose={handleCloseInviteModal}
-/>
+
     </SafeAreaView>
   );
 

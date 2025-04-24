@@ -196,7 +196,7 @@ import {Facebook, Mail, MessageSquare, Copy} from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import { styles } from './styles';
 
-const InviteEngineersModal = ({isVisible, onClose}) => {
+const InviteEngineersModal = ({isVisible, onClose,onPress}) => {
   const inviteCode = 'BHU543109';
 
   const copyToClipboard = () => {

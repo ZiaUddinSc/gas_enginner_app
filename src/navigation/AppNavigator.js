@@ -11,6 +11,7 @@ import CreateJobs from '../screen/CreateJobs/CreateJobs';
 import Customers from '../screen/Customers/Customers';
 import CustomersCreate from '../screen/CustomersCreate/CustomersCreate';
 import Certificate from '../screen/Certificate/Certificate';
+import InviteFriendScreen from '../screen/InviteFriendScreen/InviteFriendScreen';
 
 import BottomTabs from './BottomTabs'; // 👈 BottomTab imported
 
@@ -29,6 +30,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Customers" component={Customers} />
       <Stack.Screen name="CustomersCreate" component={CustomersCreate} />
       <Stack.Screen name="Certificate" component={Certificate} />
+      <Stack.Screen name="InviteFriendScreen" component={InviteFriendScreen} />
 
       {/* Dashboard shows BottomTabs */}
       <Stack.Screen name="Dashboard" component={BottomTabs} />
