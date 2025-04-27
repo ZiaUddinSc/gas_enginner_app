@@ -23,12 +23,42 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import DateIcon from '../../components/DateIcon/DateIcon';
+import Avatar from '../../components/Avatar/Avatar';
+import Color from '../../theme/Colors';
+import {
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
-const allJobs = Array.from({length: 100}).map((_, index) => ({
-  title: `Test ${index}`,
-  customer: `Mr. Tom ${index + 1}`,
-  address: `Uttara ${index + 1}`,
-}));
+const titles = [
+  "Software Engineer", "Web Developer", "Data Analyst", "Project Manager",
+  "Marketing Specialist", "Sales Representative", "Customer Support", "UX Designer",
+  "Financial Analyst", "Human Resources Manager"
+];
+
+const customers = [
+  "John Smith", "Alice Johnson", "Robert Williams", "Emily Brown", "Michael Davis",
+  "Olivia Miller", "William Wilson", "Sophia Moore", "James Taylor", "Ava Jackson"
+];
+
+const addresses = [
+  "123 Main St, Anytown, CA 91234", "456 Oak Ave, Pleasantville, NY 10570",
+  "789 Pine Ln, Sunnyvale, TX 75087", "101 Elm Rd, Quietville, OH 43050",
+  "222 Maple Dr, Lakeside, FL 32040", "333 Willow Ct, Hilltop, PA 19003",
+  "444 Birch St, Riverdale, GA 30349", "555 Cedar Blvd, Valleyview, WA 98006",
+  "666 Spruce Ave, Mountainview, CO 80123", "777 Cherry Ln, Oceanview, NC 28469"
+];
+
+const generateSimpleRandomJobs = (count = 20) => {
+  const randomJobs = Array.from({ length: count }).map(() => ({
+    title: titles[Math.floor(Math.random() * titles.length)],
+    customer: customers[Math.floor(Math.random() * customers.length)],
+    address: addresses[Math.floor(Math.random() * addresses.length)],
+  }));
+  return randomJobs;
+};
+
+const allJobs = generateSimpleRandomJobs(100);
+
 
 const PAGE_SIZE = 20;
 
@@ -66,18 +96,23 @@ const JobsScreen = () => {
       duration={600}
       useNativeDriver>
       <TouchableOpacity style={styles.card}>
+     
+      
         <Text style={[styles.card_title]}>{item.title}</Text>
         <View style={styles.line} />
         <View style={styles.card_row}>
-          <View>
+          <View style={{flexDirection:'row',alignItems:'center'}}>
+        <Avatar name={item.customer} colors={[Color.primaryBGColor, '#008080']} size={60} />
+          <View style={{marginLeft:8,width:wp(50)}}>
             <View style={styles.card_content}>
               <User size={24} />
               <Text style={[styles.card_name]}>{item.customer}</Text>
             </View>
             <View style={styles.card_content}>
               <MapPin size={24} />
-              <Text style={styles.card_text}>{item.address}</Text>
+              <Text style={[styles.card_text,{}]}>{item.address}</Text>
             </View>
+          </View>
           </View>
           <TouchableOpacity>
             <DateIcon
@@ -86,6 +121,7 @@ const JobsScreen = () => {
             />
           </TouchableOpacity>
         </View>
+       
       </TouchableOpacity>
     </Animatable.View>
   );
@@ -114,6 +150,18 @@ const JobsScreen = () => {
           </TouchableOpacity>
         </View>
 
+         {/* Add Job Button */}
+         <View
+          
+          style={styles.addJobBtn}>
+            <Text style={styles.addJobText}>Add Job</Text>
+            <TouchableOpacity onPress={() => {
+            navigation.navigate('CreateJobs');
+          }}>
+          <PlusCircle size={24} color={Color.textPrimaryColor} />
+          </TouchableOpacity>
+        </View>
+
         {/* Table Data using FlatList */}
        <FlatList
                  data={visibleJobs}
@@ -123,15 +171,7 @@ const JobsScreen = () => {
                  onEndReachedThreshold={0.5} // Load when 50% from bottom
                />
 
-        {/* Add Job Button */}
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('CreateJobs');
-          }}
-          style={styles.addJobBtn}>
-          <PlusCircle size={18} color="white" />
-          <Text style={styles.addJobText}>Add Job</Text>
-        </TouchableOpacity>
+       
       </View>
     </SafeAreaView>
   );

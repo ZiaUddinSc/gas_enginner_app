@@ -21,21 +21,20 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
 const items = [
-  { label: 'Job', icon: <Wrench size={wp(8)} />, iconColor: '#FFFF00' },
+  { label: 'New Certificate', icon: <Award size={wp(8)} />, iconColor: '#FFFF00' },
+  
   { label: 'Quote', icon: <Calendar size={wp(8)} />, iconColor: '#FFFF00' },
-  {
-    label: 'Domistic Gas Certificate',
-    icon: <Award size={wp(8)} />,
-    iconColor: '#FFFF00',
-  },
+  
   { label: 'Invoice', icon: <FileText size={wp(8)} />, iconColor: '#FFFF00' },
+  { label: 'Job', icon: <Wrench size={wp(8)} />, iconColor: '#FFFF00' },
+  { label: 'Customer', icon: <User size={wp(8)} />, iconColor: '#FFFF00' },
 ];
 
 const HomeBottomSheetContent = ({ onClose }) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const onNext = (action) => {
-    if (action.label === 'Domistic Gas Certificate') {
+    if (action.label === 'New Certificate') {
       navigation.navigate('Certificate');
     }
   };

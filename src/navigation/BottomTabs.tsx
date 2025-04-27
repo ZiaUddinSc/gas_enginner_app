@@ -75,7 +75,7 @@ const BottomTabs = () => {
                   size={24}
                 />
               );
-            if (route.name === 'Calculator')
+            if (route.name === 'Gas Rate Calculator')
               return (
                 <Calculator
                   color={focused ? Color.primaryBGColor : '#9ca3af'}
@@ -98,7 +98,30 @@ const BottomTabs = () => {
           },
         })}>
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Calculator" component={GasRateCalculator} />
+        <Tab.Screen
+  name="Gas Rate Calculator"
+  component={GasRateCalculator}
+  options={{
+    tabBarLabel: ({focused, color}) => (
+      <View style={{alignItems: 'center'}}>
+        <Text
+          style={{
+            color: focused ? Color.primaryBGColor : '#9ca3af',
+            fontSize: 10,
+          }}>
+          Gas Rate
+        </Text>
+        <Text
+          style={{
+            color: focused ? Color.primaryBGColor : '#9ca3af',
+            fontSize: 10,
+          }}>
+          Calculator
+        </Text>
+      </View>
+    ),
+  }}
+/>
         <Tab.Screen
           name="Plus"
           component={View}

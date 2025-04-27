@@ -111,21 +111,21 @@ const styles = StyleSheet.create({
         fontSize: wp('4%'),
         color: '#0F172A',
       },
-      addJobBtn: {
-        marginTop: hp('2%'),
-        backgroundColor: Color.primaryBGColor,
-        padding: wp('3%'),
-        borderRadius: wp('4%'),
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        gap: wp('2%'),
-      },
-      addJobText: {
-        color: 'white',
-        fontSize: wp('4%'),
-        fontWeight:'700'
-      },
+       addJobBtn: {
+             marginBottom: hp('1%'),
+             // backgroundColor: Color.primaryBGColor,
+             padding: wp('3%'),
+             // borderRadius: wp('4%'),
+             alignItems: 'center',
+             flexDirection: 'row',
+             justifyContent: 'space-between',
+             // gap: wp('2%'),
+           },
+           addJobText: {
+             color: Color.textPrimaryColor,
+             fontSize: wp('4%'),
+             fontWeight:'700'
+           },
       card_content:{
         alignItems:'center',
         flexDirection:'row'
@@ -150,12 +150,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         borderRadius: wp('3%'),
         padding: wp('2%'),
-        marginBottom: hp('3%'),
-        // alignItems: 'center',
+        marginBottom: hp('2%'),
+        alignItems: 'center',
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 6,
         elevation: 4,
+        flexDirection:'row'
       }
 });
 

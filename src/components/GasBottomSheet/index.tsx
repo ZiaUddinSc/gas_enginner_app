@@ -1,43 +1,54 @@
-import React, {useCallback, useMemo} from 'react';
+import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import BottomSheet, {
-  BottomSheetScrollView,
-  useBottomSheetTimingConfigs,
-  BottomSheetModalProvider,
-} from '@gorhom/bottom-sheet';
+import BottomSheet, {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {
-  Wrench,
-  Calendar,
-  Award,
-  FileText,
-  ChevronDown,
-} from 'lucide-react-native';
-import Color from '../../theme/Colors'; // Assuming you have a Colors file
+import {ChevronDown, FileText} from 'lucide-react-native';
+import Color from '../../theme/Colors';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
-const data = [
+const groupedData = [
   {
-    id: '1',
-    label: 'Landlord Gas Safety',
-    icon: <Wrench size={24} color="#333" />,
+    groupTitle: 'Invoice/Quote',
+    items: [
+      {id: '1', label: 'Quote'},
+      {id: '2', label: 'Invoice'},
+    ],
   },
   {
-    id: '2',
-    label: 'Homeowner Gas Safety',
-    icon: <Calendar size={24} color="#333" />,
+    groupTitle: 'Domestic Gas Records',
+    items: [
+      {id: '3', label: 'CP12 Gas Safety Record (Landlord/Homeowner)'},
+      {id: '4', label: 'CP14 Gas Warning Notice'},
+      {id: '5', label: 'Service / Maintenance Record'},
+      {id: '6', label: 'Gas Breakdown Record'},
+      {id: '7', label: 'Gas Boiler System Commissioning Checklist'},
+    ],
   },
-  {id: '3', label: 'Service', icon: <Award size={24} color="#333" />},
   {
-    id: '4',
-    label: 'Gas Warning Notice',
-    icon: <FileText size={24} color="#333" />,
+    groupTitle: 'Miscellaneous',
+    items: [
+      {id: '8', label: 'Powerflush Certificate'},
+      {id: '9', label: 'Installation / Commissioning Decommissioning Record'},
+      {id: '10', label: 'Unvented Hot Water Cylinders'},
+      {id: '11', label: 'Job Sheet'},
+    ],
   },
 ];
 
 const GasBottomSheet = ({onClose}) => {
+    const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  
+    const onNext = (action) => {
+      console.log(action)
+      // if (action.label === 'New Certificate') {
+      //   navigation.navigate('Certificate');
+      // }
+    };
+
   return (
     <BottomSheetScrollView contentContainerStyle={{elevation: 5}}>
       <View style={styles.container}>
@@ -48,37 +59,50 @@ const GasBottomSheet = ({onClose}) => {
           <Text style={styles.title}>Certificate Types</Text>
         </View>
 
-        <View style={styles.actionsContainer}>
-          {data.map((action, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.actionItem,
-                {
-                  backgroundColor: index % 2 === 0 ? '#eff9f9' : Color.white,
-                },
-              ]}
-              onPress={() => {
-                // Handle action based on label
+        {groupedData.map((group, groupIndex) => (
+          <View key={groupIndex} style={styles.groupContainer}>
+            <Text style={styles.groupTitle}>{group.groupTitle}</Text>
 
-                onClose(); // Close the bottom sheet after action (optional)
-              }}>
-              <View style={[styles.iconContainer]}>
-                {React.cloneElement(action.icon, {
-                  color: index % 2 === 0 ? '#3aad99' : Color.primaryBGColor,
-                })}
-              </View>
-
-              <Text
+            {group.items.map((item, itemIndex) => (
+              <TouchableOpacity
+                key={item.id}
                 style={[
-                  styles.actionText,
-                  {color: index % 2 === 0 ? '#3aad99' : Color.primaryBGColor},
-                ]}>
-                {action.label}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+                  styles.actionItem,
+                  {
+                    backgroundColor:
+                      itemIndex % 2 === 0 ? '#eff9f9' : Color.white,
+                  },
+                ]}
+                onPress={() => {
+                  // Handle click
+                  onNext(item);
+                  onClose();
+                }}>
+                <View style={styles.iconContainer}>
+                  <FileText
+                    size={24}
+                    color={
+                      itemIndex % 2 === 0 ? '#3aad99' : Color.primaryBGColor
+                    }
+                  />
+                </View>
+
+                <Text
+                  style={[
+                    styles.actionText,
+                    {
+                      color:
+                        itemIndex % 2 === 0
+                          ? '#3aad99'
+                          : Color.primaryBGColor,
+                    },
+                  ]}>
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        ))}
       </View>
     </BottomSheetScrollView>
   );
@@ -89,8 +113,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white,
     borderTopLeftRadius: wp(3),
     borderTopRightRadius: wp(3),
-    // padding: wp(4),
     alignItems: 'center',
+    paddingBottom: hp(5),
   },
   header: {
     flexDirection: 'row',
@@ -106,55 +130,35 @@ const styles = StyleSheet.create({
     marginRight: wp(3),
   },
   title: {
-    fontSize: wp(5),
+    fontSize: wp(4.2),
     color: Color.textColor,
     fontWeight: 'bold',
   },
-  actionsContainer: {
-    // marginBottom: hp(2),
+  groupContainer: {
+    width: wp(94),
+    marginTop: hp(1),
+  },
+  groupTitle: {
+    fontSize: wp(3.6), 
+    fontWeight: 'bold',
+    color: '#6B7280',
+    marginBottom: hp(1),
   },
   actionItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: hp(1.5),
+    paddingVertical: hp(1), 
     paddingHorizontal: wp(3),
-    borderRadius: wp(1),
+    borderRadius: wp(2),
     elevation: 2,
-    marginBottom: hp(2),
-    width: wp(94),
+    marginBottom: hp(1),
   },
   iconContainer: {
-    marginRight: wp(3),
+    marginRight: wp(2),
   },
   actionText: {
-    fontSize: wp(4.8),
-    color: Color.textColor,
-    fontWeight: '700',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  cancelButton: {
-    paddingHorizontal: wp(5),
-    paddingVertical: hp(1.2),
-    marginRight: wp(3),
-  },
-  cancelText: {
-    fontSize: wp(4.5),
-    color: '#6B7280',
-    fontWeight: 'bold',
-  },
-  okButton: {
-    backgroundColor: Color.primaryBGColor,
-    paddingHorizontal: wp(5),
-    paddingVertical: hp(1.2),
-    borderRadius: wp(1),
-  },
-  okText: {
-    fontSize: wp(4.5),
-    color: Color.white,
-    fontWeight: 'bold',
+    fontSize: wp(3.8),
+    fontWeight: '600',
   },
 });
 

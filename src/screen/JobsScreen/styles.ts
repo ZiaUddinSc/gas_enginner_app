@@ -112,17 +112,17 @@ const styles = StyleSheet.create({
         color: '#0F172A',
       },
       addJobBtn: {
-        marginTop: hp('2%'),
-        backgroundColor: Color.primaryBGColor,
+        marginBottom: hp('1%'),
+        // backgroundColor: Color.primaryBGColor,
         padding: wp('3%'),
-        borderRadius: wp('4%'),
+        // borderRadius: wp('4%'),
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center',
-        gap: wp('2%'),
+        justifyContent: 'space-between',
+        // gap: wp('2%'),
       },
       addJobText: {
-        color: 'white',
+        color: Color.textPrimaryColor,
         fontSize: wp('4%'),
         fontWeight:'700'
       },
