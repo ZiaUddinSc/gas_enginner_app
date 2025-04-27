@@ -5,16 +5,12 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  StyleSheet,
   SafeAreaView,
 } from 'react-native';
 import {
-  PlusCircle,
   ArrowLeft,
   LogOut,
   Search,
-  User,
-  MapPin,
   Plus,
 } from 'lucide-react-native';
 import styles from './styles';
