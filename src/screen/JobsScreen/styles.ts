@@ -15,13 +15,13 @@ const styles = StyleSheet.create({
           },
     container: {
         flex: 1,
-        padding: wp('2%'),
+        // padding: wp('2%'),
         backgroundColor: Color.white,
       },
 
       filterRow: {
         flexDirection: 'row',
-        marginBottom: hp('1.5%'),
+        // marginBottom: hp('1.5%'),
         gap: wp('2%'),
         flexWrap: 'wrap',
         alignItems:'center',
@@ -112,14 +112,15 @@ const styles = StyleSheet.create({
         color: '#0F172A',
       },
       addJobBtn: {
-        marginBottom: hp('1%'),
+        // marginBottom: hp('1%'),
         // backgroundColor: Color.primaryBGColor,
         padding: wp('3%'),
         // borderRadius: wp('4%'),
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // gap: wp('2%'),
+         borderBottomWidth:3,
+             borderBottomColor:'#ddd7d6'
       },
       addJobText: {
         color: Color.textPrimaryColor,
@@ -137,45 +138,40 @@ const styles = StyleSheet.create({
     },
     card_text:{ 
       color:'black',
-      fontSize: hp(1.8),
+      fontSize: hp(1.7),
       paddingLeft:wp(3),
       fontWeight:'400',
       paddingTop:7
      },
     card_name:{ 
       color:'black',
-      fontSize: hp(1.8),
+      fontSize: hp(1.9),
       paddingLeft:wp(3),
       fontWeight:'500',
       paddingTop:7
      },
      card_title:{ 
       color:'black',
-      fontSize: hp(2),
-      fontWeight:'bold',
+      fontSize: hp(1.8),
+      fontWeight:'700',
       paddingLeft:wp(3)
      },
      line:{
-      width: '100%',
-      height: 1,
+      width: wp(94),
+      height: 2,
       backgroundColor: 'gray',
       opacity: 0.2,
-      marginVertical:hp(1)
+      marginVertical:hp(1),
+      alignSelf:'center'
     },
        scrollContent: {
         padding: wp('1%'),
         paddingBottom: hp('10%'),
       },
       card:{
-        backgroundColor: '#F3F6FA',
-        borderRadius: wp('3%'),
         padding: wp('2%'),
-        marginBottom: hp('3%'),
-        // alignItems: 'center',
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
+         borderBottomWidth:1,
+             borderBottomColor:'#ddd7d6'
       }
 });
 

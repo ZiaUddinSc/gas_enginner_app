@@ -1,128 +1,4 @@
-// import React, {useState} from 'react';
-// import {
-//   View,
-//   Text,
-//   TextInput,
-//   TouchableOpacity,
-//   FlatList,
-//   StyleSheet,
-//   ScrollView,
-//   SafeAreaView, // Added ScrollView
-// } from 'react-native';
-// import {
-//   PlusCircle,
-//   ChevronLeft,
-//   ChevronRight,
-//   MapPin,
-//   ArrowLeft,
-//   LogOut,
-//   Search,
-//   User,
-//   Building,
-// } from 'lucide-react-native';
-// import {
-//   widthPercentageToDP as wp,
-//   heightPercentageToDP as hp,
-// } from 'react-native-responsive-screen';
-// import styles from './styles';
-// import CustomHeader from '../../components/CustomHeader/CustomHeader';
-// import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-// import {useNavigation} from '@react-navigation/native';
-// import * as Animatable from 'react-native-animatable';
 
-// const jobsData = [
-//   {
-//     company: '',
-//     name: 'Mr. Tom',
-//     address: 'Uttara Model Town or simply Uttara',
-//   },
-//   {
-//     company: '',
-//     name: 'Mr. Tom',
-//     address: 'Uttara Model Town or simply Uttara',
-//   },
-//   {
-//     company: '',
-//     name: 'Mr. Tom',
-//     address: 'Uttara Model Town or simply Uttara',
-//   },
-//   {
-//     company: 'Test',
-//     name: 'Mr. Tom',
-//     address: 'Uttara Model Town or simply Uttara',
-//   },
-// ];
-
-// const Customers = () => {
-//   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-//   const [search, setSearch] = useState('');
-
-//   return (
-//     <SafeAreaView style={styles.safeArea}>
-//       {/* Header */}
-//       <CustomHeader
-//         title="Customers"
-//         leftIcon={<ArrowLeft size={24} color="white" />}
-//         onLeftPress={() => navigation.goBack()}
-//         rightIcon1={<LogOut size={24} color="white" />}
-//       />
-//       <View style={styles.container}>
-//         {/* Filter Row */}
-//         <View style={styles.filterRow}>
-//           <TextInput
-//             style={styles.input}
-//             placeholder="Search..."
-//             value={search}
-//             onChangeText={setSearch}
-//           />
-//           <TouchableOpacity style={styles.searchIcon}>
-//             <Search size={20} />
-//           </TouchableOpacity>
-//         </View>
-
-//         <ScrollView contentContainerStyle={styles.scrollContent}>
-//           {jobsData.map((item, index) => (
-//             <Animatable.View
-//               key={index}
-//               animation="zoomIn"
-//               delay={index * 300}
-//               duration={600}
-//               useNativeDriver>
-//               <TouchableOpacity style={styles.card}>
-//                 <View style={styles.card_content}>
-//                   <User size={24} />
-//                   <Text style={[styles.card_name_text]}>{item.name}</Text>
-//                 </View>
-//                 {item.company && (
-//                   <View style={[styles.card_content, {marginTop: 7}]}>
-//                     <Building size={22} />
-//                     <Text style={[styles.card_text]}>{item.company}</Text>
-//                   </View>
-//                 )}
-//                 <View style={[styles.card_content, {marginTop: 7}]}>
-//                   <MapPin size={24} />
-//                   <Text style={styles.card_text}>{item.address}</Text>
-//                 </View>
-//               </TouchableOpacity>
-//             </Animatable.View>
-//           ))}
-//         </ScrollView>
-
-//         {/* Add Job Button */}
-//         <TouchableOpacity
-//           onPress={() => {
-//             navigation.navigate('CustomersCreate');
-//           }}
-//           style={styles.addJobBtn}>
-//           <PlusCircle size={18} color="white" />
-//           <Text style={styles.addJobText}>Add Customer</Text>
-//         </TouchableOpacity>
-//       </View>
-//     </SafeAreaView>
-//   );
-// };
-
-// export default Customers;
 
 import React, {useState, useEffect} from 'react';
 import {
@@ -135,7 +11,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {
-  PlusCircle,
+  Plus,
   ArrowLeft,
   LogOut,
   Search,
@@ -271,17 +147,17 @@ const Customers = () => {
       />
       <View style={{marginLeft: 8}}>
         <View style={styles.card_content}>
-          <User size={24} />
+          
           <Text style={styles.card_name_text}>{item.name}</Text>
         </View>
         {item.company !== '' && (
           <View style={[styles.card_content, {marginTop: 7}]}>
-            <Building size={22} />
+            
             <Text style={styles.card_text}>{item.company}</Text>
           </View>
         )}
         <View style={[styles.card_content, {marginTop: 7}]}>
-          <MapPin size={24} />
+          
           <Text style={[styles.card_text, {width: wp(65)}]}>
             {item.address}
           </Text>
@@ -299,6 +175,7 @@ const Customers = () => {
         rightIcon1={<LogOut size={24} color="white" />}
       />
       <View style={styles.container}>
+        <View style={{backgroundColor:'#ddd7d6',padding:wp(2)}}>
         <View style={styles.filterRow}>
           <TextInput
             style={styles.input}
@@ -310,14 +187,14 @@ const Customers = () => {
             <Search size={20} />
           </TouchableOpacity>
         </View>
-
+        </View>
         <View style={styles.addJobBtn}>
           <Text style={styles.addJobText}>Add Customer</Text>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('CustomersCreate');
             }}>
-            <PlusCircle size={24} color={Color.textPrimaryColor} />
+            <Plus size={24} color={Color.textPrimaryColor} />
           </TouchableOpacity>
         </View>
 

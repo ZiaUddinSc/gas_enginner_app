@@ -15,13 +15,13 @@ const styles = StyleSheet.create({
           },
     container: {
         flex: 1,
-        padding: wp('4%'),
+        // padding: wp('4%'),
         backgroundColor: Color.white,
       },
 
       filterRow: {
         flexDirection: 'row',
-        marginBottom: hp('1.5%'),
+        // marginBottom: hp('1.5%'),
         gap: wp('2%'),
         flexWrap: 'wrap',
         alignItems:'center',
@@ -113,13 +113,12 @@ const styles = StyleSheet.create({
       },
        addJobBtn: {
              marginBottom: hp('1%'),
-             // backgroundColor: Color.primaryBGColor,
              padding: wp('3%'),
-             // borderRadius: wp('4%'),
              alignItems: 'center',
              flexDirection: 'row',
              justifyContent: 'space-between',
-             // gap: wp('2%'),
+             borderBottomWidth:3,
+             borderBottomColor:'#ddd7d6'
            },
            addJobText: {
              color: Color.textPrimaryColor,
@@ -132,13 +131,13 @@ const styles = StyleSheet.create({
     },
       card_text:{ 
         color:'black',
-        fontSize: hp(2),
+        fontSize: hp(1.7),
         paddingLeft:wp(3),
         fontWeight:'400',
        },
        card_name_text:{ 
         color:'black',
-        fontSize: hp(2),
+        fontSize: hp(1.9),
         fontWeight:'bold',
         paddingLeft:wp(3)
        },
@@ -148,15 +147,18 @@ const styles = StyleSheet.create({
       },
       card:{
         backgroundColor: '#FFF',
-        borderRadius: wp('3%'),
+        // borderRadius: wp('3%'),
         padding: wp('2%'),
-        marginBottom: hp('2%'),
+        paddingHorizontal:wp(2),
+        // marginBottom: hp('2%'),
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 4,
-        flexDirection:'row'
+        // shadowColor: '#000',
+        // shadowOpacity: 0.1,
+        // shadowRadius: 6,
+        // elevation: 4,
+        flexDirection:'row',
+         borderBottomWidth:1,
+             borderBottomColor:'#ddd7d6'
       }
 });
 
