@@ -12,7 +12,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const ApplianceAndInspections = () => {
+const ApplianceAndInspections = ({onPress}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Appliance & Inspections</Text>
@@ -26,7 +26,7 @@ const ApplianceAndInspections = () => {
         <Text style={styles.addButtonText}>Add Appliance</Text>
 
         <TouchableOpacity style={{}} onPress={() => {}}>
-          <PlusCircle size={wp(6)} color="#000" style={styles.addIcon} />
+          <PlusCircle size={wp(6)} color="#000" style={styles.addIcon} onPress={onPress}/>
         </TouchableOpacity>
       </View>
     </View>

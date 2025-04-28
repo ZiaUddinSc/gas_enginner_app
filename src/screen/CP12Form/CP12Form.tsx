@@ -25,34 +25,28 @@ import {
   User,
 } from 'lucide-react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation,useRoute} from '@react-navigation/native';
 
 const CP12Form = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const route = useRoute();
+  const applianceData = route.params?.applianceData;
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const totalQuestions = 8;
 
-  const [comments, setComments] = useState(['', '', '', '']);
+  console.log(applianceData)
+
   const [signature, setSignature] = useState(null);
   const [todayDate, setTodayDate] = useState(new Date());
   const [nextInspectionDate, setNextInspectionDate] = useState(
     new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
   );
   const [receivedBy, setReceivedBy] = useState('Mr. John Doe');
-  const [relation, setRelation] = useState('N/A');
+ 
 
-  const updateComment = (index, text) => {
-    const newComments = [...comments];
-    newComments[index] = text;
-    setComments(newComments);
-  };
 
-  const handleCreateCertificate = () => {
-    // Certificate creation logic here
-    console.log('Certificate created');
-  };
 
   const handleJobSelection = job => {
     setSelectedJob(job);
@@ -81,7 +75,7 @@ const CP12Form = () => {
 
         {/* Appliance & Inspections */}
 
-        <ApplianceAndInspections />
+        <ApplianceAndInspections onPress={() => navigation.navigate('AddAppliance')} />
 
         {/* Safety Checks */}
         <View style={styles.safety_container}>
