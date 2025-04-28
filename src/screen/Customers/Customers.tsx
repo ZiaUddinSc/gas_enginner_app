@@ -143,9 +143,9 @@ const Customers = () => {
       <Avatar
         name={item.name}
         colors={[Color.primaryBGColor, '#008080']}
-        size={60}
+        size={50}
       />
-      <View style={{marginLeft: 8}}>
+      <View style={{marginLeft: 0}}>
         <View style={styles.card_content}>
           
           <Text style={styles.card_name_text}>{item.name}</Text>

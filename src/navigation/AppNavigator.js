@@ -12,6 +12,7 @@ import Customers from '../screen/Customers/Customers';
 import CustomersCreate from '../screen/CustomersCreate/CustomersCreate';
 import Certificate from '../screen/Certificate/Certificate';
 import InviteFriendScreen from '../screen/InviteFriendScreen/InviteFriendScreen';
+import CP12Form from '../screen/CP12Form/CP12Form';
 
 import BottomTabs from './BottomTabs'; // 👈 BottomTab imported
 
@@ -31,6 +32,7 @@ export default function AppNavigator() {
       <Stack.Screen name="CustomersCreate" component={CustomersCreate} />
       <Stack.Screen name="Certificate" component={Certificate} />
       <Stack.Screen name="InviteFriendScreen" component={InviteFriendScreen} />
+      <Stack.Screen name="CP12Form" component={CP12Form} />
 
       {/* Dashboard shows BottomTabs */}
       <Stack.Screen name="Dashboard" component={BottomTabs} />

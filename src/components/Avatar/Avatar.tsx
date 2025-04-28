@@ -24,7 +24,7 @@ const Avatar = ({ name, size = 40, colors = ['#007AFF', '#4FD6FF'] }) => {
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
-      <Text style={[styles.text, { fontSize: size / 2 }]}>{initials}</Text>
+      <Text style={[styles.text, { fontSize: size / 3.2 }]}>{initials}</Text>
     </LinearGradient>
   );
 };
@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: '700',
+    fontSize:20
   },
 });
 

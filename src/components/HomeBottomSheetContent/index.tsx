@@ -7,7 +7,7 @@ import {
   Award,
   FileText,
   X,
-  ChevronDown,
+  CircleX
 } from 'lucide-react-native';
 import {
   widthPercentageToDP as wp,
@@ -21,13 +21,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
 const items = [
-  { label: 'New Certificate', icon: <Award size={wp(8)} />, iconColor: '#FFFF00' },
+  { label: 'New Certificate', icon: <Award size={wp(6)} />, iconColor: '#FFFF00' },
   
-  { label: 'Quote', icon: <Calendar size={wp(8)} />, iconColor: '#FFFF00' },
+  { label: 'Quote', icon: <Calendar size={wp(6)} />, iconColor: '#FFFF00' },
   
-  { label: 'Invoice', icon: <FileText size={wp(8)} />, iconColor: '#FFFF00' },
-  { label: 'Job', icon: <Wrench size={wp(8)} />, iconColor: '#FFFF00' },
-  { label: 'Customer', icon: <User size={wp(8)} />, iconColor: '#FFFF00' },
+  { label: 'Invoice', icon: <FileText size={wp(6)} />, iconColor: '#FFFF00' },
+  { label: 'Job', icon: <Wrench size={wp(6)} />, iconColor: '#FFFF00' },
+  { label: 'Customer', icon: <User size={wp(6)} />, iconColor: '#FFFF00' },
 ];
 
 const HomeBottomSheetContent = ({ onClose }) => {
@@ -43,10 +43,11 @@ const HomeBottomSheetContent = ({ onClose }) => {
     <BottomSheetScrollView contentContainerStyle={{ elevation: 5 }}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.arrowDown} onPress={() => onClose()}>
-            <ChevronDown size={wp(8)} color="#6B7280" />
-          </TouchableOpacity>
+          
           <Text style={styles.title}>New Add</Text>
+          <TouchableOpacity style={styles.arrowDown} onPress={() => onClose()}>
+            <CircleX size={wp(7)} color="#6B7280" />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.actionsContainer}>
@@ -56,7 +57,12 @@ const HomeBottomSheetContent = ({ onClose }) => {
               style={[
                 styles.actionItem,
                 {
-                  backgroundColor: index % 2 === 0 ? '#eff9f9' : Color.white,
+                  backgroundColor: Color.white,
+                  // backgroundColor: index % 2 === 0 ? '#eff9f9' : Color.white,
+                  borderTopRightRadius:action.label==='New Certificate'?10:null,
+                  borderTopLeftRadius:action.label==='New Certificate'?10:null,
+                  borderBottomRightRadius:action.label==='Customer'?10:null,
+                  borderBottomLeftRadius:action.label==='Customer'?10:null,
                 },
               ]}
               onPress={() => {
@@ -66,14 +72,14 @@ const HomeBottomSheetContent = ({ onClose }) => {
               }}>
               <View style={[styles.iconContainer]}>
                 {React.cloneElement(action.icon, {
-                  color: index % 2 === 0 ? '#3aad99' : Color.primaryBGColor,
+                  color:  Color.primaryBGColor,
                 })}
               </View>
 
               <Text
                 style={[
                   styles.actionText,
-                  { color: index % 2 === 0 ? '#3aad99' : Color.primaryBGColor },
+                  { color:  Color.primaryBGColor },
                 ]}>
                 {action.label}
               </Text>
@@ -87,7 +93,7 @@ const HomeBottomSheetContent = ({ onClose }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Color.white,
+    backgroundColor: '#e2e8f0',
     borderTopLeftRadius: wp(3),
     borderTopRightRadius: wp(3),
     // padding: wp(4),
@@ -96,47 +102,42 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: hp(2),
+    // marginBottom: hp(2),
     borderBottomWidth: 0.5,
     borderBottomColor: Color.primaryBGColor,
-    padding: wp(2),
-    paddingLeft: wp(5),
+    paddingHorizontal: wp(4),
+    paddingBottom: wp(4),
     width: wp(100),
+    backgroundColor:'#FFF',justifyContent:'space-between'
   },
   arrowDown: {
-    marginRight: wp(3),
+ 
   },
   title: {
-    fontSize: wp(5),
+    fontSize: wp(4),
     color: Color.textColor,
     fontWeight: 'bold',
   },
   actionsContainer: {
-    // marginBottom: hp(2),
+    margin: hp(1),
+    backgroundColor:'#e2e8f0',
+    
   },
   actionItem: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: hp(1.5),
     paddingHorizontal: wp(3),
-    borderRadius: wp(1),
-    marginBottom: hp(2),
     width: wp(94),
-    shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e2e8f0',
 
-elevation: 1,
   },
   iconContainer: {
     marginRight: wp(3),
   },
   actionText: {
-    fontSize: wp(4.8),
+    fontSize: wp(3.8),
     color: Color.textColor,
     fontWeight: '700',
   },

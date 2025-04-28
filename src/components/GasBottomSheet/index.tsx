@@ -5,7 +5,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ChevronDown, FileText} from 'lucide-react-native';
+import {ChevronDown, FileText,CircleX} from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -38,26 +38,31 @@ const groupedData = [
     ],
   },
 ];
+const roundedTop = ['Quote', 'CP12 Gas Safety Record (Landlord/Homeowner)', 'Powerflush Certificate'];
+const roundedBottom = ['Invoice', 'Gas Boiler System Commissioning Checklist', 'Job Sheet'];
+
 
 const GasBottomSheet = ({onClose}) => {
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
   
     const onNext = (action) => {
       console.log(action)
-      // if (action.label === 'New Certificate') {
-      //   navigation.navigate('Certificate');
-      // }
+      if (action.label === 'CP12 Gas Safety Record (Landlord/Homeowner)') {
+        navigation.navigate('CP12Form');
+      }
     };
 
   return (
     <BottomSheetScrollView contentContainerStyle={{elevation: 5}}>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.arrowDown} onPress={() => onClose()}>
-            <ChevronDown size={wp(8)} color="#6B7280" />
-          </TouchableOpacity>
+      <View style={styles.header}>
+          
           <Text style={styles.title}>Certificate Types</Text>
+          <TouchableOpacity style={styles.arrowDown} onPress={() => onClose()}>
+            <CircleX size={wp(7)} color="#6B7280" />
+          </TouchableOpacity>
         </View>
+       
 
         {groupedData.map((group, groupIndex) => (
           <View key={groupIndex} style={styles.groupContainer}>
@@ -70,7 +75,12 @@ const GasBottomSheet = ({onClose}) => {
                   styles.actionItem,
                   {
                     backgroundColor:
-                      itemIndex % 2 === 0 ? '#eff9f9' : Color.white,
+                       Color.white,
+                       borderTopRightRadius: roundedTop.includes(item.label) ? 10 : null,
+                        borderTopLeftRadius:roundedTop.includes(item.label) ? 10 : null,
+
+                  borderBottomRightRadius:roundedBottom.includes(item.label) ? 10 : null,
+                  borderBottomLeftRadius:roundedBottom.includes(item.label) ? 10 : null
                   },
                 ]}
                 onPress={() => {
@@ -78,11 +88,12 @@ const GasBottomSheet = ({onClose}) => {
                   onNext(item);
                   onClose();
                 }}>
+                  
                 <View style={styles.iconContainer}>
                   <FileText
                     size={24}
                     color={
-                      itemIndex % 2 === 0 ? '#3aad99' : Color.primaryBGColor
+                       Color.primaryBGColor
                     }
                   />
                 </View>
@@ -92,13 +103,12 @@ const GasBottomSheet = ({onClose}) => {
                     styles.actionText,
                     {
                       color:
-                        itemIndex % 2 === 0
-                          ? '#3aad99'
-                          : Color.primaryBGColor,
+                           Color.primaryBGColor,
                     },
                   ]}>
                   {item.label}
                 </Text>
+                
               </TouchableOpacity>
             ))}
           </View>
@@ -110,33 +120,55 @@ const GasBottomSheet = ({onClose}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Color.white,
+    backgroundColor: '#e2e8f0',
     borderTopLeftRadius: wp(3),
     borderTopRightRadius: wp(3),
+    // padding: wp(4),
     alignItems: 'center',
-    paddingBottom: hp(5),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: hp(2),
+    // marginBottom: hp(2),
     borderBottomWidth: 0.5,
     borderBottomColor: Color.primaryBGColor,
-    padding: wp(2),
-    paddingLeft: wp(5),
+    paddingHorizontal: wp(4),
+    paddingBottom: wp(4),
     width: wp(100),
+    backgroundColor:'#FFF',justifyContent:'space-between'
   },
   arrowDown: {
-    marginRight: wp(3),
+ 
   },
   title: {
-    fontSize: wp(4.2),
+    fontSize: wp(4),
     color: Color.textColor,
     fontWeight: 'bold',
   },
+  actionsContainer: {
+    margin: hp(1),
+    backgroundColor:'#e2e8f0',
+    
+    
+  },
+  actionItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: hp(1.2),
+    paddingHorizontal: wp(2),
+    width: wp(94),
+    borderBottomWidth: 1,
+    borderBottomColor: '#e2e8f0',
+
+  },
+  iconContainer: {
+    marginRight: wp(3),
+  },
+
   groupContainer: {
     width: wp(94),
     marginTop: hp(1),
+    
   },
   groupTitle: {
     fontSize: wp(3.6), 
@@ -144,18 +176,18 @@ const styles = StyleSheet.create({
     color: '#6B7280',
     marginBottom: hp(1),
   },
-  actionItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: hp(1), 
-    paddingHorizontal: wp(3),
-    borderRadius: wp(2),
-    elevation: 2,
-    marginBottom: hp(1),
-  },
-  iconContainer: {
-    marginRight: wp(2),
-  },
+  // actionItem: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   paddingVertical: hp(1), 
+  //   paddingHorizontal: wp(3),
+  //   borderRadius: wp(2),
+  //   elevation: 2,
+  //   marginBottom: hp(1),
+  // },
+  // iconContainer: {
+  //   marginRight: wp(2),
+  // },
   actionText: {
     fontSize: wp(3.8),
     fontWeight: '600',
