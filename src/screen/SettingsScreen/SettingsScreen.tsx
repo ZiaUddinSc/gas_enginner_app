@@ -13,7 +13,6 @@ import {
   FileText,
   Bell,
   ArrowLeft,
-  LogOut,
 } from 'lucide-react-native';
 import {styles} from './styles';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
@@ -58,7 +57,6 @@ const SettingsScreen = () => {
         title="Setting"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
 
       <View style={styles.container}>

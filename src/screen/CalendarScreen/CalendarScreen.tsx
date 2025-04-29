@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 
 import { Calendar } from 'react-native-calendars';
-import { Home, ChevronLeft, ChevronRight, ArrowLeft,
-    LogOut, } from 'lucide-react-native';
+import { Home, ChevronLeft, ChevronRight, ArrowLeft, } from 'lucide-react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -214,7 +213,6 @@ const CalendarScreen = () => {
         title="Calendar"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
       
      

@@ -15,6 +15,7 @@ import InviteFriendScreen from '../screen/InviteFriendScreen/InviteFriendScreen'
 import CP12Form from '../screen/CP12Form/CP12Form';
 import AddApplianceScreen from '../screen/CP12Form/AddAppliance';
 import SelectItemScreen from '../screen/CP12Form/SelectItemScreen';
+import SignatureScreen from '../screen/CP12Form/SignatureScreen';
 
 import BottomTabs from './BottomTabs'; // 👈 BottomTab imported
 
@@ -37,6 +38,7 @@ export default function AppNavigator() {
       <Stack.Screen name="CP12Form" component={CP12Form} />
       <Stack.Screen name="AddAppliance" component={AddApplianceScreen} />
       <Stack.Screen name="SelectItem" component={SelectItemScreen} />
+      <Stack.Screen name="SignatureScreen" component={SignatureScreen} />
 
       {/* Dashboard shows BottomTabs */}
       <Stack.Screen name="Dashboard" component={BottomTabs} />

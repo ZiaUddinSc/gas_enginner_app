@@ -44,7 +44,7 @@ const HomeBottomSheetContent = ({ onClose }) => {
       <View style={styles.container}>
         <View style={styles.header}>
           
-          <Text style={styles.title}>New Add</Text>
+          <Text style={styles.title}>Add New</Text>
           <TouchableOpacity style={styles.arrowDown} onPress={() => onClose()}>
             <CircleX size={wp(7)} color="#6B7280" />
           </TouchableOpacity>

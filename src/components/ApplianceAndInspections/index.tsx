@@ -18,7 +18,7 @@ const ApplianceAndInspections = ({onPress}) => {
       <Text style={styles.title}>Appliance & Inspections</Text>
       <View style={{backgroundColor: '#FFF', padding: 4}}>
         <Text style={styles.label}>NUMBER OF APPLIANCE</Text>
-        <Text style={styles.label}>0</Text>
+        <Text style={[styles.label,{textAlign:'right',fontSize:hp(2.2),fontWeight:'700',paddingRight:5,color:'#222'}]}>0</Text>
       </View>
 
       <View

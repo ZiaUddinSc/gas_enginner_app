@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
    safeArea: {
             flex: 1,
             backgroundColor: Color.primaryBGColor,
-             paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
           },
     container: {
         flex: 1,
@@ -170,8 +169,12 @@ const styles = StyleSheet.create({
       },
       card:{
         padding: wp('2%'),
-         borderBottomWidth:1,
-             borderBottomColor:'#ddd7d6'
+         borderWidth:1,
+             borderColor:'#ddd7d6',
+             margin:wp(1),
+             marginHorizontal:hp(1),
+             borderRadius:wp(2)
+
       }
 });
 

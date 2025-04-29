@@ -10,7 +10,7 @@ import {
   StatusBar,
   ScrollView,
 } from 'react-native';
-import {ArrowLeft, LogOut, ChevronDown} from 'lucide-react-native';
+import {ArrowLeft, ChevronDown} from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import {
   widthPercentageToDP as wp,
@@ -101,7 +101,6 @@ const AddApplianceScreen = () => {
         title="Add Appliance"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
       <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
         {/* Location Dropdown */}
@@ -116,8 +115,8 @@ const AddApplianceScreen = () => {
                 title: 'Locations',
               })
             }>
-            <Text style={formData.location ? {color: '#222'} : {color: '#888'}}>
-              {formData.location ? formData.location.name : 'Search Here...'}
+            <Text style={styles.drop}>
+              {formData.location ? formData.location.name : 'Please Select'}
             </Text>
             <ChevronDown size={18} />
           </TouchableOpacity>
@@ -135,8 +134,8 @@ const AddApplianceScreen = () => {
                 title: 'Makes',
               })
             }>
-            <Text style={formData.make ? {color: '#222'} : {color: '#888'}}>
-              {formData.make ? formData.make.name : 'Search Here...'}
+            <Text style={[formData.make ? {color: '#222'} : {color: '#888'},styles.drop]}>
+              {formData.make ? formData.make.name : 'Please Select'}
             </Text>
             <ChevronDown size={18} />
           </TouchableOpacity>
@@ -166,8 +165,8 @@ const AddApplianceScreen = () => {
                 title: 'Types',
               })
             }>
-            <Text style={formData.type ? {color: '#222'} : {color: '#888'}}>
-            {formData.type ? formData.type.name : 'Search Here...'}
+            <Text style={styles.drop}>
+            {formData.type ? formData.type.name : 'Please Select'}
             </Text>
             <ChevronDown size={18} />
           </TouchableOpacity>
@@ -209,8 +208,8 @@ const AddApplianceScreen = () => {
                 title: 'Flue Types',
               })
             }>
-            <Text style={formData.flueType ? {color: '#222'} : {color: '#888'}}>
-            {formData.flueType ? formData.flueType.name : 'Search Here...'}
+            <Text style={styles.drop}>
+            {formData.flueType ? formData.flueType.name : 'Please Select'}
             </Text>
             <ChevronDown size={18} />
           </TouchableOpacity>
@@ -639,9 +638,7 @@ const AddApplianceScreen = () => {
           </View>
         </View>
         <View style={styles.csButtonA}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.csButton}>
-            <Text style={styles.csBText}>Cancel</Text>
-          </TouchableOpacity>
+          
           <TouchableOpacity onPress={() => handleSave()} style={[styles.csButton,{backgroundColor: Color.primaryBGColor,}]}>
             <Text style={[styles.csBText,{color:'#FFF'}]}>Save</Text>
           </TouchableOpacity>
@@ -655,7 +652,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: Color.primaryBGColor,
-    paddingTop: Platform.OS == 'android' ? StatusBar.currentHeight : null,
+    // paddingTop: Platform.OS == 'android' ? StatusBar.currentHeight : null,
   },
   container: {
     backgroundColor: '#FFF',
@@ -671,21 +668,31 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
   },
   label: {
-    color: '#7f8c8d',
-    fontSize: hp(1.8),
+    color: '#222',
+    fontSize: hp(2.1),
     marginBottom: hp(1),
+  },
+  drop: {
+    color: '#7f8c8d',
+    fontSize: hp(2),
   },
   input: {
     backgroundColor: '#FFF',
     borderRadius: 5,
     padding: wp(2.2),
-    fontSize: hp(1.7),
+    fontSize: hp(2),
+    height:hp(6),
     color: '#2c3e50',
-    borderColor: '#bdc3c7',
+    borderColor: '#e2e8f0',
     borderWidth: 1,
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 2,
   },
   modalContainer: {
     flex: 1,

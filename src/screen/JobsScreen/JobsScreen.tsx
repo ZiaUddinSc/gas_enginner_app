@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {
   ArrowLeft,
-  LogOut,
   Search,
   Plus,
 } from 'lucide-react-native';
@@ -149,7 +148,6 @@ const JobsScreen = () => {
         title="Jobs"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
       <View style={styles.container}>
         {/* Filter Row */}

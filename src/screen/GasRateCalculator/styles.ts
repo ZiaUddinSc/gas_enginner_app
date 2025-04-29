@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
     flex:1,
     // paddingTop:Platform.OS=="ios"?hp(4):null,
     backgroundColor: Color.primaryBGColor,
-    paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
       },
   container: {
     flex: 1,

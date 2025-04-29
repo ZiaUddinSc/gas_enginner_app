@@ -11,13 +11,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
 const groupedData = [
-  {
-    groupTitle: 'Invoice/Quote',
-    items: [
-      {id: '1', label: 'Quote'},
-      {id: '2', label: 'Invoice'},
-    ],
-  },
+
   {
     groupTitle: 'Domestic Gas Records',
     items: [

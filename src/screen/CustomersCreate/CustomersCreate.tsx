@@ -17,7 +17,6 @@ import {
     Save,
     X,
     ArrowLeft,
-    LogOut,
     PlusCircle,
   } from 'lucide-react-native';
 import { widthPercentageToDP as wp, } from 'react-native-responsive-screen';
@@ -63,7 +62,6 @@ const navigation = useNavigation<NativeStackNavigationProp<any>>();
         title="New Customer"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
       <ScrollView style={styles.container}>
        

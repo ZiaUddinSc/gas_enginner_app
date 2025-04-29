@@ -13,7 +13,6 @@ import {
 import {
   Plus,
   ArrowLeft,
-  LogOut,
   Search,
   User,
   Building,
@@ -172,7 +171,6 @@ const Customers = () => {
         title="Customers"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
       <View style={styles.container}>
         <View style={{backgroundColor:'#ddd7d6',padding:wp(2)}}>

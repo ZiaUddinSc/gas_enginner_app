@@ -11,7 +11,6 @@ import {
   Settings,
   ChevronRight,
   ArrowLeft,
-  LogOut
 } from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import {styles} from './styles';
@@ -88,7 +87,6 @@ const MenuList = () => {
   title="Dashboard"
   // leftIcon={<ArrowLeft size={24} color="white" />}
   onLeftPress={() => navigation.goBack()}
-  rightIcon1={<LogOut size={24} color="white" />}
   onRightPress1={() => alert('Notification')}
   
 />

@@ -10,18 +10,9 @@ import {
   Button,
   SafeAreaView,
 } from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
 import {
-  PlusCircle,
-  ChevronLeft,
-  ChevronRight,
   ArrowLeft,
-  LogOut,
 } from 'lucide-react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
 
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -67,7 +58,6 @@ const Certificate = () => {
         title="Certificate"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
 
       <View style={styles.container}>

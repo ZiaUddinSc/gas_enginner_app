@@ -9,7 +9,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {
     ArrowLeft,
-    LogOut
   } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
@@ -33,7 +32,6 @@ const BoilerManuals = () => {
         title="Boiler Manuals"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
     <View style={styles.container}>
             

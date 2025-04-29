@@ -15,7 +15,6 @@ import {
   Save,
   X,
   ArrowLeft,
-  LogOut,
   PlusCircle,
 } from 'lucide-react-native';
 import {
@@ -64,7 +63,6 @@ const CreateJobs = ({handleFormSubmit}) => {
         title="New Job"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
       <ScrollView style={styles.container}>
         <View style={styles.formContainer}>

@@ -7,7 +7,6 @@ import {useNavigation} from '@react-navigation/native';
 import {
 
     ArrowLeft,
-    LogOut,
     Copy
   } from 'lucide-react-native';
 const InviteFriendScreen = () => {
@@ -32,7 +31,6 @@ const InviteFriendScreen = () => {
         title="Invite Engineers"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
         onRightPress1={() => alert('Notification')}
       />
     <View style={styles.container}>
@@ -79,7 +77,6 @@ const styles = StyleSheet.create({
     safeArea: {
                 flex: 1,
                 backgroundColor: Color.primaryBGColor,
-                 paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
               },
   container: {
     flex: 1,

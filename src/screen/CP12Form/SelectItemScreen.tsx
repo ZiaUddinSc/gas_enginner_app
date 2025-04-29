@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     safeArea: {
                  flex: 1,
                  backgroundColor: Color.primaryBGColor,
-                 paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
                },
     container: {
         backgroundColor: '#e2e8f0',

@@ -40,7 +40,6 @@ const LinkedJobSelector = ({ onSelectJob }) => {
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => {  setIsModalVisible(false);
           setSearchTerm('');}}
-        // rightIcon1={<LogOut size={24} color="white" />}
       />
                     <View style={styles.modalContent}>
      

@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
       safeArea: {
              flex: 1,
              backgroundColor: Color.primaryBGColor,
-             paddingTop:Platform.OS=='android'?StatusBar.currentHeight:null
            },
   container: {
     flex: 1,
@@ -39,6 +38,7 @@ safety_questionsAnswered: {
 safety_progress: {
     color: '#2c3e50',
         fontSize: hp(2.2),
+        
 },
 inputLabel: {
     color: '#7f8c8d',

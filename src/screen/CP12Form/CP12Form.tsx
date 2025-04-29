@@ -14,18 +14,13 @@ import SignaturePad from '../../components/SignaturePad';
 import DatePicker from '../../components/DatePicker';
 import {styles} from './styles';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import {
-  Home,
-  Save,
-  X,
-  ArrowLeft,
-  LogOut,
-  PlusCircle,
-  User,
-} from 'lucide-react-native';
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {ArrowLeft, User} from 'lucide-react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useNavigation,useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 const CP12Form = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -36,17 +31,12 @@ const CP12Form = () => {
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const totalQuestions = 8;
 
-  console.log(applianceData)
-
   const [signature, setSignature] = useState(null);
   const [todayDate, setTodayDate] = useState(new Date());
   const [nextInspectionDate, setNextInspectionDate] = useState(
     new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
   );
   const [receivedBy, setReceivedBy] = useState('Mr. John Doe');
- 
-
-
 
   const handleJobSelection = job => {
     setSelectedJob(job);
@@ -60,10 +50,9 @@ const CP12Form = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
-        title="CPP12 Gas Safety Record (Landlord/Homeowner)"
+        title="CP12 Gas Safety Record (Landlord/Homeowner)"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon1={<LogOut size={24} color="white" />}
       />
       <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
         {/* Linked Job */}
@@ -75,7 +64,9 @@ const CP12Form = () => {
 
         {/* Appliance & Inspections */}
 
-        <ApplianceAndInspections onPress={() => navigation.navigate('AddAppliance')} />
+        <ApplianceAndInspections
+          onPress={() => navigation.navigate('AddAppliance')}
+        />
 
         {/* Safety Checks */}
         <View style={styles.safety_container}>
@@ -84,7 +75,7 @@ const CP12Form = () => {
             <Text style={styles.safety_questionsAnswered}>
               QUESTIONS ANSWERED
             </Text>
-            <Text style={styles.safety_progress}>
+            <Text style={[styles.safety_progress, {textAlign: 'right'}]}>
               {questionsAnswered}/{totalQuestions}
             </Text>
           </View>
@@ -97,7 +88,9 @@ const CP12Form = () => {
             <Text style={styles.safety_questionsAnswered}>
               {'Comments'.toUpperCase()}
             </Text>
-            <Text style={styles.safety_progress}>{questionsAnswered}/4</Text>
+            <Text style={[styles.safety_progress, {textAlign: 'right'}]}>
+              {questionsAnswered}/4
+            </Text>
           </View>
         </View>
 
@@ -111,50 +104,63 @@ const CP12Form = () => {
               onDateChange={setTodayDate}
             />
           </View>
-          <View style={[styles.safety_content,{marginTop:hp(1)}]}>
+          <View style={[styles.safety_content, {marginTop: hp(1)}]}>
             <DatePicker
               label="NEXT INSPECTION DATE"
               date={nextInspectionDate}
               onDateChange={setNextInspectionDate}
             />
           </View>
-          <View style={[styles.safety_content,{marginTop:hp(1)}]}>
-          <Text style={styles.inputLabel}>RECEIVED BY</Text>
-          <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-                <TextInput
-                    style={styles.input}
-                    value={receivedBy}
-                    onChangeText={setReceivedBy} // Update state on text change
-                    placeholder="Enter Name" // Added placeholder for better UX
-                    placeholderTextColor="#b0bec5"
-                />
-                <User size={24}/>
-                </View>
+          <View style={[styles.safety_content, {marginTop: hp(1)}]}>
+            <Text style={[styles.inputLabel, {marginBottom: 1}]}>
+              RECEIVED BY
+            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <TextInput
+                style={[styles.input, {padding: 0}]}
+                value={receivedBy}
+                onChangeText={setReceivedBy} // Update state on text change
+                placeholder="Enter Name" // Added placeholder for better UX
+                placeholderTextColor="#b0bec5"
+              />
+              <User size={20} />
+            </View>
           </View>
 
-          <View style={[styles.safety_content,{marginTop:hp(1)}]}>
+          <View style={[styles.safety_content, {marginTop: hp(1)}]}>
             <Text style={styles.safety_questionsAnswered}>
               {'Relation'.toUpperCase()}
             </Text>
             <Text style={styles.safety_progress}>N/A</Text>
           </View>
 
-          <View style={[styles.safety_content,{marginTop:hp(1)}]}>
+          <View style={[styles.safety_content, {marginTop: hp(1)}]}>
             <Text style={styles.safety_questionsAnswered}>
               {'Signature'.toUpperCase()}
             </Text>
-            <SignaturePad signature={signature} setSignature={setSignature} />
+            {/* <SignaturePad signature={signature} setSignature={setSignature} /> */}
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SignatureScreen')}
+              style={[
+                styles.create_button,
+                {backgroundColor: '#e2e8f0', marginBottom: 0},
+              ]}>
+              <Text style={{color: '#000', fontSize: hp(2), fontWeight: '800'}}>
+                Add Signature
+              </Text>
+            </TouchableOpacity>
           </View>
-
-          
         </View>
-  <TouchableOpacity
-          style={styles.create_button}
-          
-        >
-          <Text style={{ color: '#FFF',fontSize:hp(2),fontWeight:'800' }}>Create Certificate</Text>
+        <TouchableOpacity style={styles.create_button}>
+          <Text style={{color: '#FFF', fontSize: hp(2), fontWeight: '800'}}>
+            Create Certificate
+          </Text>
         </TouchableOpacity>
-       
       </ScrollView>
     </SafeAreaView>
   );
