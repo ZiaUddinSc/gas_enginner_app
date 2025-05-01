@@ -18,7 +18,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ArrowLeft, User} from 'lucide-react-native';
+import {ArrowLeft, User,ChevronRight} from 'lucide-react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
@@ -26,11 +26,12 @@ const CP12Form = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const route = useRoute();
   const applianceData = route.params?.applianceData;
+  const titleData = route.params?.titleData;
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const totalQuestions = 8;
-
+//   alert(JSON.stringify(route.params));
   const [signature, setSignature] = useState(null);
   const [todayDate, setTodayDate] = useState(new Date());
   const [nextInspectionDate, setNextInspectionDate] = useState(
@@ -50,112 +51,586 @@ const CP12Form = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
-        title="CP12 Gas Safety Record (Landlord/Homeowner)"
+        title={titleData}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />
       <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
-        {/* Linked Job */}
-        <LinkedJobSelector onSelectJob={handleJobSelection} />
+        {titleData === 'CP12 Gas Safety Record (Landlord/Homeowner)' ? (
+          <>
+            {/* Linked Job */}
+            <LinkedJobSelector onSelectJob={handleJobSelection} />
 
-        {/* Customer Details */}
+            {/* Customer Details */}
 
-        <CustomerSelector onSelectCustomer={handleCustomerlection} />
+            <CustomerSelector onSelectCustomer={handleCustomerlection} />
 
-        {/* Appliance & Inspections */}
+            {/* Appliance & Inspections */}
 
-        <ApplianceAndInspections
-          onPress={() => navigation.navigate('AddAppliance')}
-        />
-
-        {/* Safety Checks */}
-        <View style={styles.safety_container}>
-          <Text style={styles.title}>Safety Checks</Text>
-          <View style={styles.safety_content}>
-            <Text style={styles.safety_questionsAnswered}>
-              QUESTIONS ANSWERED
-            </Text>
-            <Text style={[styles.safety_progress, {textAlign: 'right'}]}>
-              {questionsAnswered}/{totalQuestions}
-            </Text>
-          </View>
-        </View>
-
-        {/* Comments */}
-        <View style={styles.safety_container}>
-          <Text style={styles.title}>Comments</Text>
-          <View style={styles.safety_content}>
-            <Text style={styles.safety_questionsAnswered}>
-              {'Comments'.toUpperCase()}
-            </Text>
-            <Text style={[styles.safety_progress, {textAlign: 'right'}]}>
-              {questionsAnswered}/4
-            </Text>
-          </View>
-        </View>
-
-        {/* Signature Section */}
-        <View style={styles.safety_container}>
-          <Text style={styles.title}>Signature</Text>
-          <View style={styles.safety_content}>
-            <DatePicker
-              label="TODAY'S DATE"
-              date={todayDate}
-              onDateChange={setTodayDate}
+            <ApplianceAndInspections
+              onPress={() => navigation.navigate('AddAppliance')}
             />
-          </View>
-          <View style={[styles.safety_content, {marginTop: hp(1)}]}>
-            <DatePicker
-              label="NEXT INSPECTION DATE"
-              date={nextInspectionDate}
-              onDateChange={setNextInspectionDate}
-            />
-          </View>
-          <View style={[styles.safety_content, {marginTop: hp(1)}]}>
-            <Text style={[styles.inputLabel, {marginBottom: 1}]}>
-              RECEIVED BY
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              <TextInput
-                style={[styles.input, {padding: 0}]}
-                value={receivedBy}
-                onChangeText={setReceivedBy} // Update state on text change
-                placeholder="Enter Name" // Added placeholder for better UX
-                placeholderTextColor="#b0bec5"
-              />
-              <User size={20} />
+
+            {/* Safety Checks */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Safety Checks</Text>
+              <View style={styles.safety_content}>
+                <Text style={styles.safety_questionsAnswered}>
+                  QUESTIONS ANSWERED
+                </Text>
+                <Text style={[styles.safety_progress,]}>
+                  {questionsAnswered}/{totalQuestions}
+                </Text>
+              </View>
             </View>
-          </View>
 
-          <View style={[styles.safety_content, {marginTop: hp(1)}]}>
-            <Text style={styles.safety_questionsAnswered}>
-              {'Relation'.toUpperCase()}
-            </Text>
-            <Text style={styles.safety_progress}>N/A</Text>
-          </View>
+            {/* Comments */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Comments</Text>
+              <View style={styles.safety_content}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Comments'.toUpperCase()}
+                </Text>
+                <Text style={[styles.safety_progress, {textAlign: 'right'}]}>
+                  {questionsAnswered}/4
+                </Text>
+              </View>
+            </View>
 
-          <View style={[styles.safety_content, {marginTop: hp(1)}]}>
-            <Text style={styles.safety_questionsAnswered}>
-              {'Signature'.toUpperCase()}
-            </Text>
-            {/* <SignaturePad signature={signature} setSignature={setSignature} /> */}
-            <TouchableOpacity
-              onPress={() => navigation.navigate('SignatureScreen')}
-              style={[
-                styles.create_button,
-                {backgroundColor: '#e2e8f0', marginBottom: 0},
-              ]}>
-              <Text style={{color: '#000', fontSize: hp(2), fontWeight: '800'}}>
-                Add Signature
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+            {/* Signature Section */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Signature</Text>
+              <View style={styles.safety_content}>
+                <DatePicker
+                  label="TODAY'S DATE"
+                  date={todayDate}
+                  onDateChange={setTodayDate}
+                />
+              </View>
+              <View style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <DatePicker
+                  label="NEXT INSPECTION DATE"
+                  date={nextInspectionDate}
+                  onDateChange={setNextInspectionDate}
+                />
+              </View>
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={[styles.inputLabel, {marginBottom: 1}]}>
+                  RECEIVED BY
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <TextInput
+                    style={[styles.input, {padding: 0,width:'90%'}]}
+                    value=''
+                    onChangeText={setReceivedBy} // Update state on text change
+                    placeholder="Name" // Added placeholder for better UX
+                    placeholderTextColor="#7f8c8d"
+                  />
+                  <User size={20} />
+                </View>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Relation'.toUpperCase()}
+                </Text>
+                <Text style={styles.safety_progress}>N/A</Text>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Signature'.toUpperCase()}
+                </Text>
+                {/* <SignaturePad signature={signature} setSignature={setSignature} /> */}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SignatureScreen')}
+                  style={[
+                    styles.create_button,
+                    {backgroundColor: '#e2e8f0', marginBottom: 0},
+                  ]}>
+                  <Text
+                    style={{color: '#000', fontSize: hp(2), fontWeight: '800'}}>
+                    Add Signature
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
+        ) : titleData === 'CP12 Landlord Gas Safety Record' ? (
+            <>
+            {/* Linked Job */}
+            <LinkedJobSelector onSelectJob={handleJobSelection} />
+
+            {/* Customer Details */}
+
+            <CustomerSelector onSelectCustomer={handleCustomerlection} />
+
+            {/* Appliance & Inspections */}
+
+            <ApplianceAndInspections
+              onPress={() => navigation.navigate('AddAppliance')}
+            />
+
+            {/* Safety Checks */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Safety Checks</Text>
+              <View style={styles.safety_content}>
+                <Text style={styles.safety_questionsAnswered}>
+                  QUESTIONS ANSWERED
+                </Text>
+                <Text style={[styles.safety_progress, {textAlign: 'right'}]}>
+                  {questionsAnswered}/{totalQuestions}
+                </Text>
+              </View>
+            </View>
+
+            {/* Comments */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Comments</Text>
+              <View style={styles.safety_content}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Comments'.toUpperCase()}
+                </Text>
+                <Text style={[styles.safety_progress, {textAlign: 'right'}]}>
+                  {questionsAnswered}/4
+                </Text>
+              </View>
+            </View>
+
+            {/* Signature Section */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Signature</Text>
+              <View style={styles.safety_content}>
+                <DatePicker
+                  label="TODAY'S DATE"
+                  date={todayDate}
+                  onDateChange={setTodayDate}
+                />
+              </View>
+              <View style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <DatePicker
+                  label="NEXT INSPECTION DATE"
+                  date={nextInspectionDate}
+                  onDateChange={setNextInspectionDate}
+                />
+              </View>
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={[styles.inputLabel, {marginBottom: 1}]}>
+                  RECEIVED BY
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <TextInput
+                    style={[styles.input, {padding: 0}]}
+                    value=''
+                    onChangeText={setReceivedBy} // Update state on text change
+                    placeholder="Enter Name" // Added placeholder for better UX
+                    placeholderTextColor="#7f8c8d"
+                  />
+                  <User size={20} />
+                </View>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Relation'.toUpperCase()}
+                </Text>
+                <Text style={styles.safety_progress}>N/A</Text>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Signature'.toUpperCase()}
+                </Text>
+                {/* <SignaturePad signature={signature} setSignature={setSignature} /> */}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SignatureScreen')}
+                  style={[
+                    styles.create_button,
+                    {backgroundColor: '#e2e8f0', marginBottom: 0},
+                  ]}>
+                  <Text
+                    style={{color: '#000', fontSize: hp(2), fontWeight: '800'}}>
+                    Add Signature
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
+        ) : titleData === 'CP14 Gas Warning Notice' ? (
+            <>
+            {/* Linked Job */}
+            <LinkedJobSelector onSelectJob={handleJobSelection} />
+
+            {/* Customer Details */}
+
+            <CustomerSelector onSelectCustomer={handleCustomerlection} />
+
+            {/* Appliance & Inspections */}
+            <View style={styles.safety_container}>
+            <Text style={styles.title}>Appliance & Inspections</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('CP14AddAppliance')}  style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Appliance'.toUpperCase()}
+                </Text>
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <Text style={styles.safety_progress}>N/A</Text>
+                <ChevronRight size={20}/>
+                </View>
+              </TouchableOpacity>
+              </View>
+
+           
+
+           
+
+            {/* Signature Section */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Signature</Text>
+              <View style={styles.safety_content}>
+                <DatePicker
+                  label="TODAY'S DATE"
+                  date={todayDate}
+                  onDateChange={setTodayDate}
+                />
+              </View>
+              <View style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <DatePicker
+                  label="NEXT INSPECTION DATE"
+                  date={nextInspectionDate}
+                  onDateChange={setNextInspectionDate}
+                />
+              </View>
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={[styles.inputLabel, {marginBottom: 1}]}>
+                  RECEIVED BY
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <TextInput
+                    style={[styles.input, {padding: 0}]}
+                    value=''
+                    onChangeText={setReceivedBy} // Update state on text change
+                    placeholder="Enter Name" // Added placeholder for better UX
+                    placeholderTextColor="#7f8c8d"
+                  />
+                  <User size={20} />
+                </View>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Relation'.toUpperCase()}
+                </Text>
+                <Text style={styles.safety_progress}>N/A</Text>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Signature'.toUpperCase()}
+                </Text>
+                {/* <SignaturePad signature={signature} setSignature={setSignature} /> */}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SignatureScreen')}
+                  style={[
+                    styles.create_button,
+                    {backgroundColor: '#e2e8f0', marginBottom: 0},
+                  ]}>
+                  <Text
+                    style={{color: '#000', fontSize: hp(2), fontWeight: '800'}}>
+                    Add Signature
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
+        ) : titleData === 'Service / Maintenance Record' ? (
+            <>
+            {/* Linked Job */}
+            <LinkedJobSelector onSelectJob={handleJobSelection} />
+
+            {/* Customer Details */}
+
+            <CustomerSelector onSelectCustomer={handleCustomerlection} />
+
+            {/* Appliance & Inspections */}
+            <View style={styles.safety_container}>
+            <Text style={styles.title}>Appliance & Inspections</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('ServiceAddAppliance')} style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Appliance'.toUpperCase()}
+                </Text>
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <Text style={styles.safety_progress}>N/A</Text>
+                <ChevronRight size={20}/>
+                </View>
+              </TouchableOpacity>
+              </View>
+
+           
+
+           
+
+            {/* Signature Section */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Signature</Text>
+              <View style={styles.safety_content}>
+                <DatePicker
+                  label="TODAY'S DATE"
+                  date={todayDate}
+                  onDateChange={setTodayDate}
+                />
+              </View>
+              <View style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <DatePicker
+                  label="NEXT INSPECTION DATE"
+                  date={nextInspectionDate}
+                  onDateChange={setNextInspectionDate}
+                />
+              </View>
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={[styles.inputLabel, {marginBottom: 1}]}>
+                  RECEIVED BY
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <TextInput
+                    style={[styles.input, {padding: 0}]}
+                    value=''
+                    onChangeText={setReceivedBy} // Update state on text change
+                    placeholder="Enter Name" // Added placeholder for better UX
+                    placeholderTextColor="#7f8c8d"
+                  />
+                  <User size={20} />
+                </View>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Relation'.toUpperCase()}
+                </Text>
+                <Text style={styles.safety_progress}>N/A</Text>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Signature'.toUpperCase()}
+                </Text>
+                {/* <SignaturePad signature={signature} setSignature={setSignature} /> */}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SignatureScreen')}
+                  style={[
+                    styles.create_button,
+                    {backgroundColor: '#e2e8f0', marginBottom: 0},
+                  ]}>
+                  <Text
+                    style={{color: '#000', fontSize: hp(2), fontWeight: '800'}}>
+                    Add Signature
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
+        ) : titleData === 'Gas Breakdown Record' ? (
+            <>
+            {/* Linked Job */}
+            <LinkedJobSelector onSelectJob={handleJobSelection} />
+
+            {/* Customer Details */}
+
+            <CustomerSelector onSelectCustomer={handleCustomerlection} />
+
+            {/* Appliance & Inspections */}
+            <View style={styles.safety_container}>
+            <Text style={styles.title}>Appliance & Inspections</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('GasBreakdownAddAppliance')} style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Appliance'.toUpperCase()}
+                </Text>
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <Text style={styles.safety_progress}>N/A</Text>
+                <ChevronRight size={20}/>
+                </View>
+              </TouchableOpacity>
+              </View>
+
+           
+
+           
+
+            {/* Signature Section */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Signature</Text>
+              <View style={styles.safety_content}>
+                <DatePicker
+                  label="TODAY'S DATE"
+                  date={todayDate}
+                  onDateChange={setTodayDate}
+                />
+              </View>
+              <View style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <DatePicker
+                  label="NEXT INSPECTION DATE"
+                  date={nextInspectionDate}
+                  onDateChange={setNextInspectionDate}
+                />
+              </View>
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={[styles.inputLabel, {marginBottom: 1}]}>
+                  RECEIVED BY
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <TextInput
+                    style={[styles.input, {padding: 0}]}
+                    value=''
+                    onChangeText={setReceivedBy} // Update state on text change
+                    placeholder="Enter Name" // Added placeholder for better UX
+                    placeholderTextColor="#7f8c8d"
+                  />
+                  <User size={20} />
+                </View>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Relation'.toUpperCase()}
+                </Text>
+                <Text style={styles.safety_progress}>N/A</Text>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Signature'.toUpperCase()}
+                </Text>
+                {/* <SignaturePad signature={signature} setSignature={setSignature} /> */}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SignatureScreen')}
+                  style={[
+                    styles.create_button,
+                    {backgroundColor: '#e2e8f0', marginBottom: 0},
+                  ]}>
+                  <Text
+                    style={{color: '#000', fontSize: hp(2), fontWeight: '800'}}>
+                    Add Signature
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
+        ) : titleData === 'Gas Boiler System Commissioning Checklist' ? (
+            <>
+            {/* Linked Job */}
+            <LinkedJobSelector onSelectJob={handleJobSelection} />
+
+            {/* Customer Details */}
+
+            <CustomerSelector onSelectCustomer={handleCustomerlection} />
+
+            {/* Appliance & Inspections */}
+            <View style={styles.safety_container}>
+            <Text style={styles.title}>Appliance & Inspections</Text>
+            <TouchableOpacity onPress={()=>navigation.navigate('GasBoilerAddAppliance')} style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Appliance'.toUpperCase()}
+                </Text>
+                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <Text style={styles.safety_progress}>N/A</Text>
+                <ChevronRight size={20}/>
+                </View>
+              </TouchableOpacity>
+              </View>
+
+           
+
+           
+
+            {/* Signature Section */}
+            <View style={styles.safety_container}>
+              <Text style={styles.title}>Signature</Text>
+              <View style={styles.safety_content}>
+                <DatePicker
+                  label="TODAY'S DATE"
+                  date={todayDate}
+                  onDateChange={setTodayDate}
+                />
+              </View>
+              <View style={[styles.safety_content, {marginTop: hp(1)}]}>
+                <DatePicker
+                  label="NEXT INSPECTION DATE"
+                  date={nextInspectionDate}
+                  onDateChange={setNextInspectionDate}
+                />
+              </View>
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={[styles.inputLabel, {marginBottom: 1}]}>
+                  RECEIVED BY
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <TextInput
+                    style={[styles.input, {padding: 0}]}
+                    value=''
+                    onChangeText={setReceivedBy} // Update state on text change
+                    placeholder="Enter Name" // Added placeholder for better UX
+                    placeholderTextColor="#7f8c8d"
+                  />
+                  <User size={20} />
+                </View>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Relation'.toUpperCase()}
+                </Text>
+                <Text style={styles.safety_progress}>N/A</Text>
+              </View>
+
+              <View style={[styles.rece_content, {marginTop: hp(1)}]}>
+                <Text style={styles.safety_questionsAnswered}>
+                  {'Signature'.toUpperCase()}
+                </Text>
+                {/* <SignaturePad signature={signature} setSignature={setSignature} /> */}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SignatureScreen')}
+                  style={[
+                    styles.create_button,
+                    {backgroundColor: '#e2e8f0', marginBottom: 0},
+                  ]}>
+                  <Text
+                    style={{color: '#000', fontSize: hp(2), fontWeight: '800'}}>
+                    Add Signature
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
+        ) : null}
         <TouchableOpacity style={styles.create_button}>
           <Text style={{color: '#FFF', fontSize: hp(2), fontWeight: '800'}}>
             Create Certificate

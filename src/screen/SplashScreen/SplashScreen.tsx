@@ -15,6 +15,7 @@ const SplashScreen = () => {
       useNativeDriver: true,
     }).start(() => {
       navigation.replace('WelcomeScreen');
+      // navigation.replace('CP14AddAppliance');
     });
   }, []);
 

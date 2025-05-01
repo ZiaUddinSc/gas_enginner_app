@@ -5,58 +5,70 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ChevronDown, FileText,CircleX} from 'lucide-react-native';
+import {ChevronDown, FileText, CircleX} from 'lucide-react-native';
 import Color from '../../theme/Colors';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
 const groupedData = [
-
   {
     groupTitle: 'Domestic Gas Records',
     items: [
-      {id: '3', label: 'CP12 Gas Safety Record (Landlord/Homeowner)'},
-      {id: '4', label: 'CP14 Gas Warning Notice'},
-      {id: '5', label: 'Service / Maintenance Record'},
-      {id: '6', label: 'Gas Breakdown Record'},
-      {id: '7', label: 'Gas Boiler System Commissioning Checklist'},
+      {id: '1', label: 'CP12 Gas Safety Record (Landlord/Homeowner)'},
+      {id: '2', label: 'CP12 Landlord Gas Safety Record'},
+      {id: '3', label: 'CP14 Gas Warning Notice'},
+      {id: '4', label: 'Service / Maintenance Record'},
+      {id: '5', label: 'Gas Breakdown Record'},
+      {id: '6', label: 'Gas Boiler System Commissioning Checklist'},
     ],
   },
   {
     groupTitle: 'Miscellaneous',
     items: [
-      {id: '8', label: 'Powerflush Certificate'},
-      {id: '9', label: 'Installation / Commissioning Decommissioning Record'},
-      {id: '10', label: 'Unvented Hot Water Cylinders'},
-      {id: '11', label: 'Job Sheet'},
+      {id: '7', label: 'Powerflush Certificate'},
+      {id: '8', label: 'Installation / Commissioning Decommissioning Record'},
+      {id: '9', label: 'Unvented Hot Water Cylinders'},
+      {id: '10', label: 'Job Sheet'},
     ],
   },
 ];
-const roundedTop = ['Quote', 'CP12 Gas Safety Record (Landlord/Homeowner)', 'Powerflush Certificate'];
-const roundedBottom = ['Invoice', 'Gas Boiler System Commissioning Checklist', 'Job Sheet'];
-
+const roundedTop = [
+  'Quote',
+  'CP12 Gas Safety Record (Landlord/Homeowner)',
+  'Powerflush Certificate',
+];
+const roundedBottom = [
+  'Invoice',
+  'Gas Boiler System Commissioning Checklist',
+  'Job Sheet',
+];
 
 const GasBottomSheet = ({onClose}) => {
-    const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  
-    const onNext = (action) => {
-      console.log(action)
-      if (action.label === 'CP12 Gas Safety Record (Landlord/Homeowner)') {
-        navigation.navigate('CP12Form');
-      }
-    };
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  const onNext = action => {
+   
+    if (
+      action.label === 'CP12 Gas Safety Record (Landlord/Homeowner)' ||
+      action.label === 'CP12 Landlord Gas Safety Record' ||
+      action.label === 'CP14 Gas Warning Notice' ||
+      action.label === 'Service / Maintenance Record' ||
+      action.label === 'Gas Breakdown Record' ||
+      action.label === 'Gas Boiler System Commissioning Checklist'
+    ) {
+      navigation.navigate('CP12Form', {titleData: action.label});
+    }
+  };
 
   return (
     <BottomSheetScrollView contentContainerStyle={{elevation: 5}}>
       <View style={styles.container}>
-      <View style={styles.header}>
-          
+        <View style={styles.header}>
           <Text style={styles.title}>Certificate Types</Text>
           <TouchableOpacity style={styles.arrowDown} onPress={() => onClose()}>
             <CircleX size={wp(7)} color="#6B7280" />
           </TouchableOpacity>
         </View>
-       
 
         {groupedData.map((group, groupIndex) => (
           <View key={groupIndex} style={styles.groupContainer}>
@@ -68,13 +80,20 @@ const GasBottomSheet = ({onClose}) => {
                 style={[
                   styles.actionItem,
                   {
-                    backgroundColor:
-                       Color.white,
-                       borderTopRightRadius: roundedTop.includes(item.label) ? 10 : null,
-                        borderTopLeftRadius:roundedTop.includes(item.label) ? 10 : null,
+                    backgroundColor: Color.white,
+                    borderTopRightRadius: roundedTop.includes(item.label)
+                      ? 10
+                      : null,
+                    borderTopLeftRadius: roundedTop.includes(item.label)
+                      ? 10
+                      : null,
 
-                  borderBottomRightRadius:roundedBottom.includes(item.label) ? 10 : null,
-                  borderBottomLeftRadius:roundedBottom.includes(item.label) ? 10 : null
+                    borderBottomRightRadius: roundedBottom.includes(item.label)
+                      ? 10
+                      : null,
+                    borderBottomLeftRadius: roundedBottom.includes(item.label)
+                      ? 10
+                      : null,
                   },
                 ]}
                 onPress={() => {
@@ -82,27 +101,19 @@ const GasBottomSheet = ({onClose}) => {
                   onNext(item);
                   onClose();
                 }}>
-                  
                 <View style={styles.iconContainer}>
-                  <FileText
-                    size={24}
-                    color={
-                       Color.primaryBGColor
-                    }
-                  />
+                  <FileText size={24} color={Color.primaryBGColor} />
                 </View>
 
                 <Text
                   style={[
                     styles.actionText,
                     {
-                      color:
-                           Color.primaryBGColor,
+                      color: Color.primaryBGColor,
                     },
                   ]}>
                   {item.label}
                 </Text>
-                
               </TouchableOpacity>
             ))}
           </View>
@@ -129,11 +140,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(4),
     paddingBottom: wp(4),
     width: wp(100),
-    backgroundColor:'#FFF',justifyContent:'space-between'
+    backgroundColor: '#FFF',
+    justifyContent: 'space-between',
   },
-  arrowDown: {
- 
-  },
+  arrowDown: {},
   title: {
     fontSize: wp(4),
     color: Color.textColor,
@@ -141,9 +151,7 @@ const styles = StyleSheet.create({
   },
   actionsContainer: {
     margin: hp(1),
-    backgroundColor:'#e2e8f0',
-    
-    
+    backgroundColor: '#e2e8f0',
   },
   actionItem: {
     flexDirection: 'row',
@@ -153,7 +161,6 @@ const styles = StyleSheet.create({
     width: wp(94),
     borderBottomWidth: 1,
     borderBottomColor: '#e2e8f0',
-
   },
   iconContainer: {
     marginRight: wp(3),
@@ -162,10 +169,9 @@ const styles = StyleSheet.create({
   groupContainer: {
     width: wp(94),
     marginTop: hp(1),
-    
   },
   groupTitle: {
-    fontSize: wp(3.6), 
+    fontSize: wp(3.6),
     fontWeight: 'bold',
     color: '#6B7280',
     marginBottom: hp(1),
@@ -173,7 +179,7 @@ const styles = StyleSheet.create({
   // actionItem: {
   //   flexDirection: 'row',
   //   alignItems: 'center',
-  //   paddingVertical: hp(1), 
+  //   paddingVertical: hp(1),
   //   paddingHorizontal: wp(3),
   //   borderRadius: wp(2),
   //   elevation: 2,

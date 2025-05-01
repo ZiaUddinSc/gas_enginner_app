@@ -9,6 +9,7 @@ import {
   FlatList,
   StyleSheet,
   SafeAreaView,
+  SectionList
 } from 'react-native';
 import {
   Plus,
@@ -117,27 +118,25 @@ const PAGE_SIZE = 20;
 const Customers = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [search, setSearch] = useState('');
-  const [visibleJobs, setVisibleJobs] = useState<any[]>([]);
-  const [page, setPage] = useState(1);
+  const [groupedJobs, setGroupedJobs] = useState<{[key: string]: any[]}>([]); 
+  const [sectionOrder, setSectionOrder] = useState<string[]>([]);
 
   useEffect(() => {
-    loadJobs();
-  }, [page]);
+    const sortedJobs = [...allJobs].sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
+    const grouped = sortedJobs.reduce((acc, job) => {
+      const firstChar = job.name.charAt(0).toUpperCase();
+      acc[firstChar] = acc[firstChar] || [];
+      acc[firstChar].push(job);
+      return acc;
+    }, {});
 
-  const loadJobs = () => {
-    const start = (page - 1) * PAGE_SIZE;
-    const end = start + PAGE_SIZE;
-    const newItems = allJobs.slice(start, end);
-    setVisibleJobs(prev => [...prev, ...newItems]);
-  };
+    setGroupedJobs(grouped);
+    setSectionOrder(Object.keys(grouped).sort());
+  }, []);
 
-  const handleLoadMore = () => {
-    if (visibleJobs.length < allJobs.length) {
-      setPage(prev => prev + 1);
-    }
-  };
-
-  const renderItem = ({item, index}: any) => (
+  const renderItem = ({item}: any) => (
     <TouchableOpacity style={styles.card}>
       <Avatar
         name={item.name}
@@ -146,23 +145,26 @@ const Customers = () => {
       />
       <View style={{marginLeft: 0}}>
         <View style={styles.card_content}>
-          
           <Text style={styles.card_name_text}>{item.name}</Text>
         </View>
         {item.company !== '' && (
           <View style={[styles.card_content, {marginTop: 7}]}>
-            
             <Text style={styles.card_text}>{item.company}</Text>
           </View>
         )}
         <View style={[styles.card_content, {marginTop: 7}]}>
-          
           <Text style={[styles.card_text, {width: wp(65)}]}>
             {item.address}
           </Text>
         </View>
       </View>
     </TouchableOpacity>
+  );
+
+  const renderSectionHeader = ({section: {title}}: any) => (
+    <View style={styles.header}>
+      <Text style={styles.header1Text}>{title}</Text>
+    </View>
   );
 
   return (
@@ -173,18 +175,18 @@ const Customers = () => {
         onLeftPress={() => navigation.goBack()}
       />
       <View style={styles.container}>
-        <View style={{backgroundColor:'#ddd7d6',padding:wp(2)}}>
-        <View style={styles.filterRow}>
-          <TextInput
-            style={styles.input}
-            placeholder="Search..."
-            value={search}
-            onChangeText={setSearch}
-          />
-          <TouchableOpacity style={styles.searchIcon}>
-            <Search size={20} />
-          </TouchableOpacity>
-        </View>
+        <View style={{backgroundColor: '#ddd7d6', padding: wp(2)}}>
+          <View style={styles.filterRow}>
+            <TextInput
+              style={styles.input}
+              placeholder="Search..."
+              value={search}
+              onChangeText={setSearch}
+            />
+            <TouchableOpacity style={styles.searchIcon}>
+              <Search size={20} />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.addJobBtn}>
           <Text style={styles.addJobText}>Add Customer</Text>
@@ -196,16 +198,21 @@ const Customers = () => {
           </TouchableOpacity>
         </View>
 
-        <FlatList
-          data={visibleJobs}
+        <SectionList
+          sections={sectionOrder.map(title => ({
+            title,
+            data: groupedJobs[title],
+          }))}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
-          onEndReached={handleLoadMore}
-          onEndReachedThreshold={0.5} // Load when 50% from bottom
+          renderSectionHeader={renderSectionHeader}
+          stickySectionHeadersEnabled
         />
       </View>
     </SafeAreaView>
   );
 };
+
+
 
 export default Customers;

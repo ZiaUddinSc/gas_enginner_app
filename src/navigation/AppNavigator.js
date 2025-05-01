@@ -14,8 +14,12 @@ import Certificate from '../screen/Certificate/Certificate';
 import InviteFriendScreen from '../screen/InviteFriendScreen/InviteFriendScreen';
 import CP12Form from '../screen/CP12Form/CP12Form';
 import AddApplianceScreen from '../screen/CP12Form/AddAppliance';
+import CP14AddAppliance from '../screen/CP12Form/CP14AddAppliance';
 import SelectItemScreen from '../screen/CP12Form/SelectItemScreen';
 import SignatureScreen from '../screen/CP12Form/SignatureScreen';
+import ServiceAddAppliance from '../screen/CP12Form/ServiceAddAppliance';
+import GasBreakdownAddAppliance from '../screen/CP12Form/GasBreakdownAddAppliance';
+import GasBoilerAddAppliance from '../screen/CP12Form/GasBoilerAddAppliance';
 
 import BottomTabs from './BottomTabs'; // 👈 BottomTab imported
 
@@ -37,8 +41,12 @@ export default function AppNavigator() {
       <Stack.Screen name="InviteFriendScreen" component={InviteFriendScreen} />
       <Stack.Screen name="CP12Form" component={CP12Form} />
       <Stack.Screen name="AddAppliance" component={AddApplianceScreen} />
+      <Stack.Screen name="CP14AddAppliance" component={CP14AddAppliance} />
       <Stack.Screen name="SelectItem" component={SelectItemScreen} />
       <Stack.Screen name="SignatureScreen" component={SignatureScreen} />
+      <Stack.Screen name="ServiceAddAppliance" component={ServiceAddAppliance} />
+      <Stack.Screen name="GasBreakdownAddAppliance" component={GasBreakdownAddAppliance} />
+      <Stack.Screen name="GasBoilerAddAppliance" component={GasBoilerAddAppliance} />
 
       {/* Dashboard shows BottomTabs */}
       <Stack.Screen name="Dashboard" component={BottomTabs} />

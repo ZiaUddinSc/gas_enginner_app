@@ -169,11 +169,12 @@ const styles = StyleSheet.create({
       },
       card:{
         padding: wp('2%'),
-         borderWidth:1,
+         borderWidth:0.5,
              borderColor:'#ddd7d6',
              margin:wp(1),
              marginHorizontal:hp(1),
-             borderRadius:wp(2)
+             borderRadius:wp(2),
+             backgroundColor:'rgba(220,220,220,0.1)'
 
       }
 });

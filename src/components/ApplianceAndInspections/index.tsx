@@ -16,9 +16,10 @@ const ApplianceAndInspections = ({onPress}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Appliance & Inspections</Text>
-      <View style={{backgroundColor: '#FFF', padding: 4}}>
+      <View style={{backgroundColor: '#FFF', padding: 4,flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
         <Text style={styles.label}>NUMBER OF APPLIANCE</Text>
-        <Text style={[styles.label,{textAlign:'right',fontSize:hp(2.2),fontWeight:'700',paddingRight:5,color:'#222'}]}>0</Text>
+        <Text style={[styles.label,{ color: '#7f8c8d',
+        fontSize: hp(2.2),}]}>0</Text>
       </View>
 
       <View

@@ -28,15 +28,21 @@ safety_content: {
     backgroundColor: '#f9f9f9',
         borderRadius: 5,
         padding: wp(3),
-        // alignItems: 'center',
+        alignItems: 'center',
+        flexDirection:'row',
+        justifyContent:'space-between'
+},
+rece_content: {
+    backgroundColor: '#f9f9f9',
+        borderRadius: 5,
+        padding: wp(3),
 },
 safety_questionsAnswered: {
     color: '#7f8c8d',
     fontSize: hp(1.8),
-    marginBottom: hp(1),
 },
 safety_progress: {
-    color: '#2c3e50',
+    color: '#7f8c8d',
         fontSize: hp(2.2),
         
 },
