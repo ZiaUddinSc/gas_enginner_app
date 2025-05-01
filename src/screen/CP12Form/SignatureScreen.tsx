@@ -1,7 +1,13 @@
-
-
 import React, {useRef, useState, useEffect} from 'react';
-import {View, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, Text,Image} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  Image,
+} from 'react-native';
 import SignatureCanvas from 'react-native-signature-canvas';
 import Orientation from 'react-native-orientation-locker';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
@@ -14,18 +20,21 @@ const SignatureScreen = ({navigation}) => {
   const [signature, setSignature] = useState(null);
 
   useEffect(() => {
-    Orientation.lockToLandscape();
-    const subscription = Dimensions.addEventListener('change', ({window}) => {
-      setDimensions(window);
-    });
+    var initial = Orientation.getInitialOrientation();
+    if (initial === 'PORTRAIT') {
+      Orientation.lockToLandscape();
+      const subscription = Dimensions.addEventListener('change', ({window}) => {
+        setDimensions(window);
+      });
 
-    return () => {
-      Orientation.lockToPortrait();
-      subscription?.remove();
-    };
+      return () => {
+        Orientation.lockToPortrait();
+        subscription?.remove();
+      };
+    }
   }, []);
 
-  const handleOK = (base64DataUrl) => {
+  const handleOK = base64DataUrl => {
     setSignature(base64DataUrl);
   };
 
@@ -36,10 +45,10 @@ const SignatureScreen = ({navigation}) => {
 
   const handleConfirm = () => {
     if (signature) {
-      console.log("Saved Signature:", signature);
+      console.log('Saved Signature:', signature);
       // navigation.goBack();
     } else {
-      console.log("No signature to save");
+      console.log('No signature to save');
     }
   };
 
@@ -76,21 +85,22 @@ const SignatureScreen = ({navigation}) => {
           onOK={handleOK}
           onEmpty={() => setSignature(null)}
           descriptionText=""
-        //   dataURL="image/jpeg"
+          //   dataURL="image/jpeg"
           backgroundColor="white"
           onEnd={() => {
-            signatureRef.current.readSignature(); // Force update signature state
+            signatureRef.current?.readSignature(); // Force update signature state
           }}
         />
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.customButton}
-            onPress={handleClear}>
+          <TouchableOpacity style={styles.customButton} onPress={handleClear}>
             <Text style={styles.buttonText}>Clear Signature</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.customButton, {backgroundColor: signature ? '#e2e8f0' : 'gray'}]}
+            style={[
+              styles.customButton,
+              {backgroundColor: signature ? '#e2e8f0' : 'gray'},
+            ]}
             onPress={handleConfirm}
             disabled={!signature}>
             <Text style={[styles.buttonText]}>Save Signature</Text>
