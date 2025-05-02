@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  BackHandler
 } from 'react-native';
 import SignatureCanvas from 'react-native-signature-canvas';
 import Orientation from 'react-native-orientation-locker';
@@ -18,18 +19,29 @@ const SignatureScreen = ({navigation}) => {
   const signatureRef = useRef(null);
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [signature, setSignature] = useState(null);
+  const [isLandscape, setIsLandscape] = useState(false);
 
   useEffect(() => {
     var initial = Orientation.getInitialOrientation();
     if (initial === 'PORTRAIT') {
       Orientation.lockToLandscape();
+      setIsLandscape(true);
       const subscription = Dimensions.addEventListener('change', ({window}) => {
         setDimensions(window);
       });
 
+  
+
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        handleBackPress
+      );
+
       return () => {
         Orientation.lockToPortrait();
+        setIsLandscape(false);
         subscription?.remove();
+        backHandler.remove();
       };
     }
   }, []);
@@ -52,14 +64,22 @@ const SignatureScreen = ({navigation}) => {
     }
   };
 
+  const handleBackPress = () => {
+    Orientation.lockToPortrait();
+    setTimeout(() => navigation.goBack(), 100);
+    return true;
+  };
+
   const canvasHeight = Math.min(dimensions.height, dimensions.width) * 0.7;
+
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title="Add Signature"
         leftIcon={<ArrowLeft size={24} color="white" />}
-        onLeftPress={() => navigation.goBack()}
+        onLeftPress={handleBackPress}
       />
 
       <View style={styles.container}>
