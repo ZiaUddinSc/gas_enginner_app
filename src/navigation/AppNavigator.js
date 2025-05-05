@@ -20,6 +20,7 @@ import SignatureScreen from '../screen/CP12Form/SignatureScreen';
 import ServiceAddAppliance from '../screen/CP12Form/ServiceAddAppliance';
 import GasBreakdownAddAppliance from '../screen/CP12Form/GasBreakdownAddAppliance';
 import GasBoilerAddAppliance from '../screen/CP12Form/GasBoilerAddAppliance';
+import Miscellaneous from '../screen/Miscellaneous'
 
 import BottomTabs from './BottomTabs'; // 👈 BottomTab imported
 
@@ -47,6 +48,7 @@ export default function AppNavigator() {
       <Stack.Screen name="ServiceAddAppliance" component={ServiceAddAppliance} />
       <Stack.Screen name="GasBreakdownAddAppliance" component={GasBreakdownAddAppliance} />
       <Stack.Screen name="GasBoilerAddAppliance" component={GasBoilerAddAppliance} />
+      <Stack.Screen name="Miscellaneous" component={Miscellaneous} />
 
       {/* Dashboard shows BottomTabs */}
       <Stack.Screen name="Dashboard" component={BottomTabs} />

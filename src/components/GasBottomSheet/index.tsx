@@ -47,7 +47,6 @@ const GasBottomSheet = ({onClose}) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const onNext = action => {
-   
     if (
       action.label === 'CP12 Gas Safety Record (Landlord/Homeowner)' ||
       action.label === 'CP12 Landlord Gas Safety Record' ||
@@ -57,6 +56,14 @@ const GasBottomSheet = ({onClose}) => {
       action.label === 'Gas Boiler System Commissioning Checklist'
     ) {
       navigation.navigate('CP12Form', {titleData: action.label});
+    } else if (
+      action.label === 'Powerflush Certificate' ||
+      action.label === 'Installation / Commissioning Decommissioning Record' ||
+      action.label === 'Unvented Hot Water Cylinders' ||
+      action.label === 'Job Sheet'
+    ) {
+  
+      navigation.navigate('Miscellaneous', {titleData: action.label});
     }
   };
 
