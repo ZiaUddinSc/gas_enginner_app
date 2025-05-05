@@ -76,7 +76,7 @@ const Miscellaneous = () => {
               ]}>
               <Text style={styles.title}>Powerflush Checklist</Text>
               <TouchableOpacity
-                // onPress={() => navigation.navigate('GasBoilerAddAppliance')}
+                onPress={() => navigation.navigate('PowerflushChecklist')}
                 style={[styles.safety_content, {marginTop: hp(1)}]}>
                 <Text style={styles.safety_questionsAnswered}>
                   {'Question Answered'.toUpperCase()}
