@@ -16,7 +16,7 @@ import * as Yup from 'yup';
 import LogoSvg from '../../components/LogoSvg';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {EyeIcon, EyeClosed, EyeOff,ArrowLeft} from 'lucide-react-native';
+import {EyeIcon, EyeClosed, EyeOff, ArrowLeft} from 'lucide-react-native';
 
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import IconButton from '../../components/IconButton';
@@ -59,29 +59,29 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.content}>
-    <CustomHeader
+      <CustomHeader
         title=""
         leftIcon={<ArrowLeft size={24} color="white" />}
-        onLeftPress={() => navigation.navigate("WelcomeScreen")}   />
-    <View style={styles.container}>
-      <View style={styles.loginBody}>
-       
-         
+        onLeftPress={() => navigation.navigate('Login')}
+      />
+      <View style={styles.container}>
+        <View style={styles.loginBody}>
           <View>
             <Text style={styles.textHeader}>Sign Up</Text>
           </View>
-          <View style={styles.signupSection}>
+          {/* <View style={styles.signupSection}>
             <Text style={styles.dontAcountText}>Already have an account?</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={styles.singUp}>Sign In</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <Formik
             initialValues={{
               full_name: '',
               email: '',
               password: '',
               password_confirmation: '',
+              referralCode:''
             }}
             onSubmit={values => handleFormSubmit(values)}
             validationSchema={validationSchema}>
@@ -139,7 +139,11 @@ export default function Index() {
                       right: 20,
                     }}
                     onPress={() => setHidePass(!hidePass)}>
-                    {hidePass ? <EyeOff color={"#AFAFAF"} size={20} /> : <EyeIcon color={"#AFAFAF"} size={20} />}
+                    {hidePass ? (
+                      <EyeOff color={'#AFAFAF'} size={20} />
+                    ) : (
+                      <EyeIcon color={'#AFAFAF'} size={20} />
+                    )}
                   </TouchableOpacity>
                 </View>
                 {errors.password && touched.password && (
@@ -162,7 +166,11 @@ export default function Index() {
                       right: 20,
                     }}
                     onPress={() => setHideConfPass(!hideConfPass)}>
-                    {hideConfPass ? <EyeOff color={"#AFAFAF"} size={20} /> : <EyeIcon color={"#AFAFAF"} size={20} />}
+                    {hideConfPass ? (
+                      <EyeOff color={'#AFAFAF'} size={20} />
+                    ) : (
+                      <EyeIcon color={'#AFAFAF'} size={20} />
+                    )}
                   </TouchableOpacity>
                 </View>
                 {errors.password_confirmation &&
@@ -171,6 +179,18 @@ export default function Index() {
                       {errors.password_confirmation}
                     </Text>
                   )}
+
+<Text style={styles.inputLabel}>Referral Code(optonal)</Text>
+                <View style={styles.inputView}>
+                  <TextInput
+                    style={styles.inputText}
+                    
+                    placeholderTextColor="#AFAFAF"
+                    onChangeText={handleChange('referralCode')}
+                    onBlur={handleBlur('referralCode')}
+                    value={values.referralCode}
+                  />
+                </View>
                 <View>
                   <View style={styles.actions}>
                     <TouchableOpacity
@@ -194,28 +214,27 @@ export default function Index() {
                     </TouchableOpacity>
                   </View>
                 </View>
-                
+
                 <TouchableOpacity
                   style={styles.loginBtn}
-                  onPress={() => handleSubmit()}>
+                  onPress={() => {handleSubmit();navigation.navigate('CompanyInformationForm')}}>
                   <Text style={styles.loginText}>Register Now</Text>
                 </TouchableOpacity>
               </>
             )}
           </Formik>
           <View style={styles.row}>
-                                  <View style={styles.line} />
-                                  <Text style={styles.or}>Or Login with</Text>
-                                  <View style={styles.line} />
-                                </View>
+            <View style={styles.line} />
+            <Text style={styles.or}>Already have an account?</Text>
+            <View style={styles.line} />
+          </View>
           <IconButton
-            title="Continue with Google"
-            onPress={() => {}}
-            icon={Icons.icGoogle}
+            title="Sign in"
+            onPress={() => navigation.navigate('Login')}
+            icon={undefined}
           />
-        
+        </View>
       </View>
-    </View>
     </SafeAreaView>
   );
 }

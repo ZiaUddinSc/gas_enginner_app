@@ -115,7 +115,7 @@ const groupedData = [
   {
     groupTitle: 'Domestic Gas Records',
     items: [
-      {id: '1', label: 'CP12 Gas Safety Record (Landlord/Homeowner)'},
+      {id: '1', label: 'CP12 Homeowner Gas Safety Record'},
       {id: '2', label: 'CP12 Landlord Gas Safety Record'},
       {id: '3', label: 'CP14 Gas Warning Notice'},
       {id: '4', label: 'Service / Maintenance Record'},
@@ -135,7 +135,7 @@ const groupedData = [
 ];
 const roundedTop = [
   'Quote',
-  'CP12 Gas Safety Record (Landlord/Homeowner)',
+  'CP12 Homeowner Gas Safety Record',
   'Powerflush Certificate',
 ];
 const roundedBottom = [
@@ -149,7 +149,7 @@ const Certificate = () => {
  
   const onNext = action => {
     if (
-      action.label === 'CP12 Gas Safety Record (Landlord/Homeowner)' ||
+      action.label === 'CP12 Homeowner Gas Safety Record' ||
       action.label === 'CP12 Landlord Gas Safety Record' ||
       action.label === 'CP14 Gas Warning Notice' ||
       action.label === 'Service / Maintenance Record' ||

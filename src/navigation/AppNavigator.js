@@ -22,6 +22,7 @@ import GasBreakdownAddAppliance from '../screen/CP12Form/GasBreakdownAddApplianc
 import GasBoilerAddAppliance from '../screen/CP12Form/GasBoilerAddAppliance';
 import Miscellaneous from '../screen/Miscellaneous'
 import PowerflushChecklist from '../screen/Miscellaneous/PowerflushChecklist'
+import CompanyInformationForm from '../screen/CompanyInformationForm'
 
 import BottomTabs from './BottomTabs'; // 👈 BottomTab imported
 
@@ -51,6 +52,7 @@ export default function AppNavigator() {
       <Stack.Screen name="GasBoilerAddAppliance" component={GasBoilerAddAppliance} />
       <Stack.Screen name="Miscellaneous" component={Miscellaneous} />
       <Stack.Screen name="PowerflushChecklist" component={PowerflushChecklist} />
+      <Stack.Screen name="CompanyInformationForm" component={CompanyInformationForm} />
 
       {/* Dashboard shows BottomTabs */}
       <Stack.Screen name="Dashboard" component={BottomTabs} />

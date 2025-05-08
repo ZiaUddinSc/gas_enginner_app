@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {styles} from './styles';
-import {Formik,Form} from 'formik';
+import {Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import LogoSvg from '../../components/LogoSvg';
 import CustomInput from '../../components/CustomInput/CustomInput';
@@ -46,27 +46,26 @@ export default function Index() {
     navigation.navigate('Dashboard');
   };
 
-
   return (
     <View style={styles.content}>
-      <CustomHeader
+      {/* <CustomHeader
         title=""
         leftIcon={<ArrowLeft size={24} color="white" />}
-        onLeftPress={() => navigation.navigate("WelcomeScreen")}     />
+        onLeftPress={() => navigation.navigate("WelcomeScreen")}     /> */}
       <View style={styles.container}>
         <View style={styles.loginBody}>
           <View>
             <Text style={styles.textHeader}>Sign In</Text>
           </View>
-          <View style={styles.signupSection}>
-            <Text style={styles.dontAcountText}>Don't have an account?</Text>
+          {/* <View style={styles.signupSection}>
+            
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Text style={styles.singUp}>Sign Up</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <Formik
             initialValues={{email: '', password: ''}}
-            onSubmit={(values) =>handleFormSubmit(values)}
+            onSubmit={values => handleFormSubmit(values)}
             validationSchema={validationSchema}>
             {({
               handleChange,
@@ -75,12 +74,12 @@ export default function Index() {
               values,
               errors,
               touched,
-              isValid
+              isValid,
             }) => (
               <>
                 <CustomInput
                   label="Email*"
-                  placeholder="x@y.Z"
+                  placeholder="username@example.com"
                   placeHolerTextColor="#AFAFAF"
                   handleChange={handleChange('email')}
                   handleBlur={handleBlur('email')}
@@ -123,9 +122,9 @@ export default function Index() {
                     </TouchableOpacity>
                   </View>
                 </View>
-                
+
                 <TouchableOpacity
-                  style={[styles.loginBtn,{opacity: isValid ? 1 : 0.5}]}
+                  style={[styles.loginBtn, {opacity: isValid ? 1 : 0.5}]}
                   disabled={!isValid}
                   onPress={() => {
                     handleSubmit(); // This should call your form submit
@@ -137,14 +136,14 @@ export default function Index() {
             )}
           </Formik>
           <View style={styles.row}>
-                  <View style={styles.line} />
-                  <Text style={styles.or}>Or Login with</Text>
-                  <View style={styles.line} />
-                </View>
+            <View style={styles.line} />
+            <Text style={styles.or}>Don't have an account?</Text>
+            <View style={styles.line} />
+          </View>
           <IconButton
-            title="Continue with Google"
-            onPress={() => {}}
-            icon={Icons.icGoogle}
+            title="Sign Up"
+            onPress={() => navigation.navigate('SignUp')}
+            icon={undefined}
           />
         </View>
       </View>

@@ -56,7 +56,7 @@ const CP12Form = () => {
         onLeftPress={() => navigation.goBack()}
       />
       <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
-        {titleData === 'CP12 Gas Safety Record (Landlord/Homeowner)' ? (
+        {titleData === 'CP12 Homeowner Gas Safety Record' ? (
           <>
             {/* Linked Job */}
             <LinkedJobSelector onSelectJob={handleJobSelection} />

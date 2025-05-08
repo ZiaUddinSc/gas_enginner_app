@@ -17,10 +17,10 @@ interface IconButtonProps {
 const IconButton: React.FC<IconButtonProps> = ({ title, onPress,icon }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Image
+      {/* <Image
         source={icon}
         style={styles.icon}
-      />
+      /> */}
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
