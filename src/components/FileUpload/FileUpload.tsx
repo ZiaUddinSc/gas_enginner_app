@@ -9,68 +9,126 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActionSheetIOS,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  Image,
 } from 'react-native';
 import DocumentPicker from '@react-native-documents/picker';
 import { CloudUpload, X } from 'lucide-react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 
 const FileUpload = () => {
-  const [files, setFiles] = useState([]);
-
-  const handleFileUpload = async () => {
-    try {
-      const result = await DocumentPicker.pickMultiple({
-        type: [DocumentPicker.types.allFiles],
+    const [signatureSvg, setSignatureSvg] = useState(null);
+    const [signatureImage, setSignatureImage] = useState(null);
+  const handlePermission = async type => {
+      let permission;
+      if (type === 'camera') {
+        permission =
+          Platform.OS === 'ios'
+            ? PERMISSIONS.IOS.CAMERA
+            : PERMISSIONS.ANDROID.CAMERA;
+      } else {
+        permission =
+          Platform.OS === 'ios'
+            ? PERMISSIONS.IOS.PHOTO_LIBRARY
+            : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+      }
+  
+      const status = await check(permission);
+  
+      if (status === RESULTS.GRANTED) return true;
+  
+      const requestStatus = await request(permission);
+      return requestStatus === RESULTS.GRANTED;
+    };
+  
+    const showImagePickerOptions = () => {
+      if (Platform.OS === 'ios') {
+        ActionSheetIOS.showActionSheetWithOptions(
+          {
+            options: ['Cancel', 'Take Photo', 'Choose from Library'],
+            cancelButtonIndex: 0,
+          },
+          async buttonIndex => {
+            if (buttonIndex === 1) await takePhoto();
+            if (buttonIndex === 2) await pickImage();
+          },
+        );
+      } else {
+        Alert.alert('Upload Signature', 'Choose an option', [
+          {text: 'Cancel', style: 'cancel'},
+          {text: 'Take Photo', onPress: async () => await takePhoto()},
+          {text: 'Choose from Library', onPress: async () => await pickImage()},
+        ]);
+      }
+    };
+  
+    const takePhoto = async () => {
+      const hasPermission = await handlePermission('camera');
+      if (!hasPermission) return;
+  
+      const result = await launchCamera({
+        mediaType: 'photo',
+        quality: 0.8,
       });
-
-      if (files.length + result.length > 10) {
-        Alert.alert('Limit Exceeded', 'You can only upload up to 10 files.');
-        return;
+  
+      handleImageResult(result);
+    };
+  
+    const pickImage = async () => {
+      try {
+        const result = await launchImageLibrary({
+          mediaType: 'photo',
+          quality: 0.8,
+        });
+  
+        if (result.didCancel) {
+          console.log('User cancelled');
+        } else if (result.errorCode) {
+          console.log('Error code:', result.errorCode);
+          console.log('Error message:', result.errorMessage);
+        } else if (result.assets) {
+          setSignatureImage(result.assets[0].uri);
+        }
+      } catch (error) {
+        console.error('Full error:', error);
       }
-
-      setFiles([...files, ...result]);
-    } catch (err) {
-      if (!DocumentPicker.isCancel(err)) {
-        Alert.alert('Error', 'Failed to pick files.');
-        console.error(err);
+    };
+  
+    const handleImageResult = result => {
+      if (result.didCancel) {
+        console.log('User cancelled');
+      } else if (result.errorCode) {
+        Alert.alert('Error', 'Failed to get image');
+      } else if (result.assets) {
+        setSignatureImage(result.assets[0].uri);
+        Alert.alert('Success', 'Signature added successfully');
       }
-    }
-  };
-
-  const removeFile = index => {
-    const updated = [...files];
-    updated.splice(index, 1);
-    setFiles(updated);
-  };
+    };
 
   
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Documents</Text>
-      <TouchableOpacity style={styles.uploadArea} onPress={handleFileUpload}>
+      {signatureImage && (
+                    <Image
+                      source={{uri: signatureImage}}
+                      style={styles.previewImage}
+                    />
+                  )}
+      <TouchableOpacity style={styles.uploadArea} onPress={showImagePickerOptions}>
         <CloudUpload size={36} color="#666" />
-        <Text style={styles.uploadText}>Drop files here or click to upload.</Text>
+        <Text style={styles.uploadText}>Click to upload.</Text>
         <Text style={styles.subText}>
-          Upload maximum 10 files. Allowed file types are images, excel, document, & PDF.
+          Upload files. Allowed file types are images.
         </Text>
       </TouchableOpacity>
 
-      {files.length > 0 && (
-        <View style={styles.fileList}>
-          {files.map((file, index) => (
-            <View key={index} style={styles.fileItem}>
-              <Text style={styles.fileName} numberOfLines={1}>
-                {file.name}
-              </Text>
-              <TouchableOpacity onPress={() => removeFile(index)}>
-                <X size={18} color="red" />
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
-      )}
+      
     </View>
   );
 };
@@ -78,7 +136,7 @@ const FileUpload = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 5,
-  },
+  }, 
   title: {
     color: '#2c3e50',
     fontSize: hp(1.8),
@@ -125,6 +183,14 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     color: '#333',
+  },
+  previewImage: {
+    width: '100%',
+    height: 150,
+    marginTop: 10,
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
 });
 
