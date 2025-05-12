@@ -18,7 +18,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ArrowLeft, User,ChevronRight} from 'lucide-react-native';
+import {ArrowLeft, User, ChevronRight} from 'lucide-react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
@@ -31,7 +31,7 @@ const CP12Form = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const totalQuestions = 8;
-//   alert(JSON.stringify(route.params));
+  //   alert(JSON.stringify(route.params));
   const [signature, setSignature] = useState(null);
   const [todayDate, setTodayDate] = useState(new Date());
   const [nextInspectionDate, setNextInspectionDate] = useState(
@@ -78,7 +78,7 @@ const CP12Form = () => {
                 <Text style={styles.safety_questionsAnswered}>
                   QUESTIONS ANSWERED
                 </Text>
-                <Text style={[styles.safety_progress,]}>
+                <Text style={[styles.safety_progress]}>
                   {questionsAnswered}/{totalQuestions}
                 </Text>
               </View>
@@ -125,8 +125,8 @@ const CP12Form = () => {
                     alignItems: 'center',
                   }}>
                   <TextInput
-                    style={[styles.input, {padding: 0,width:'90%'}]}
-                    value=''
+                    style={[styles.input, {padding: 0, width: '90%'}]}
+                    value=""
                     onChangeText={setReceivedBy} // Update state on text change
                     placeholder="Name" // Added placeholder for better UX
                     placeholderTextColor="#7f8c8d"
@@ -162,7 +162,7 @@ const CP12Form = () => {
             </View>
           </>
         ) : titleData === 'CP12 Landlord Gas Safety Record' ? (
-            <>
+          <>
             {/* Linked Job */}
             <LinkedJobSelector onSelectJob={handleJobSelection} />
 
@@ -231,7 +231,7 @@ const CP12Form = () => {
                   }}>
                   <TextInput
                     style={[styles.input, {padding: 0}]}
-                    value=''
+                    value=""
                     onChangeText={setReceivedBy} // Update state on text change
                     placeholder="Enter Name" // Added placeholder for better UX
                     placeholderTextColor="#7f8c8d"
@@ -267,7 +267,7 @@ const CP12Form = () => {
             </View>
           </>
         ) : titleData === 'CP14 Gas Warning Notice' ? (
-            <>
+          <>
             {/* Linked Job */}
             <LinkedJobSelector onSelectJob={handleJobSelection} />
 
@@ -277,21 +277,24 @@ const CP12Form = () => {
 
             {/* Appliance & Inspections */}
             <View style={styles.safety_container}>
-            <Text style={styles.title}>Appliance & Inspections</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('CP14AddAppliance')}  style={[styles.safety_content, {marginTop: hp(1)}]}>
+              <Text style={styles.title}>Appliance & Inspections</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('CP14AddAppliance')}
+                style={[styles.safety_content, {marginTop: hp(1)}]}>
                 <Text style={styles.safety_questionsAnswered}>
                   {'Appliance'.toUpperCase()}
                 </Text>
-                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Text style={styles.safety_progress}>N/A</Text>
-                <ChevronRight size={20}/>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.safety_progress}>N/A</Text>
+                  <ChevronRight size={20} />
                 </View>
               </TouchableOpacity>
-              </View>
-
-           
-
-           
+            </View>
 
             {/* Signature Section */}
             <View style={styles.safety_container}>
@@ -322,7 +325,7 @@ const CP12Form = () => {
                   }}>
                   <TextInput
                     style={[styles.input, {padding: 0}]}
-                    value=''
+                    value=""
                     onChangeText={setReceivedBy} // Update state on text change
                     placeholder="Enter Name" // Added placeholder for better UX
                     placeholderTextColor="#7f8c8d"
@@ -358,7 +361,7 @@ const CP12Form = () => {
             </View>
           </>
         ) : titleData === 'Service / Maintenance Record' ? (
-            <>
+          <>
             {/* Linked Job */}
             <LinkedJobSelector onSelectJob={handleJobSelection} />
 
@@ -368,22 +371,24 @@ const CP12Form = () => {
 
             {/* Appliance & Inspections */}
             <View style={styles.safety_container}>
-            <Text style={styles.title}>Appliance & Inspections</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('ServiceAddAppliance')} style={[styles.safety_content, {marginTop: hp(1)}]}>
+              <Text style={styles.title}>Appliance & Inspections</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ServiceAddAppliance')}
+                style={[styles.safety_content, {marginTop: hp(1)}]}>
                 <Text style={styles.safety_questionsAnswered}>
                   {'Appliance'.toUpperCase()}
                 </Text>
-                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Text style={styles.safety_progress}>N/A</Text>
-                <ChevronRight size={20}/>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.safety_progress}>N/A</Text>
+                  <ChevronRight size={20} />
                 </View>
               </TouchableOpacity>
-              </View>
-
-           
-
-           
-
+            </View>
             {/* Signature Section */}
             <View style={styles.safety_container}>
               <Text style={styles.title}>Signature</Text>
@@ -413,7 +418,7 @@ const CP12Form = () => {
                   }}>
                   <TextInput
                     style={[styles.input, {padding: 0}]}
-                    value=''
+                    value=""
                     onChangeText={setReceivedBy} // Update state on text change
                     placeholder="Enter Name" // Added placeholder for better UX
                     placeholderTextColor="#7f8c8d"
@@ -449,7 +454,7 @@ const CP12Form = () => {
             </View>
           </>
         ) : titleData === 'Gas Breakdown Record' ? (
-            <>
+          <>
             {/* Linked Job */}
             <LinkedJobSelector onSelectJob={handleJobSelection} />
 
@@ -459,21 +464,24 @@ const CP12Form = () => {
 
             {/* Appliance & Inspections */}
             <View style={styles.safety_container}>
-            <Text style={styles.title}>Appliance & Inspections</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('GasBreakdownAddAppliance')} style={[styles.safety_content, {marginTop: hp(1)}]}>
+              <Text style={styles.title}>Appliance & Inspections</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('GasBreakdownAddAppliance')}
+                style={[styles.safety_content, {marginTop: hp(1)}]}>
                 <Text style={styles.safety_questionsAnswered}>
                   {'Appliance'.toUpperCase()}
                 </Text>
-                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Text style={styles.safety_progress}>N/A</Text>
-                <ChevronRight size={20}/>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.safety_progress}>N/A</Text>
+                  <ChevronRight size={20} />
                 </View>
               </TouchableOpacity>
-              </View>
-
-           
-
-           
+            </View>
 
             {/* Signature Section */}
             <View style={styles.safety_container}>
@@ -504,7 +512,7 @@ const CP12Form = () => {
                   }}>
                   <TextInput
                     style={[styles.input, {padding: 0}]}
-                    value=''
+                    value=""
                     onChangeText={setReceivedBy} // Update state on text change
                     placeholder="Enter Name" // Added placeholder for better UX
                     placeholderTextColor="#7f8c8d"
@@ -540,7 +548,7 @@ const CP12Form = () => {
             </View>
           </>
         ) : titleData === 'Gas Boiler System Commissioning Checklist' ? (
-            <>
+          <>
             {/* Linked Job */}
             <LinkedJobSelector onSelectJob={handleJobSelection} />
 
@@ -550,21 +558,24 @@ const CP12Form = () => {
 
             {/* Appliance & Inspections */}
             <View style={styles.safety_container}>
-            <Text style={styles.title}>Appliance & Inspections</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('GasBoilerAddAppliance')} style={[styles.safety_content, {marginTop: hp(1)}]}>
+              <Text style={styles.title}>Appliance & Inspections</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('GasBoilerAddAppliance')}
+                style={[styles.safety_content, {marginTop: hp(1)}]}>
                 <Text style={styles.safety_questionsAnswered}>
                   {'Appliance'.toUpperCase()}
                 </Text>
-                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Text style={styles.safety_progress}>N/A</Text>
-                <ChevronRight size={20}/>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.safety_progress}>N/A</Text>
+                  <ChevronRight size={20} />
                 </View>
               </TouchableOpacity>
-              </View>
-
-           
-
-           
+            </View>
 
             {/* Signature Section */}
             <View style={styles.safety_container}>
@@ -595,7 +606,7 @@ const CP12Form = () => {
                   }}>
                   <TextInput
                     style={[styles.input, {padding: 0}]}
-                    value=''
+                    value=""
                     onChangeText={setReceivedBy} // Update state on text change
                     placeholder="Enter Name" // Added placeholder for better UX
                     placeholderTextColor="#7f8c8d"

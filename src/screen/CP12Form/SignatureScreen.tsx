@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  BackHandler
+  BackHandler,
 } from 'react-native';
 import SignatureCanvas from 'react-native-signature-canvas';
 import Orientation from 'react-native-orientation-locker';
@@ -30,11 +30,9 @@ const SignatureScreen = ({navigation}) => {
         setDimensions(window);
       });
 
-  
-
       const backHandler = BackHandler.addEventListener(
         'hardwareBackPress',
-        handleBackPress
+        handleBackPress,
       );
 
       return () => {
@@ -71,8 +69,6 @@ const SignatureScreen = ({navigation}) => {
   };
 
   const canvasHeight = Math.min(dimensions.height, dimensions.width) * 0.7;
-
-
 
   return (
     <SafeAreaView style={styles.safeArea}>

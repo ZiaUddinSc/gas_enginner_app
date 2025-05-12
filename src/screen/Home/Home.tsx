@@ -1,4 +1,4 @@
-import React, {useRef,useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -20,7 +20,7 @@ import {
   ChevronRight,
   ArrowLeft,
   LogOut,
-  UserPlus
+  UserPlus,
 } from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import {styles} from './styles';
@@ -113,7 +113,7 @@ const Home = () => {
         // onLeftPress={() => navigation.goBack()}
         rightIcon1={<LogOut size={24} color="white" />}
         onRightPress1={() => alert('Notification')}
-        leftIcon={<LogoSvg height={40} width={40}/>}
+        leftIcon={<LogoSvg height={40} width={40} />}
       />
       <View style={styles.container}>
         <FlatList
@@ -128,30 +128,26 @@ const Home = () => {
 
       {/* Floating Invite Button */}
       <Animatable.View
-  animation="pulse"
-  iterationCount="infinite"
-  direction="alternate"
-  duration={1000}>
-  <TouchableOpacity
-    style={inviteButtonStyle.button}
-    onPress={handleInviteClick}>
-    <UserPlus color="white" size={30} />
-    <Text style={inviteButtonStyle.text}>Invite{'\n'}Engineers</Text>
-  </TouchableOpacity>
-</Animatable.View>
-
-
+        animation="pulse"
+        iterationCount="infinite"
+        direction="alternate"
+        duration={1000}>
+        <TouchableOpacity
+          style={inviteButtonStyle.button}
+          onPress={handleInviteClick}>
+          <UserPlus color="white" size={30} />
+          <Text style={inviteButtonStyle.text}>Invite{'\n'}Engineer</Text>
+        </TouchableOpacity>
+      </Animatable.View>
     </SafeAreaView>
   );
-
-  
 };
 
 const inviteButtonStyle = StyleSheet.create({
   button: {
     position: 'absolute',
     bottom: hp(3),
-    right:wp(5),
+    right: wp(5),
     alignSelf: 'center',
     backgroundColor: Color.primaryBGColor,
     flexDirection: 'row',
