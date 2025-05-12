@@ -1,5 +1,5 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import SplashScreen from '../screen/SplashScreen/SplashScreen';
 import Login from '../screen/Login/Login';
@@ -20,17 +20,20 @@ import SignatureScreen from '../screen/CP12Form/SignatureScreen';
 import ServiceAddAppliance from '../screen/CP12Form/ServiceAddAppliance';
 import GasBreakdownAddAppliance from '../screen/CP12Form/GasBreakdownAddAppliance';
 import GasBoilerAddAppliance from '../screen/CP12Form/GasBoilerAddAppliance';
-import Miscellaneous from '../screen/Miscellaneous'
-import PowerflushChecklist from '../screen/Miscellaneous/PowerflushChecklist'
-import CompanyInformationForm from '../screen/CompanyInformationForm'
-
-import BottomTabs from './BottomTabs'; // 👈 BottomTab imported
+import Miscellaneous from '../screen/Miscellaneous';
+import PowerflushChecklist from '../screen/Miscellaneous/PowerflushChecklist';
+import CompanyInformationForm from '../screen/CompanyInformationForm';
+import BottomTabs from './BottomTabs';
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animation: 'slide_from_right', // 👈 Slide animation added here
+      }}>
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
@@ -53,8 +56,6 @@ export default function AppNavigator() {
       <Stack.Screen name="Miscellaneous" component={Miscellaneous} />
       <Stack.Screen name="PowerflushChecklist" component={PowerflushChecklist} />
       <Stack.Screen name="CompanyInformationForm" component={CompanyInformationForm} />
-
-      {/* Dashboard shows BottomTabs */}
       <Stack.Screen name="Dashboard" component={BottomTabs} />
     </Stack.Navigator>
   );

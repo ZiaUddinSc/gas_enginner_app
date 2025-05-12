@@ -35,6 +35,7 @@ import {
 import {AnimateItem} from '../../helper/customMethods';
 import * as Animatable from 'react-native-animatable';
 import InviteEngineersModal from '../../components/InviteEngineersModal/InviteEngineersModal';
+import LogoSvg from '../../components/LogoSvg';
 
 const menuItems = [
   {title: 'Customers (0)', icon: <Users color={Color.fontColor} size={35} />},
@@ -109,9 +110,10 @@ const Home = () => {
       <CustomHeader
         title="Home"
         // leftIcon={<ArrowLeft size={24} color="white" />}
-        onLeftPress={() => navigation.goBack()}
+        // onLeftPress={() => navigation.goBack()}
         rightIcon1={<LogOut size={24} color="white" />}
         onRightPress1={() => alert('Notification')}
+        leftIcon={<LogoSvg height={40} width={40}/>}
       />
       <View style={styles.container}>
         <FlatList

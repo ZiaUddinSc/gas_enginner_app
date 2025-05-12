@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
+ 
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {styles} from './styles';
@@ -53,6 +54,8 @@ export default function Index() {
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.navigate("WelcomeScreen")}     /> */}
       <View style={styles.container}>
+        {/* <LogoSvg height={100} width={100}/> */}
+        <Image source={require('../../assets/full_logo.png')} style={{height:100,width:150,resizeMode:'cover',marginBottom:20}}/>
         <View style={styles.loginBody}>
           <View>
             <Text style={styles.textHeader}>Sign In</Text>

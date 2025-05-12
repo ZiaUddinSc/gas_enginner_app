@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
         backgroundColor: Color.white,
         marginBottom: hp('1.5%'),
         borderRadius: wp('1%'),
+        marginTop:hp(0.5),
       height:hp(18),
       width:wp(44),
         borderColor:Color.textPrimaryColor,

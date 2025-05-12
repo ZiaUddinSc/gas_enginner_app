@@ -2,6 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 import Color from '../../theme/Colors';
+import { Home } from 'lucide-react-native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
 interface Props {
   title?: string;
@@ -21,7 +24,9 @@ const CustomHeader = ({
   onRightPress1,
   rightIcon2,
   onRightPress2,
+  
 }: Props) => {
+   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <View style={[styles.headerContainer]}>
       <View style={styles.side}>
@@ -37,11 +42,13 @@ const CustomHeader = ({
       </View>
 
       <View style={[styles.side, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
-        {rightIcon1 && (
+        {rightIcon1 || title ==='Sign Up' ? (
           <TouchableOpacity onPress={onRightPress1} style={{ marginLeft: 10 }}>
             {rightIcon1}
           </TouchableOpacity>
-        )}
+        ):<TouchableOpacity onPress={()=>navigation.navigate("Dashboard")} style={{ marginLeft: 10 }}>
+        <Home color={'#fff'}/>
+       </TouchableOpacity>}
         {rightIcon2 && (
           <TouchableOpacity onPress={onRightPress2} style={{ marginLeft: 10 }}>
             {rightIcon2}

@@ -60,11 +60,12 @@ export default function Index() {
   return (
     <SafeAreaView style={styles.content}>
       <CustomHeader
-        title=""
+        title="Sign Up"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.navigate('Login')}
       />
       <View style={styles.container}>
+        
         <View style={styles.loginBody}>
           <View>
             <Text style={styles.textHeader}>Sign Up</Text>
@@ -112,7 +113,7 @@ export default function Index() {
                 <View style={styles.inputView}>
                   <TextInput
                     style={styles.inputText}
-                    placeholder="x@y.Z"
+                    placeholder="username@example.com"
                     placeholderTextColor="#AFAFAF"
                     onChangeText={handleChange('email')}
                     onBlur={handleBlur('email')}
