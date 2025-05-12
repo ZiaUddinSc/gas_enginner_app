@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,24 +9,17 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {
-  FileText,
   Layers,
   Users,
   Briefcase,
-  Calendar,
-  Calculator,
   BookOpen,
-  Settings,
-  ChevronRight,
-  ArrowLeft,
   LogOut,
-  UserPlus,
+  CircleUser,
 } from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import {styles} from './styles';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import GasRateCalculator from '../GasRateCalculator';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {
   widthPercentageToDP as wp,
@@ -34,7 +27,6 @@ import {
 } from 'react-native-responsive-screen';
 import {AnimateItem} from '../../helper/customMethods';
 import * as Animatable from 'react-native-animatable';
-import InviteEngineersModal from '../../components/InviteEngineersModal/InviteEngineersModal';
 import LogoSvg from '../../components/LogoSvg';
 
 const menuItems = [
@@ -56,14 +48,45 @@ const Home = () => {
     menuItems.map(() => new Animated.Value(0)),
   ).current;
 
-  const [isInviteModalVisible, setIsInviteModalVisible] = useState(false);
+  const [lastPressTime, setLastPressTime] = useState(0);
+  const [fristTab, setFristTab] = useState('');
+  const tapCount = useRef(0);
+  const resetTimer = useRef(null);
 
-  const handleInviteClick = () => {
-    navigation.navigate('InviteFriendScreen');
-  };
+  useEffect(() => {
+    if (fristTab) {
+      resetTimer.current = setTimeout(() => {
+        setFristTab('');
+      }, 10000);
+    }
 
-  const handleCloseInviteModal = () => {
-    setIsInviteModalVisible(false);
+    return () => {
+      if (resetTimer.current) {
+        clearTimeout(resetTimer.current);
+      }
+    };
+  }, [fristTab]);
+
+  const handleDoubleTap = () => {
+    const currentTime = new Date().getTime();
+    const delta = currentTime - lastPressTime;
+
+    if (delta < 10000) {
+      tapCount.current = 0;
+      navigation.navigate('InviteFriendScreen');
+    } else {
+      tapCount.current += 1;
+      setFristTab('Invite Engineer');
+    }
+
+    setLastPressTime(currentTime);
+
+    setTimeout(() => {
+      if (tapCount.current === 1) {
+        setFristTab('Invite Engineer');
+        tapCount.current = 0;
+      }
+    }, 300);
   };
 
   const onPressListItem = item => {
@@ -133,10 +156,19 @@ const Home = () => {
         direction="alternate"
         duration={1000}>
         <TouchableOpacity
-          style={inviteButtonStyle.button}
-          onPress={handleInviteClick}>
-          <UserPlus color="white" size={30} />
-          <Text style={inviteButtonStyle.text}>Invite{'\n'}Engineer</Text>
+          style={
+            fristTab != 'Invite Engineer'
+              ? inviteButtonStyle.buttonround
+              : inviteButtonStyle.button
+          }
+          onPress={handleDoubleTap}>
+          <CircleUser
+            color="white"
+            size={30}
+            style={fristTab != 'Invite Engineer' && {marginTop: hp(3)}}
+          />
+
+          <Text style={inviteButtonStyle.text}>{fristTab}</Text>
         </TouchableOpacity>
       </Animatable.View>
     </SafeAreaView>
@@ -161,13 +193,28 @@ const inviteButtonStyle = StyleSheet.create({
     shadowRadius: 4,
     shadowOffset: {width: 0, height: 2},
   },
+  buttonround: {
+    position: 'absolute',
+    bottom: hp(3),
+    right: wp(5),
+    backgroundColor: Color.primaryBGColor,
+    padding: hp(1),
+    borderRadius: 50,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: {width: 0, height: 2},
+    height: hp(7),
+    width: wp(14),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   text: {
     color: 'white',
     marginLeft: 6,
     fontWeight: 'bold',
     fontSize: 18,
-    // textAlign:'center'
-    // padding:12
   },
 });
 
