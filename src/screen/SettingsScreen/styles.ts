@@ -10,84 +10,81 @@ import Color from '../../theme/Colors';
 export const styles = StyleSheet.create({
    safeArea: {
           flex: 1,
-          backgroundColor: Color.primaryBGColor,
+          backgroundColor: '#f0f0f0',
         },
-  container: {
-    flex: 1,
-    backgroundColor: Color.white,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: wp('4%'),
-    paddingTop: hp('5%'),
-    paddingBottom: hp('2%'),
-  },
-  logo: {
-    width: wp('10%'),
-    height: wp('10%'),
-    resizeMode: 'contain',
-  },
-  userBadge: {
-    backgroundColor: '#4A90A4',
-    paddingHorizontal: wp('4%'),
-    paddingVertical: hp('1%'),
-    borderRadius: wp('10%'),
-  },
-  userInitials: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: wp('4%'),
-  },
-  scrollContent: {
-    padding: wp('4%'),
-    paddingBottom: hp('10%'),
-  },
-  card: {
-    backgroundColor: '#F3F6FA',
-    borderRadius: wp('5%'),
-    padding: wp('5%'),
-    marginBottom: hp('3%'),
-    alignItems: 'center',
-   
-shadowOffset: {
-	width: 0,
-	height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
+        container: {
+          flex: 1,
+          backgroundColor: '#F2F4F8',
+        },
+        header: {
+          height: hp('17%'),
+          backgroundColor: '#1E90FF',
+          borderBottomLeftRadius: wp('10%'),
+          borderBottomRightRadius: wp('10%'),
+   width:wp(100)
 
-elevation: 5,
-  },
-  iconWrapper: {
-    backgroundColor: '#1D4D5D',
-    padding: wp('6%'),
-    borderRadius: wp('15%'),
-    marginBottom: hp('1.5%'),
-  },
-  cardTitle: {
-    fontWeight: '700',
-    fontSize: wp('4.5%'),
-    color: '#2C3E50',
-    textAlign: 'center',
-    marginBottom: hp('1%'),
-  },
-  cardDescription: {
-    textAlign: 'center',
-    color: '#697D8C',
-    fontSize: wp('3.8%'),
-    marginBottom: hp('2%'),
-  },
-  button: {
-    backgroundColor: '#1D4D5D',
-    paddingHorizontal: wp('10%'),
-    paddingVertical: hp('1.5%'),
-    borderRadius: wp('10%'),
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: wp('4%'),
-  },
+        },
+        profileContainer: {
+          alignItems: 'center',
+          marginTop: -hp('6%'),
+        },
+        profileImage: {
+          width: wp('22%'),
+          height: wp('22%'),
+          borderRadius: wp('11%'),
+          borderWidth: 2,
+          borderColor: '#fff',
+        },
+        cameraIcon: {
+          position: 'absolute',
+          bottom: 5,
+          right: wp('37%'),
+          backgroundColor: '#fff',
+          padding: wp('1.5%'),
+          borderRadius: wp('5%'),
+          elevation: 3,
+        },
+        infoCard: {
+          backgroundColor: '#fff',
+          margin: wp('5%'),
+          borderRadius: wp('3%'),
+          padding: wp('4%'),
+          elevation: 3,
+        },
+        infoRow: {
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: hp('1%'),
+        },
+        infoTitle: {
+          fontSize: wp('4.5%'),
+          fontWeight: 'bold',
+          marginLeft: wp('2%'),
+        },
+        label: {
+          fontWeight: '600',
+          color: '#555',
+        },
+        infoText: {
+          fontSize: wp('3.5%'),
+          marginTop: hp('0.5%'),
+          color: '#444',
+        },
+        menuItem: {
+          backgroundColor: '#fff',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginHorizontal: wp('5%'),
+          padding: wp('4%'),
+          borderRadius: wp('3%'),
+          marginBottom: hp('1.2%'),
+          elevation: 2,
+        },
+        menuIcon: {
+          marginRight: wp('4%'),
+        },
+        menuText: {
+          fontSize: wp('4%'),
+          color: '#333',
+        },
 });
