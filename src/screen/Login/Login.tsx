@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
- 
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {styles} from './styles';
@@ -55,7 +54,15 @@ export default function Index() {
         onLeftPress={() => navigation.navigate("WelcomeScreen")}     /> */}
       <View style={styles.container}>
         {/* <LogoSvg height={100} width={100}/> */}
-        <Image source={require('../../assets/full_logo.png')} style={{height:100,width:150,resizeMode:'cover',marginBottom:20}}/>
+        <Image
+          source={require('../../assets/full_logo.png')}
+          style={{
+            height: 100,
+            width: 150,
+            resizeMode: 'cover',
+            marginBottom: 20,
+          }}
+        />
         <View style={styles.loginBody}>
           <View>
             <Text style={styles.textHeader}>Sign In</Text>
@@ -106,20 +113,6 @@ export default function Index() {
                 )}
                 <View>
                   <View style={styles.actions}>
-                    <TouchableOpacity
-                      style={{
-                        flexDirection: 'row',
-                        alignSelf: 'flex-start',
-                      }}
-                      onPress={() => checkBoxChanged()}>
-                      <CheckBox
-                        disabled={true}
-                        value={rememberMe}
-                        onValueChange={() => checkBoxChanged()}
-                        tintColors={{true: 'rgb(22 78 99)', false: 'fff'}}
-                      />
-                      <Text style={styles.forgot}>Remember me</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity>
                       <Text style={styles.forgot}>Forgot Password?</Text>
                     </TouchableOpacity>

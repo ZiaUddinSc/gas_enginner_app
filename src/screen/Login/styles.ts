@@ -1,4 +1,4 @@
-import {StyleSheet,Platform,StatusBar} from 'react-native';
+import {StyleSheet, Platform, StatusBar} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -8,9 +8,9 @@ import {
 
 import Color from '../../theme/Colors';
 export const styles = StyleSheet.create({
-  content:{
-flex:1,
-backgroundColor: Color.primaryBGColor
+  content: {
+    flex: 1,
+    backgroundColor: Color.primaryBGColor,
   },
   container: {
     flex: 1,
@@ -70,7 +70,7 @@ backgroundColor: Color.primaryBGColor
   },
   dontAcountText: {
     fontSize: hp('2%'),
-    color:Color.white
+    color: Color.white,
   },
   singUp: {
     marginLeft: 5,
@@ -95,8 +95,7 @@ backgroundColor: Color.primaryBGColor
   },
   actions: {
     margin: wp('2%'),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
   logoView: {
     marginLeft: wp('4%'),
@@ -121,10 +120,7 @@ backgroundColor: Color.primaryBGColor
     color: 'rgb(185 28 28)',
     marginLeft: wp('4%'),
   },
-  or:{textAlign:'center',
-    color:Color.white,
-    paddingHorizontal:4
-  },
-  row:{flexDirection:'row',alignItems:'center',justifyContent:'center'},
-  line:{height:2,width:wp('10%'),backgroundColor:'#FFF'}
+  or: {textAlign: 'center', color: Color.white, paddingHorizontal: 4},
+  row: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center'},
+  line: {height: 2, width: wp('10%'), backgroundColor: '#FFF'},
 });
