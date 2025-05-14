@@ -117,7 +117,10 @@ import {
   BellRing,
 } from 'lucide-react-native';
 import {styles} from './styles';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 const SettingsScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <ScrollView style={styles.container}>
       {/* Header Section */}
@@ -155,40 +158,34 @@ const SettingsScreen = () => {
       <Text style={[styles.infoTitle,{paddingLeft:wp(3),padding:5}]}>Manage</Text>
       <MenuItem
         icon={<User size={wp('5%')} color="#0d9488" />}
-        title="My Account"
-      />
+        title="My Account" onPrass={()=>navigation.navigate('MyAccount')}      />
       <MenuItem
         icon={<Users size={wp('5%')} color="#0d9488" />}
-        title="Company Members"
-      />
+        title="Company Members" onPrass={()=>navigation.navigate('CompanyUsersScreen')}      />
 
 
 <Text style={[styles.infoTitle,{paddingLeft:wp(3),padding:5}]}>Company</Text>
       <MenuItem
         icon={<Building size={wp('5%')} color="#0d9488" />}
-        title="Company Settings"
-      />
+        title="Company Settings" onPrass={()=>navigation.navigate('CompanySettingsScreen')}      />
       <MenuItem
         icon={<UserRoundCog size={wp('5%')} color="#0d9488" />}
-        title="Subscriptions & Invoices"
-      />
+        title="Subscriptions & Invoices" onPrass={()=>navigation.navigate('SubscriptionsInvoices')}      />
 
 <Text style={[styles.infoTitle,{paddingLeft:wp(3),padding:5}]}>Form Settings</Text>
       <MenuItem
         icon={<BookText size={wp('5%')} color="#0d9488" />}
-        title="Invoices & Certificates Numbering"
-      />
+        title="Invoices & Certificates Numbering" onPrass={()=>navigation.navigate('CertificatesInvoicesNumbering')}      />
       <MenuItem
         icon={<BellRing size={wp('5%')} color="#0d9488" />}
-        title="Service Reminders and Email Templates"
-      />
+        title="Service Reminders and Email Templates" onPrass={()=>navigation.navigate('EmailTemplateScreen')}      />
      
     </ScrollView>
   );
 };
 
-const MenuItem = ({icon, title}: {icon: React.ReactNode; title: string}) => (
-  <TouchableOpacity style={styles.menuItem}>
+const MenuItem = ({icon, title,onPrass}: {icon: React.ReactNode; title: string;onPrass:any}) => (
+  <TouchableOpacity style={styles.menuItem} onPress={onPrass}>
     <View style={styles.menuIcon}>{icon}</View>
     <Text style={styles.menuText}>{title}</Text>
   </TouchableOpacity>

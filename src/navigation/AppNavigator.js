@@ -23,6 +23,13 @@ import GasBoilerAddAppliance from '../screen/CP12Form/GasBoilerAddAppliance';
 import Miscellaneous from '../screen/Miscellaneous';
 import PowerflushChecklist from '../screen/Miscellaneous/PowerflushChecklist';
 import CompanyInformationForm from '../screen/CompanyInformationForm';
+import MyAccount from '../screen/MyAccount'
+import CompanyUsersScreen from '../screen/CompanyUsersScreen'
+import AddUserScreen from '../screen/AddUserScreen'
+import CompanySettingsScreen from '../screen/CompanySettingsScreen'
+import SubscriptionsInvoices from '../screen/SubscriptionsInvoices'
+import CertificatesInvoicesNumbering from '../screen/CertificatesInvoicesNumbering'
+import EmailTemplateScreen from '../screen/EmailTemplateScreen'
 import BottomTabs from './BottomTabs';
 
 const Stack = createNativeStackNavigator();
@@ -56,6 +63,13 @@ export default function AppNavigator() {
       <Stack.Screen name="Miscellaneous" component={Miscellaneous} />
       <Stack.Screen name="PowerflushChecklist" component={PowerflushChecklist} />
       <Stack.Screen name="CompanyInformationForm" component={CompanyInformationForm} />
+      <Stack.Screen name="MyAccount" component={MyAccount} />
+      <Stack.Screen name="CompanyUsersScreen" component={CompanyUsersScreen} />
+      <Stack.Screen name="AddUserScreen" component={AddUserScreen} />
+      <Stack.Screen name="CompanySettingsScreen" component={CompanySettingsScreen} />
+      <Stack.Screen name="SubscriptionsInvoices" component={SubscriptionsInvoices} />
+      <Stack.Screen name="CertificatesInvoicesNumbering" component={CertificatesInvoicesNumbering} />
+      <Stack.Screen name="EmailTemplateScreen" component={EmailTemplateScreen} />
       <Stack.Screen name="Dashboard" component={BottomTabs} />
     </Stack.Navigator>
   );
