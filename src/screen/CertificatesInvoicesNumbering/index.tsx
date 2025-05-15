@@ -56,6 +56,7 @@ const NumberingSettingsScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.safeArea}>
          <CustomHeader
+         fontSize={hp(1.7)}
         title="Certificates, Jobs, Quotes, and Invoices Numbering"
         leftIcon={<ArrowLeft  size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}

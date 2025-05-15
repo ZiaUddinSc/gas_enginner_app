@@ -99,6 +99,7 @@ const AddUserScreen = ({navigation}) => {
       <View style={styles.container}>
         <CustomHeader
           title="Create User"
+          fontSize={hp(2.2)}
           leftIcon={<ArrowLeft size={hp(3)} color="white" />}
           onLeftPress={() => navigation.goBack()}
         />

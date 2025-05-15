@@ -172,6 +172,7 @@ const Certificate = () => {
       {/* Header */}
       <CustomHeader
         title="Certificate"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />

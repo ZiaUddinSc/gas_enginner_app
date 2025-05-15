@@ -5,6 +5,10 @@ import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {
 
     ArrowLeft,
     Copy
@@ -29,6 +33,7 @@ const InviteFriendScreen = () => {
     <SafeAreaView style={styles.safeArea}>
        <CustomHeader
         title="Invite Engineers"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
         onRightPress1={() => alert('Notification')}

@@ -182,6 +182,10 @@ import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {ArrowLeft} from 'lucide-react-native';
 import Color from '../../theme/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const SignatureScreen = ({navigation}) => {
   const signatureRef = useRef(null);
@@ -262,6 +266,7 @@ const SignatureScreen = ({navigation}) => {
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title="Add Signature"
+         fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={handleBackPress}
       />

@@ -28,6 +28,7 @@ const SelectItemScreen = ({ route, navigation }) => {
         <SafeAreaView style={styles.safeArea}>
         <View style={styles.modalContainer}>
             <CustomHeader
+             fontSize={hp(1.7)}
                 title={title}
                 leftIcon={<ArrowLeft size={24} color="white" />}
                 onLeftPress={() => {

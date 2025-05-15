@@ -39,6 +39,7 @@ const CompanySettingsScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.safeArea}>
          <CustomHeader
+         fontSize={hp(2.2)}
         title="Company Settings"
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}

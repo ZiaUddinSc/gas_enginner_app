@@ -31,6 +31,9 @@ import Card from '../../components/Card';
 import SupscriptText from '../../components/SupScriptText';
 import Torch from 'react-native-torch';
 import {
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {
   calculateGrossRate,
   calculateGrossKW,
   calculateGrossNet,
@@ -237,6 +240,7 @@ const GasRateCalculator = () => {
     <SafeAreaView style={styles.content}>
       <CustomHeader
         title="Gas Rate Calculator"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
         rightIcon1={

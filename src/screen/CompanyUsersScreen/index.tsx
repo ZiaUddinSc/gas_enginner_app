@@ -4,6 +4,10 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, FlatList,SafeAreaV
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import { ArrowLeft, Plus, Search } from 'lucide-react-native';
 import styles from './styles';
+import {
+
+    heightPercentageToDP as hp,
+  } from 'react-native-responsive-screen';
 
 const CompanyUsersScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
@@ -33,6 +37,7 @@ const CompanyUsersScreen = ({ navigation }) => {
     <SafeAreaView style={styles.safeArea}>
     <View style={styles.container}>
       <CustomHeader
+      fontSize={hp(2.2)}
         title="Company Users"
         leftIcon={<ArrowLeft  size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}

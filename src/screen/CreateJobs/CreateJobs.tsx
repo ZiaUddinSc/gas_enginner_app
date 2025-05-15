@@ -61,6 +61,7 @@ const CreateJobs = ({handleFormSubmit}) => {
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title="New Job"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />

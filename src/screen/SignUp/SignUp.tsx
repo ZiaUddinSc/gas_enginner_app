@@ -17,6 +17,8 @@ import LogoSvg from '../../components/LogoSvg';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {EyeIcon, EyeClosed, EyeOff, ArrowLeft} from 'lucide-react-native';
+import {    heightPercentageToDP as hp,} from 'react-native-responsive-screen';
+
 
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import IconButton from '../../components/IconButton';
@@ -61,6 +63,7 @@ export default function Index() {
     <SafeAreaView style={styles.content}>
       <CustomHeader
         title="Sign Up"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.navigate('Login')}
       />

@@ -186,6 +186,7 @@ const CompanyInformationForm = ({navigation}) => {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
         <CustomHeader
           title="Company Information"
+          fontSize={hp(2.2)}
           leftIcon={<ArrowLeft size={24} color="white" />}
           onLeftPress={() => navigation.navigate('SignUp')}
         />

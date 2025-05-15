@@ -10,6 +10,9 @@ import {useNavigation} from '@react-navigation/native';
 import {
     ArrowLeft,
   } from 'lucide-react-native';
+  import {
+    heightPercentageToDP as hp,
+  } from 'react-native-responsive-screen';
 
 const { width } = Dimensions.get('window');
 
@@ -30,6 +33,7 @@ const BoilerManuals = () => {
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title="Boiler Manuals"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />

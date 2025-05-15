@@ -111,6 +111,7 @@ const GasBreakdownAddAppliance = () => {
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title="Add Appliance"
+         fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />

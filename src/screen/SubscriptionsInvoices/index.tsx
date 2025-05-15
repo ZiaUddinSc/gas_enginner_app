@@ -218,6 +218,7 @@ const SubscriptionsInvoices = ({navigation}) => {
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title="User Subscriptions & Invoices"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />

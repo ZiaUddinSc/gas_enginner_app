@@ -20,7 +20,7 @@ import * as Animatable from 'react-native-animatable';
 import DateIcon from '../../components/DateIcon/DateIcon';
 import Avatar from '../../components/Avatar/Avatar';
 import Color from '../../theme/Colors';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp,    heightPercentageToDP as hp, } from 'react-native-responsive-screen';
 
 const titles = [
   'CP12 Gas Safety Record (Landlord/Homeowner)',
@@ -146,6 +146,7 @@ const JobsScreen = () => {
       {/* Header */}
       <CustomHeader
         title="Jobs"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />

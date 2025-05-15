@@ -104,6 +104,7 @@ const EmailTemplateScreen = ({navigation}) => {
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title="Service Reminders and Email Templates"
+        fontSize={hp(2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />

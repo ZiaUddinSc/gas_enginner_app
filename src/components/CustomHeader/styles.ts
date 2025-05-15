@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: hp('6%'),
-    paddingHorizontal: wp('2%'),
+    // paddingHorizontal: wp('1%'),
     backgroundColor: Color.primaryBGColor,
     elevation: 4,
     shadowColor: '#000',
@@ -15,9 +15,10 @@ export const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   side: {
-    width: wp('15%'),
+    // width: wp('15%'),
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft:wp(2)
   },
   titleContainer: {
     flex: 1,
@@ -25,7 +26,8 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: wp('5%'),
-    fontWeight: '600',
+    fontWeight: '500',
     color: '#FFF',
+    // letterSpacing:-0.5
   },
 });

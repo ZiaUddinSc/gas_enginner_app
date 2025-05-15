@@ -5,6 +5,7 @@ import Color from '../../theme/Colors';
 import { Home } from 'lucide-react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 interface Props {
   title?: string;
@@ -14,6 +15,7 @@ interface Props {
   onRightPress1?: () => void;
   rightIcon2?: React.ReactNode;
   onRightPress2?: () => void;
+  fontSize?:any
 }
 
 const CustomHeader = ({
@@ -24,6 +26,7 @@ const CustomHeader = ({
   onRightPress1,
   rightIcon2,
   onRightPress2,
+  fontSize
   
 }: Props) => {
    const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -38,15 +41,15 @@ const CustomHeader = ({
       </View>
 
       <View style={styles.titleContainer}>
-        {title && <Text style={[styles.title]}>{title}</Text>}
+        {title && <Text style={[styles.title,{fontSize:fontSize}]}>{title}</Text>}
       </View>
 
       <View style={[styles.side, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
-        {rightIcon1 || title ==='Sign Up' ? (
+        {rightIcon1 || title ==='Sign Up' || title ==='Company Information'? (
           <TouchableOpacity onPress={onRightPress1} style={{ marginLeft: 10 }}>
             {rightIcon1}
           </TouchableOpacity>
-        ):<TouchableOpacity onPress={()=>navigation.navigate("Dashboard")} style={{ marginLeft: 10 }}>
+        ):<TouchableOpacity onPress={()=>navigation.navigate("Dashboard")} style={{ marginRight:wp(2)}}>
         <Home color={'#fff'}/>
        </TouchableOpacity>}
         {rightIcon2 && (

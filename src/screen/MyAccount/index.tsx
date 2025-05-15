@@ -26,6 +26,9 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 import {styles} from './styles';
+import {
+    heightPercentageToDP as hp,
+  } from 'react-native-responsive-screen';
 
 const MyAccount = ({navigation}) => {
   const [showOilPopup, setShowOilPopup] = useState(false);
@@ -76,6 +79,7 @@ const MyAccount = ({navigation}) => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <CustomHeader
+        fontSize={hp(2.2)}
           title="My Account"
           leftIcon={<ArrowLeft size={24} color="white" />}
           onLeftPress={() => navigation.goBack()}

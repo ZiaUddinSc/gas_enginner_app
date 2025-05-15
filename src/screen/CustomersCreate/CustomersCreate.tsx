@@ -12,6 +12,7 @@ import {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Dropdown } from 'react-native-element-dropdown';
+
 import {
     Home,
     Save,
@@ -19,7 +20,7 @@ import {
     ArrowLeft,
     PlusCircle,
   } from 'lucide-react-native';
-import { widthPercentageToDP as wp, } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp,heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import styles from './styles'; // Assuming you have a styles.ts file
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -60,6 +61,7 @@ const navigation = useNavigation<NativeStackNavigationProp<any>>();
     <SafeAreaView style={styles.safeArea}>
          <CustomHeader
         title="New Customer"
+        fontSize={hp(2.2)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />

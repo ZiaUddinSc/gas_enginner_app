@@ -132,6 +132,7 @@ const Home = () => {
     <SafeAreaView style={styles.content}>
       <CustomHeader
         title="Home"
+        fontSize={hp(2.2)}
         // leftIcon={<ArrowLeft size={24} color="white" />}
         // onLeftPress={() => navigation.goBack()}
         rightIcon1={<LogOut size={24} color="white" />}

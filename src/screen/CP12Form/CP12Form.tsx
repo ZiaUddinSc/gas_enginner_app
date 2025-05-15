@@ -52,6 +52,7 @@ const CP12Form = () => {
     <SafeAreaView style={styles.safeArea}>
       <CustomHeader
         title={titleData}
+        fontSize={hp(1.8)}
         leftIcon={<ArrowLeft size={24} color="white" />}
         onLeftPress={() => navigation.goBack()}
       />
