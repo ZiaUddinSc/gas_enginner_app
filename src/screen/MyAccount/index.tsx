@@ -24,11 +24,12 @@ import {
   ReceiptPoundSterling,
 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect,useRoute} from '@react-navigation/native';
 import {styles} from './styles';
 import {
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
+
 
 const MyAccount = ({navigation}) => {
   const [showOilPopup, setShowOilPopup] = useState(false);
@@ -36,8 +37,7 @@ const MyAccount = ({navigation}) => {
   const [oilNumber, setOilNumber] = useState('N/A');
   const [installerNumber, setInstallerNumber] = useState('N/A');
   const [signatureImage, setSignatureImage] = useState(null);
-
-  const [savedSignature, setSavedSignature] = useState(null);
+  const route = useRoute();
 
   // Mock user data
   const user = {
@@ -60,19 +60,13 @@ const MyAccount = ({navigation}) => {
     // Here you would typically call an API to update the value
   };
 
-  const loadSignature = useCallback(async () => {
-    try {
-      const signature = await AsyncStorage.getItem('generalSignature');
-      setSavedSignature(signature);
-    } catch (error) {
-      console.error('Error loading signature:', error);
-    }
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
-      loadSignature();
-    }, [loadSignature]),
+      
+      if (route.params?.signature) {
+        setSignatureImage(route.params.signature);
+      }
+    }, [route.params?.signature])
   );
 
   return (
@@ -171,10 +165,10 @@ const MyAccount = ({navigation}) => {
             </View>
             <TouchableOpacity
               style={styles.signatureContainer}
-              onPress={() => navigation.navigate('SignatureScreen', {})}>
-              {savedSignature ? (
+              onPress={() => navigation.navigate('SignatureScreen', {returnTo: 'MyAccount',})}>
+             {signatureImage ? (
                 <Image
-                  source={{uri: savedSignature}}
+                  source={{uri: signatureImage}}
                   style={styles.signatureImage}
                 />
               ) : (
@@ -183,6 +177,7 @@ const MyAccount = ({navigation}) => {
                   <Text style={styles.addSignatureText}>Add Signature</Text>
                 </View>
               )}
+              
             </TouchableOpacity>
           </View>
 

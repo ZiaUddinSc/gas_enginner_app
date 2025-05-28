@@ -181,19 +181,21 @@ import Orientation from 'react-native-orientation-locker';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {ArrowLeft} from 'lucide-react-native';
 import Color from '../../theme/Colors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const SignatureScreen = ({navigation}) => {
+const SignatureScreen = ({navigation,route}) => {
   const signatureRef = useRef(null);
   const [dimensions, setDimensions] = useState(Dimensions.get('window'));
   const [signature, setSignature] = useState(null);
   const [isLandscape, setIsLandscape] = useState(false);
+  const { returnTo } = route.params;
 
   useEffect(() => {
+    
     var initial = Orientation.getInitialOrientation();
     if (initial === 'PORTRAIT') {
       Orientation.lockToLandscape();
@@ -216,20 +218,6 @@ const SignatureScreen = ({navigation}) => {
     }
   }, []);
 
-  useEffect(() => {
-    const loadPreviousSignature = async () => {
-      try {
-        const storedSignature = await AsyncStorage.getItem('generalSignature');
-        if (storedSignature) {
-          setSignature(storedSignature);
-        }
-      } catch (error) {
-        console.error('Error loading signature:', error);
-      }
-    };
-
-    loadPreviousSignature();
-  }, []);
 
   const handleOK = base64DataUrl => {
     setSignature(base64DataUrl);
@@ -241,22 +229,16 @@ const SignatureScreen = ({navigation}) => {
   };
 
   const handleConfirm = async () => {
-    if (signature) {
-      try {
-        await AsyncStorage.setItem('generalSignature', signature);
-        console.log('Saved Signature:', signature);
-        navigation.goBack({ signatureUpdated: true }); 
-      } catch (error) {
-        console.error('Error saving signature:', error);
-      }
-    } else {
-      console.log('No signature to save');
-    }
+    Orientation.lockToPortrait();
+    setTimeout(() =>navigation.navigate(returnTo, {
+      signature: signature, // pass signature back
+    }));
+   
   };
 
   const handleBackPress = () => {
     Orientation.lockToPortrait();
-    setTimeout(() => navigation.goBack(), 100);
+    setTimeout(() => navigation.goBack({signature: ''}), 100);
     return true;
   };
 
