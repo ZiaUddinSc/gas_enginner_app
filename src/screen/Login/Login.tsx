@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
+  Alert
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {styles} from './styles';
@@ -20,7 +21,7 @@ import IconButton from '../../components/IconButton';
 import Icons from '../../theme/Icon';
 import {ArrowLeft, Bell} from 'lucide-react-native';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
-
+import {login} from '../../helper/AuthHelper'
 export default function Index() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [rememberMe, setRememberMe] = useState(false);
@@ -35,15 +36,10 @@ export default function Index() {
       .required('The password field is required.')
       .label('Password'),
   });
-  //Check box Toggling
-
-  const checkBoxChanged = () => {
-    setRememberMe(!rememberMe);
-  };
   const handleFormSubmit = (values: any) => {
     // Handle form submission logic here
-    console.log('Submitted values:', values);
-    navigation.navigate('Dashboard');
+   Alert.alert(JSON.stringify(values))
+   login(values)
   };
 
   return (
