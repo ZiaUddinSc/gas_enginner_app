@@ -1,27 +1,20 @@
 import React, {useState} from 'react';
 import {
-  StyleSheet,
   View,
   Image,
   Text,
-  TextInput,
   TouchableOpacity,
-  Button,
   Alert
 } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
 import {styles} from './styles';
 import {Formik, Form} from 'formik';
 import * as Yup from 'yup';
-import LogoSvg from '../../components/LogoSvg';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import IconButton from '../../components/IconButton';
-import Icons from '../../theme/Icon';
-import {ArrowLeft, Bell} from 'lucide-react-native';
-import CustomHeader from '../../components/CustomHeader/CustomHeader';
-import {login} from '../../helper/AuthHelper'
+import {UserLogin} from '../../helper/AuthHelper'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Index() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [rememberMe, setRememberMe] = useState(false);
@@ -38,8 +31,31 @@ export default function Index() {
   });
   const handleFormSubmit = (values: any) => {
     // Handle form submission logic here
-   Alert.alert(JSON.stringify(values))
-   login(values)
+  //  Alert.alert(JSON.stringify(values))
+ 
+  UserLogin(values).then (data=>{
+    UserLogin(values).then(async (data) => {
+      if (data) {
+        console.log('Login Success:', data);
+  
+        try {
+          // Save token and user to AsyncStorage
+          await AsyncStorage.setItem('userToken', data.token);
+          await AsyncStorage.setItem('userInfo', JSON.stringify(data.user));
+  
+          // Navigate to Dashboard
+          navigation.replace('Dashboard');
+        } catch (err) {
+          Alert.alert("Error storing data", err.message);
+        }
+  
+      } else {
+        Alert.alert("Network Error");
+      }
+    });
+    
+  })
+  
   };
 
   return (

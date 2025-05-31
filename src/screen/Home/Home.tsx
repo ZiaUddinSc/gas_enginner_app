@@ -28,6 +28,8 @@ import {
 import {AnimateItem} from '../../helper/customMethods';
 import * as Animatable from 'react-native-animatable';
 import LogoSvg from '../../components/LogoSvg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import LogoutModal from '../../components/LogoutModal/LogoutModal';
 
 const menuItems = [
   {title: 'Customers (0)', icon: <Users color={Color.fontColor} size={35} />},
@@ -52,6 +54,8 @@ const Home = () => {
   const [fristTab, setFristTab] = useState('');
   const tapCount = useRef(0);
   const resetTimer = useRef(null);
+
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   useEffect(() => {
     if (fristTab) {
@@ -128,6 +132,12 @@ const Home = () => {
       </Animatable.View>
     );
   };
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('userToken');
+    await AsyncStorage.removeItem('userInfo');
+    navigation.replace('Login');
+  };
   return (
     <SafeAreaView style={styles.content}>
       <CustomHeader
@@ -136,7 +146,7 @@ const Home = () => {
         // leftIcon={<ArrowLeft size={24} color="white" />}
         // onLeftPress={() => navigation.goBack()}
         rightIcon1={<LogOut size={24} color="white" />}
-        onRightPress1={() => alert('Notification')}
+        onRightPress1={() => setShowLogoutModal(true)}
         leftIcon={<LogoSvg height={40} width={40} />}
       />
       <View style={styles.container}>
@@ -172,6 +182,12 @@ const Home = () => {
           <Text style={inviteButtonStyle.text}>{fristTab}</Text>
         </TouchableOpacity>
       </Animatable.View>
+
+      <LogoutModal
+        visible={showLogoutModal}
+        onCancel={() => setShowLogoutModal(false)}
+        onConfirm={handleLogout}
+      />
     </SafeAreaView>
   );
 };

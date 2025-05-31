@@ -1,4 +1,4 @@
-const settings = {
+const Settings = {
     baseUrl: 'https://app.gascertificate.app/',
     api: 'https://app.gascertificate.app/',
        
@@ -14,4 +14,4 @@ const settings = {
   
     
   };
-  export default settings;
+  export default Settings;

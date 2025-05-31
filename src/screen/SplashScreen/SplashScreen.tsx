@@ -3,6 +3,7 @@ import {View, Image, StyleSheet, Animated} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../theme/Colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SplashScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -13,9 +14,13 @@ const SplashScreen = () => {
       toValue: 1,
       duration: 2000,
       useNativeDriver: true,
-    }).start(() => {
-      navigation.replace('Login');
-      // navigation.replace('CP14AddAppliance');
+    }).start(async () => {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token) {
+        navigation.replace('Dashboard');
+      } else {
+        navigation.replace('Login');
+      }
     });
   }, []);
 
