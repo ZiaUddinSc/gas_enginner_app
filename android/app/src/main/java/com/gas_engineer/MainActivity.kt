@@ -13,7 +13,7 @@ class MainActivity : ReactActivity() {
     // 🔥 This is the magic to switch the splash theme to the main theme
     override fun onCreate(savedInstanceState: Bundle?) {
         // Set normal theme AFTER splash is shown
-        setTheme(R.style.AppTheme)
+
         super.onCreate(savedInstanceState)
     }
 
