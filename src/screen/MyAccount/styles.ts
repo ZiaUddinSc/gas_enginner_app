@@ -130,10 +130,60 @@ export const styles = StyleSheet.create({
             marginLeft: 10,
           },
           popupButtonPrimary: {
-            backgroundColor: '#007AFF',
+            backgroundColor: Color.primaryBGColor,
             borderRadius: 5,
+            padding: 10,
+            alignItems:'center',
+            justifyContent:'center',
+            marginTop:10
           },
           popupButtonText: {
-            color: '#007AFF',
+            color: '#FFF',
+            fontSize:18,
+            fontWeight:'600'
+          },
+          modalOverlay: {
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          },
+          
+          modalBox: {
+            backgroundColor: 'white',
+            padding: 20,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+          },
+          
+          modalBtn: {
+            padding: 15,
+            borderBottomWidth: 1,
+            borderBottomColor: '#eee',
+          },
+          
+          modalBtnPrimary: {
+            padding: 15,
+            backgroundColor: '#1E90FF',
+            borderRadius: 10,
+            marginTop: 10,
+          },
+          
+          modalCancel: {
+            padding: 15,
+            marginTop: 10,
+            alignItems: 'center',
+          },
+          
+          modalText: {
+            fontSize: 16,
+            textAlign: 'center',
+          },
+          
+          modalTextWhite: {
+            color: 'white',
+            fontSize: 16,
+            textAlign: 'center',
           },
 });

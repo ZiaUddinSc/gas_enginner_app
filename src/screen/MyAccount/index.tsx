@@ -8,6 +8,9 @@ import {
   ScrollView,
   TextInput,
   SafeAreaView,
+  Alert,
+  Modal, TouchableWithoutFeedback,
+  PermissionsAndroid, Platform
 } from 'react-native';
 import CustomHeader from '../../components/CustomHeader/CustomHeader';
 import {
@@ -24,18 +27,24 @@ import {
   ReceiptPoundSterling,
 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect,useRoute} from '@react-navigation/native';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
 import {styles} from './styles';
-import {
-    heightPercentageToDP as hp,
-  } from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
+import {UpdateFileSignature} from '../../helper/SignatureHelper';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import LottieLoader from '../../components/LottieLoader';
+
+interface UserInfo {
+  name: string;
+  email: string;
+  installer_ref_no?: string;
+  oil_registration_number?: string;
+  gas_safe_id_card?: string;
+  photo_url?: string;
+}
 
 const MyAccount = ({navigation}) => {
-  const [showOilPopup, setShowOilPopup] = useState(false);
-  const [showInstallerPopup, setShowInstallerPopup] = useState(false);
-  const [oilNumber, setOilNumber] = useState('N/A');
-  const [installerNumber, setInstallerNumber] = useState('N/A');
   const [signatureImage, setSignatureImage] = useState(null);
   const route = useRoute();
 
@@ -50,30 +59,146 @@ const MyAccount = ({navigation}) => {
     lastPayment: '12th May, 2025 - 12th June, 2025',
   };
 
-  const handleUpdateOilNumber = () => {
-    setShowOilPopup(false);
-    // Here you would typically call an API to update the value
-  };
+  const [userInfo, setUserInfo] = useState<UserInfo>({} as UserInfo);
+    const [loading, setLoading] = useState(false);
+    const [file, setFile] = useState(null); // will store selected image file
+    const [previewUri, setPreviewUri] = useState(null); // for previewing
+    const [showModal, setShowModal] = useState(false); // for popup modal
 
-  const handleUpdateInstallerNumber = () => {
-    setShowInstallerPopup(false);
-    // Here you would typically call an API to update the value
+  const loadUserData = async () => {
+    const userInfoString = await AsyncStorage.getItem('userInfo');
+    if (userInfoString) {
+      const parsedInfo: UserInfo = JSON.parse(userInfoString);
+      setUserInfo(parsedInfo);
+    }
   };
 
   useFocusEffect(
     useCallback(() => {
-      
+      loadUserData();
       if (route.params?.signature) {
         setSignatureImage(route.params.signature);
       }
-    }, [route.params?.signature])
+    }, [route.params?.signature]),
   );
+
+  const onUpdatePage = data => {
+    // alert(data.name)
+
+    navigation.navigate('ProfileUpdate', {titelData: data.name});
+  };
+
+  const requestCameraPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            title: 'Camera Permission',
+            message: 'App needs camera permission to take photos',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('You can use the camera');
+          return true;
+        } else {
+          console.log('Camera permission denied');
+          return false;
+        }
+      } catch (err) {
+        console.warn(err);
+        return false;
+      }
+    }
+    return true; 
+  };
+  
+  const openCamera = async () => { 
+    const hasPermission = await requestCameraPermission();
+    if (!hasPermission) {
+     
+      console.log('Camera permission was not granted.');
+      setShowModal(false);
+      return;
+    }
+  
+    launchCamera({mediaType: 'photo'}, response => {
+    
+  
+      if (response.didCancel) {
+        console.log('User cancelled camera picker');
+      } else if (response.errorCode) {
+        console.log('ImagePicker Error: ', response.errorCode);
+      } else if (response.errorMessage) {
+        console.log('ImagePicker Error Message: ', response.errorMessage);
+      }
+      else if (response.assets && response.assets.length > 0) {
+        const image = response.assets[0];
+        setFile({
+          uri: image.uri,
+          type: image.type,
+          name: image.fileName ?? 'photo.jpg',
+        });
+        setPreviewUri(image.uri);
+        UploadSignature()
+      }
+      setShowModal(false);
+    });
+  };
+  
+  const openGallery = () => {
+    launchImageLibrary({mediaType: 'photo'}, response => {
+      if (response.assets && response.assets.length > 0) {
+        const image = response.assets[0];
+        setFile({
+          uri: image.uri,
+          type: image.type,
+          name: image.fileName ?? 'photo.jpg',
+        });
+        setPreviewUri(image.uri);
+        UploadSignature()
+      }
+      setShowModal(false);
+    });
+  };
+  
+
+  const UploadSignature = async () => {
+    
+    const formData = new FormData();
+  
+    formData.append('sign', {
+      uri: file.uri,
+      name: file.name || 'signature.jpg',
+      type: file.type || 'image/jpeg',
+    });
+  
+    console.log('📤 Uploading file:', formData);
+    setLoading(true);
+ 
+    const res = await UpdateFileSignature(formData);
+    
+  
+    if (res) {
+      setLoading(false);
+      Alert.alert('Success', 'Signature uploaded successfully!');
+      setFile(null);
+      setPreviewUri(null);
+    } else {
+      setLoading(false);
+      Alert.alert('Error', 'Upload failed');
+    }
+  };
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <CustomHeader
-        fontSize={hp(2.2)}
+          fontSize={hp(2.2)}
           title="My Account"
           leftIcon={<ArrowLeft size={24} color="white" />}
           onLeftPress={() => navigation.goBack()}
@@ -83,72 +208,95 @@ const MyAccount = ({navigation}) => {
           {/* Personal Info Section */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Personal Info</Text>
-            <View style={styles.infoRow}>
+            <TouchableOpacity
+              style={styles.infoRow}
+              onPress={() => onUpdatePage({name: 'Name'})}>
               <View style={styles.iconView}>
                 <User size={17} color="#0d9488" />
                 <Text style={styles.label}>Name:</Text>
               </View>
-              <Text style={styles.value}>{user.name}</Text>
-            </View>
+              <Text style={styles.value}>{userInfo.name}</Text>
+            </TouchableOpacity>
           </View>
 
           {/* Account Details Section */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Account Details</Text>
 
-            <View style={styles.infoRow}>
+            <TouchableOpacity
+              style={styles.infoRow}
+              onPress={() => onUpdatePage({name: 'Email'})}>
               <View style={styles.iconView}>
                 <Mail size={17} color="#0d9488" />
                 <Text style={styles.label}>Email</Text>
               </View>
-              <Text style={styles.value}>{user.email}</Text>
-            </View>
+              <Text style={styles.value}>{userInfo.email}</Text>
+            </TouchableOpacity>
 
-            <View style={styles.infoRow}>
+            <TouchableOpacity
+              style={styles.infoRow}
+              onPress={() => onUpdatePage({name: 'Password'})}>
               <View style={styles.iconView}>
                 <Key size={17} color="#0d9488" />
                 <Text style={styles.label}>Password</Text>
               </View>
-              <TouchableOpacity>
-                <Text style={styles.linkText}>Change password</Text>
-              </TouchableOpacity>
-            </View>
 
-            <View style={styles.infoRow}>
+              <Text style={styles.linkText}>Change password</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.infoRow}
+              onPress={() => onUpdatePage({name: 'Gas Safe ID Card'})}>
               <View style={styles.iconView}>
                 <IdCard size={17} color="#0d9488" />
                 <Text style={styles.label}>Gas Safe ID Card</Text>
               </View>
-              <Text style={styles.value}>{user.gasSafeId}</Text>
-            </View>
+              <Text style={styles.value}>{userInfo.gas_safe_id_card}</Text>
+            </TouchableOpacity>
 
-            <View style={styles.infoRow}>
+            <TouchableOpacity
+              style={styles.infoRow}
+              onPress={() => onUpdatePage({name: 'Oil Registration Number'})}>
               <View style={styles.iconView}>
                 <Hash size={17} color="#0d9488" />
                 <Text style={styles.label}>Oil Registration Number</Text>
               </View>
-              <TouchableOpacity onPress={() => setShowOilPopup(true)}>
-                <Text
-                  style={oilNumber === 'N/A' ? styles.naText : styles.value}>
-                  {oilNumber}
-                </Text>
-              </TouchableOpacity>
-            </View>
 
-            <View style={styles.infoRow}>
+              <Text
+                style={
+                  userInfo.oil_registration_number === '' ||
+                  userInfo.oil_registration_number === null
+                    ? styles.naText
+                    : styles.value
+                }>
+                {userInfo.oil_registration_number !== null &&
+                userInfo.oil_registration_number !== ''
+                  ? userInfo.oil_registration_number
+                  : 'N/A'}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.infoRow}
+              onPress={() => onUpdatePage({name: 'Installer Ref Number'})}>
               <View style={styles.iconView}>
                 <Hash size={17} color="#0d9488" />
                 <Text style={styles.label}>Installer Ref Number</Text>
               </View>
-              <TouchableOpacity onPress={() => setShowInstallerPopup(true)}>
-                <Text
-                  style={
-                    installerNumber === 'N/A' ? styles.naText : styles.value
-                  }>
-                  {installerNumber}
-                </Text>
-              </TouchableOpacity>
-            </View>
+
+              <Text
+                style={
+                  userInfo.installer_ref_no === '' ||
+                  userInfo.installer_ref_no === null
+                    ? styles.naText
+                    : styles.value
+                }>
+                {userInfo.installer_ref_no !== null &&
+                userInfo.installer_ref_no !== ''
+                  ? userInfo.installer_ref_no
+                  : 'N/A'}
+              </Text>
+            </TouchableOpacity>
           </View>
 
           {/* Signature Section */}
@@ -165,8 +313,10 @@ const MyAccount = ({navigation}) => {
             </View>
             <TouchableOpacity
               style={styles.signatureContainer}
-              onPress={() => navigation.navigate('SignatureScreen', {returnTo: 'MyAccount',})}>
-             {signatureImage ? (
+              onPress={() =>
+                navigation.navigate('SignatureScreen', {returnTo: 'MyAccount'})
+              }>
+              {signatureImage ? (
                 <Image
                   source={{uri: signatureImage}}
                   style={styles.signatureImage}
@@ -177,7 +327,9 @@ const MyAccount = ({navigation}) => {
                   <Text style={styles.addSignatureText}>Add Signature</Text>
                 </View>
               )}
-              
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.popupButtonPrimary} onPress={() => setShowModal(true)}>
+            <Text style={styles.popupButtonText}>Upload Signature</Text>
             </TouchableOpacity>
           </View>
 
@@ -255,63 +407,31 @@ const MyAccount = ({navigation}) => {
             </View>
           </View>
         </ScrollView>
-
-        {/* Oil Registration Number Popup */}
-        {showOilPopup && (
-          <View style={styles.popupOverlay}>
-            <View style={styles.popup}>
-              <Text style={styles.popupTitle}>
-                Update Oil Registration Number
-              </Text>
-              <TextInput
-                style={styles.popupInput}
-                value={oilNumber === 'N/A' ? '' : oilNumber}
-                onChangeText={setOilNumber}
-                placeholder="Enter oil registration number"
-              />
-              <View style={styles.popupButtons}>
-                <TouchableOpacity
-                  style={styles.popupButton}
-                  onPress={() => setShowOilPopup(false)}>
-                  <Text style={styles.popupButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.popupButton, styles.popupButtonPrimary]}
-                  onPress={handleUpdateOilNumber}>
-                  <Text style={styles.popupButtonText}>Update</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        )}
-
-        {/* Installer Ref Number Popup */}
-        {showInstallerPopup && (
-          <View style={styles.popupOverlay}>
-            <View style={styles.popup}>
-              <Text style={styles.popupTitle}>Update Installer Ref Number</Text>
-              <TextInput
-                style={styles.popupInput}
-                value={installerNumber === 'N/A' ? '' : installerNumber}
-                onChangeText={setInstallerNumber}
-                placeholder="Enter installer reference number"
-              />
-              <View style={styles.popupButtons}>
-                <TouchableOpacity
-                  style={styles.popupButton}
-                  onPress={() => setShowInstallerPopup(false)}>
-                  <Text style={styles.popupButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.popupButton, styles.popupButtonPrimary]}
-                  onPress={handleUpdateInstallerNumber}>
-                  <Text style={styles.popupButtonText}>Update</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        )}
       </View>
+
+      <Modal transparent visible={showModal} animationType="slide">
+  <TouchableWithoutFeedback onPress={() => setShowModal(false)}>
+    <View style={styles.modalOverlay} />
+  </TouchableWithoutFeedback>
+
+  <View style={styles.modalBox}>
+    <TouchableOpacity onPress={openCamera} style={styles.modalBtn}>
+      <Text style={styles.modalText}>📷 Take Photo</Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity onPress={openGallery} style={styles.modalBtn}>
+      <Text style={styles.modalText}>📁 Choose from Gallery</Text>
+    </TouchableOpacity>
+
+
+    <TouchableOpacity onPress={() => setShowModal(false)} style={styles.modalCancel}>
+      <Text style={styles.modalText}>❌ Cancel</Text>
+    </TouchableOpacity>
+  </View>
+</Modal>
+
+
+<LottieLoader visible={loading} />
     </SafeAreaView>
   );
 };

@@ -33,7 +33,7 @@ export default function Index() {
     // Handle form submission logic here
   //  Alert.alert(JSON.stringify(values))
  
-  UserLogin(values).then (data=>{
+
     UserLogin(values).then(async (data) => {
       if (data) {
         console.log('Login Success:', data);
@@ -54,7 +54,7 @@ export default function Index() {
       }
     });
     
-  })
+
   
   };
 

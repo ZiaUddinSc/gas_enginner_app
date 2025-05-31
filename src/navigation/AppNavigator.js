@@ -24,6 +24,7 @@ import Miscellaneous from '../screen/Miscellaneous';
 import PowerflushChecklist from '../screen/Miscellaneous/PowerflushChecklist';
 import CompanyInformationForm from '../screen/CompanyInformationForm';
 import MyAccount from '../screen/MyAccount'
+import ProfileUpdate from '../screen/MyAccount/ProfileUpdate'
 import CompanyUsersScreen from '../screen/CompanyUsersScreen'
 import AddUserScreen from '../screen/AddUserScreen'
 import CompanySettingsScreen from '../screen/CompanySettingsScreen'
@@ -64,6 +65,7 @@ export default function AppNavigator() {
       <Stack.Screen name="PowerflushChecklist" component={PowerflushChecklist} />
       <Stack.Screen name="CompanyInformationForm" component={CompanyInformationForm} />
       <Stack.Screen name="MyAccount" component={MyAccount} />
+      <Stack.Screen name="ProfileUpdate" component={ProfileUpdate} />
       <Stack.Screen name="CompanyUsersScreen" component={CompanyUsersScreen} />
       <Stack.Screen name="AddUserScreen" component={AddUserScreen} />
       <Stack.Screen name="CompanySettingsScreen" component={CompanySettingsScreen} />

@@ -14,16 +14,7 @@ import {
 import {
   User,
   Mail,
-  Phone,
-  CheckCircle2,
-  MapPin,
-  CreditCard,
-  KeyRound,
-  Clock,
   Camera,
-  Trash2,
-  User2Icon,
-  User2,
   Users,
   Building,
   UserRoundCog,
@@ -34,15 +25,29 @@ import {styles} from './styles';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+interface UserInfo {
+  name: string;
+  email: string;
+  installer_ref_no?: string;
+  oil_registration_number?: string;
+  gas_safe_id_card?: string;
+  photo_url?: string;
+  photo?: string;
+}
+
 const SettingsScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const [userInfo, setUserInfo] = useState('');
+    const [userInfo, setUserInfo] = useState<UserInfo>({} as UserInfo);
+
+
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const userInfo = JSON.parse(await AsyncStorage.getItem('userInfo'));
-      console.log('User Info:', userInfo);
-      setUserInfo(userInfo);
-      // do something with userInfo here
+      const userInfoString = await AsyncStorage.getItem('userInfo');
+      if (userInfoString) {
+        const parsedInfo: UserInfo = JSON.parse(userInfoString);
+        setUserInfo(parsedInfo);
+      }
     };
 
     fetchUserInfo();
@@ -60,14 +65,16 @@ const SettingsScreen = () => {
       {/* Profile Image */}
       <View style={styles.profileContainer}>
         <Image
-          source={{uri: 'https://randomuser.me/api/portraits/men/1.jpg'}}
+          source={{uri: userInfo.photo ? userInfo.photo : userInfo.photo_url}}
           style={styles.profileImage}
         />
         <TouchableOpacity style={styles.cameraIcon}>
           <Camera size={wp('4.5%')} color="#1E90FF" />
         </TouchableOpacity>
       </View>
-      <Text style={[styles.infoTitle,{textAlign:'center'}]}>{userInfo?.name}</Text>
+      <Text style={[styles.infoTitle, {textAlign: 'center'}]}>
+        {userInfo?.name}
+      </Text>
       {/* Info Card */}
       {/* <View style={styles.infoCard}>
         <View style={styles.infoRow}>
